@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
-import clinicGrowthHeroStack from "@/assets/clinic-growth-hero-stack.png.asset.json";
+import clinicGrowthHeroStack from "@/assets/masterclass-banner.png.asset.json";
 import bonus1 from "@/assets/bonus-1-cheatsheet.png.asset.json";
 import bonus2 from "@/assets/bonus-2-worksheet.png.asset.json";
 import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
@@ -272,12 +272,19 @@ function WhatIsItSection() {
           You've seen other doctors blow up on Instagram. You've heard the gurus preach personal branding.
           You've probably even tried running an ad or two yourself…
         </p>
-        <p className="mt-4 text-lg leading-relaxed font-bold">But the part nobody talks about? What to actually do.</p>
+        <p className="mt-4 text-lg leading-relaxed">
+          <span className="inline-block bg-red-600 text-white font-bold px-3 py-1 rounded-md ring-2 ring-red-700/40 shadow-sm">
+            But the part nobody talks about? What to actually do.
+          </span>
+        </p>
         <p className="mt-4 text-lg leading-relaxed">
           What should your offer be… your hook… your follow-up… your booking process?
         </p>
         <p className="mt-4 text-lg leading-relaxed">
-          The Clinic Growth Masterclass flips the script.<br />
+          <span className="inline-block bg-red-600 text-white font-bold px-3 py-1 rounded-md ring-2 ring-red-700/40 shadow-sm">
+            The Clinic Growth Masterclass flips the script.
+          </span>
+          <br />
           I've eliminated months of guesswork so you can get a predictable flow of 20–25 patients every week.
         </p>
 

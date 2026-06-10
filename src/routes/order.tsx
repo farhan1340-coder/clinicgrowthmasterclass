@@ -3,7 +3,7 @@ import productStack from "@/assets/product-stack.png.asset.json";
 import { useMemo, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
-import { CheckCircle2, Lock, ShieldCheck, Star, ArrowRight, Gift } from "lucide-react";
+import { CheckCircle2, Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard } from "lucide-react";
 
 type OrderSearch = {
   full_name?: string;
@@ -155,54 +155,6 @@ function OrderPage() {
               </div>
             </section>
 
-            {/* Payment */}
-            <section className="bg-card rounded-xl shadow-sm border">
-              <div className="bg-primary text-primary-foreground px-5 py-3 font-bold text-center uppercase tracking-wider text-sm">
-                Step 2 — Payment Method
-              </div>
-              <div className="p-5 space-y-4">
-                <label className="block">
-                  <span className="text-sm font-semibold">Select Payment Method</span>
-                  <select
-                    value={paymentMethod}
-                    onChange={(e) => setPaymentMethod(e.target.value as PayMethod)}
-                    className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring font-semibold"
-                  >
-                    <option value="easypaisa">Easypaisa</option>
-                    <option value="jazzcash">JazzCash</option>
-                  </select>
-                </label>
-
-                <div className="rounded-lg border-2 border-primary/30 bg-primary/5 p-4">
-                  <div className="text-xs font-bold uppercase tracking-wider text-primary">
-                    {PAYMENT_ACCOUNTS[paymentMethod].label} Payment Details
-                  </div>
-                  <div className="mt-2 space-y-1 text-sm">
-                    <div className="flex justify-between gap-3">
-                      <span className="text-muted-foreground">Account Title</span>
-                      <span className="font-bold">{PAYMENT_ACCOUNTS[paymentMethod].name}</span>
-                    </div>
-                    <div className="flex justify-between gap-3">
-                      <span className="text-muted-foreground">Account Number</span>
-                      <span className="font-bold tracking-wider">{PAYMENT_ACCOUNTS[paymentMethod].account}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border-l-4 border-yellow-500 bg-yellow-50 p-4 text-sm text-slate-800">
-                  <p className="font-bold mb-1">📌 Important Instructions</p>
-                  <p>
-                    Please send your payment to the selected account above and then send the payment screenshot
-                    to our WhatsApp number{" "}
-                    <a href="https://wa.me/923135944817" className="font-bold underline text-emerald-700">
-                      +92 313 5944817
-                    </a>
-                    . Your access will be processed after payment verification.
-                  </p>
-                </div>
-              </div>
-            </section>
-
             {/* Items table */}
             <section className="bg-card rounded-xl shadow-sm border p-5">
               <div className="text-sm font-bold uppercase tracking-wider mb-3">Your Order</div>
@@ -261,6 +213,61 @@ function OrderPage() {
                 </label>
               );
             })}
+
+            {/* Payment */}
+            <section className="bg-card rounded-xl shadow-lg border-2 border-primary/40 ring-2 ring-primary/10 overflow-hidden">
+              <div className="bg-primary text-primary-foreground px-5 py-3 font-bold text-center uppercase tracking-wider text-sm">
+                Step 3 — Payment Method
+              </div>
+              <div className="p-5 space-y-4">
+                <div>
+                  <label htmlFor="paymethod" className="flex items-center gap-2 text-sm font-bold text-primary uppercase tracking-wide">
+                    <CreditCard className="size-4" /> Select Your Payment Method
+                  </label>
+                  <div className="relative mt-2">
+                    <select
+                      id="paymethod"
+                      value={paymentMethod}
+                      onChange={(e) => setPaymentMethod(e.target.value as PayMethod)}
+                      className="appearance-none w-full rounded-xl border-2 border-primary bg-gradient-to-br from-primary/5 to-primary/10 px-4 py-4 pr-12 text-base font-bold text-foreground shadow-md outline-none focus:ring-4 focus:ring-primary/30 hover:shadow-lg transition cursor-pointer"
+                    >
+                      <option value="easypaisa">📱 Easypaisa</option>
+                      <option value="jazzcash">📲 JazzCash</option>
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 size-5 text-primary" />
+                    <span className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-primary/20 animate-pulse" aria-hidden />
+                  </div>
+                </div>
+
+                <div className="rounded-lg border-2 border-primary/30 bg-primary/5 p-4">
+                  <div className="text-xs font-bold uppercase tracking-wider text-primary">
+                    {PAYMENT_ACCOUNTS[paymentMethod].label} Payment Details
+                  </div>
+                  <div className="mt-2 space-y-1 text-sm">
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Account Title</span>
+                      <span className="font-bold">{PAYMENT_ACCOUNTS[paymentMethod].name}</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Account Number</span>
+                      <span className="font-bold tracking-wider">{PAYMENT_ACCOUNTS[paymentMethod].account}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border-l-4 border-yellow-500 bg-yellow-50 p-4 text-sm text-slate-800">
+                  <p className="font-bold mb-1">📌 Important Instructions</p>
+                  <p>
+                    Please send your payment to the selected account above and then send the payment screenshot
+                    to our WhatsApp number{" "}
+                    <a href="https://wa.me/923135944817" className="font-bold underline text-emerald-700">
+                      +92 313 5944817
+                    </a>
+                    . Your access will be processed after payment verification.
+                  </p>
+                </div>
+              </div>
+            </section>
 
             {/* Summary + submit */}
             <section className="bg-card rounded-xl shadow-sm border p-5">
