@@ -1,12 +1,17 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
+import bonus1 from "@/assets/bonus-1-cheatsheet.png.asset.json";
+import bonus2 from "@/assets/bonus-2-worksheet.png.asset.json";
+import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
+import bonus4 from "@/assets/bonus-4-community.png.asset.json";
+import drAhmed from "@/assets/dr-ahmed.png.asset.json";
 import { useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { CtaButton } from "@/components/site/CtaButton";
 import {
   Star, ShieldCheck, CheckCircle2, PlayCircle, Lock, BadgeCheck, Volume2,
-  Stethoscope, Users, TrendingUp, Calendar, Gift,
+  Stethoscope, Users, TrendingUp, Calendar, Gift, Play,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
