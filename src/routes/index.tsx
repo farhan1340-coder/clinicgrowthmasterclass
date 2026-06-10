@@ -323,24 +323,28 @@ function BonusesSection() {
       title: "Authority Content Cheat Sheet for Doctors",
       copy: "30 ready-to-use post ideas to position yourself as the go-to authority in your specialty — paste, post, and grow.",
       value: "Rs. 15,000",
+      image: bonus1.url,
     },
     {
       tag: "Fast Start Bonus #2",
       title: "Doctor Personal Brand Positioning Worksheet",
       copy: "Define your niche, unique angle and patient promise so the right patients pick you instantly.",
       value: "Rs. 10,000",
+      image: bonus2.url,
     },
     {
       tag: "Fast Start Bonus #3",
       title: "Clinic WhatsApp Follow-Up Scripts",
       copy: "Plug-and-play scripts that turn website inquiries into booked appointments — no more ghosting.",
       value: "Rs. 8,000",
+      image: bonus3.url,
     },
     {
       tag: "Fast Start Bonus #4",
       title: "Private Doctor Growth Community",
       copy: "Get ongoing support, case studies, and updates with other ambitious doctors growing their practice.",
       value: "Rs. 12,000",
+      image: bonus4.url,
     },
   ];
 
@@ -351,16 +355,21 @@ function BonusesSection() {
           You Also Unlock Instant Access To<br />
           <span className="gradient-highlight">4 Additional Bonuses!</span>
         </h2>
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
+        <div className="mt-12 grid md:grid-cols-2 gap-8">
           {bonuses.map((b) => (
-            <div key={b.title} className="rounded-xl border bg-card p-6 shadow-sm">
-              <div className="text-sm font-bold uppercase tracking-wider text-primary flex items-center gap-2">
-                <Gift className="size-4" /> {b.tag}
+            <div key={b.title} className="rounded-2xl border bg-card overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="bg-secondary">
+                <img src={b.image} alt={b.title} className="w-full h-auto block" loading="lazy" />
               </div>
-              <h3 className="mt-2 text-2xl font-extrabold">{b.title}</h3>
-              <p className="mt-3 text-muted-foreground">{b.copy}</p>
-              <div className="mt-4 inline-block bg-accent text-accent-foreground font-bold px-3 py-1 rounded">
-                Value: {b.value}
+              <div className="p-6">
+                <div className="text-sm font-bold uppercase tracking-wider text-primary flex items-center gap-2">
+                  <Gift className="size-4" /> {b.tag}
+                </div>
+                <h3 className="mt-2 text-xl md:text-2xl font-extrabold">{b.title}</h3>
+                <p className="mt-3 text-muted-foreground">{b.copy}</p>
+                <div className="mt-4 inline-block bg-accent text-accent-foreground font-bold px-3 py-1 rounded">
+                  Value: {b.value}
+                </div>
               </div>
             </div>
           ))}
