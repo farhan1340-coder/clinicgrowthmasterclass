@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
+import clinicGrowthHeroStack from "@/assets/clinic-growth-hero-stack.png.asset.json";
 import bonus1 from "@/assets/bonus-1-cheatsheet.png.asset.json";
 import bonus2 from "@/assets/bonus-2-worksheet.png.asset.json";
 import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
@@ -113,8 +114,8 @@ function Hero() {
 
             <div className="mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-3 shadow-2xl">
               <img
-                src={productStack.url}
-                alt="Clinic Growth Masterclass — Everything you get"
+                src={clinicGrowthHeroStack.url}
+                alt="Clinic Growth Masterclass product stack"
                 className="w-full h-auto rounded-xl"
               />
             </div>
