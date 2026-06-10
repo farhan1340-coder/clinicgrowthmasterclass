@@ -226,10 +226,23 @@ function SocialProofBar() {
   return (
     <section className="bg-white py-10 border-b">
       <div className="mx-auto max-w-6xl px-4 text-center">
-        <h2 className="text-xl md:text-2xl font-extrabold mb-6">Trusted By Leading Clinics &amp; Doctors Across Pakistan</h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-6 items-center text-muted-foreground">
-          {["DermaCare", "CityClinic", "MedPlus", "HeartWell", "SmileLab", "VisionPK"].map((n) => (
-            <div key={n} className="font-bold tracking-widest uppercase text-sm">{n}</div>
+        <h2 className="text-xl md:text-2xl font-extrabold mb-8">Trusted By Leading Clinics &amp; Doctors Across Pakistan</h2>
+        <div className="marquee">
+          {[0, 1].map((dup) => (
+            <div key={dup} className="marquee-track" aria-hidden={dup === 1}>
+              {[
+                "The Diabetes Centre",
+                "Diabetics Pakistan",
+                "Sara Dietitian",
+                "Emaan Gynecology Centre",
+                "Kulsoom International Hospital",
+                "Naqaish Hospital I-8",
+              ].map((n) => (
+                <div key={n} className="font-bold tracking-widest uppercase text-sm md:text-base text-muted-foreground whitespace-nowrap flex items-center">
+                  {n}
+                </div>
+              ))}
+            </div>
           ))}
         </div>
       </div>
