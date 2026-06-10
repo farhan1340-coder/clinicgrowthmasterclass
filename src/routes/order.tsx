@@ -69,7 +69,7 @@ function OrderPage() {
   const [email, setEmail] = useState(search.email ?? "");
   const [phone, setPhone] = useState("");
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
-  const [paymentMethod, setPaymentMethod] = useState<"jazzcash" | "easypaisa" | "card">("jazzcash");
+  const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitted, setSubmitted] = useState(false);
 
   const items = useMemo(() => {
