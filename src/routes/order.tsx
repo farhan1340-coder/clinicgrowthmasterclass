@@ -26,20 +26,40 @@ export const Route = createFileRoute("/order")({
 
 const BUMPS = [
   {
-    id: "ads",
-    title: "WINNING AD CAMPAIGN MASTERCLASS FOR DOCTORS",
-    price: 499,
+    id: "strategy",
+    title: "1-on-1 Personalized Digital Marketing Strategy Session",
+    price: 3999,
     image: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/154734ed-87c6-4167-b764-75ba8cfbd41d.jpeg",
-    copy: `SPECIAL ONE-TIME OFFER: A perfect clinic system means nothing if you can't get profitable patient traffic — and most doctors waste thousands on ads that don't convert because they're guessing instead of following a proven testing system. This Masterclass reveals the exact 3-phase methodology (Message → Creative → Audience) used to turn ad spend into a predictable patient machine. Check the box above to add it to your order now!`,
+    bullets: [
+      "90-Minute Private Strategy Session",
+      "Customized Patient Growth Plan",
+      "Meta Ads & Digital Marketing Guidance",
+      "Website & Online Presence Review",
+      "15 Days WhatsApp Support",
+    ],
+    bonus: "Bonus: Professional Clinic Website Setup",
   },
   {
-    id: "cro",
-    title: "CLINIC FOLLOW-UP & BOOKING SECRETS CHECKLIST",
-    price: 299,
+    id: "prompts",
+    title: "AI Content Prompt Vault for Doctors",
+    price: 699,
     image: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/bb687e48-f8b7-48cc-ac1e-a20f45a9136a.png",
-    copy: `SPECIAL ONE-TIME OFFER: After helping 700+ clinics, I've compiled 30+ booking-rate optimizations across WhatsApp, calls, landing pages and reception that every clinic needs to turn inquiries into confirmed appointments. Includes a walkthrough video for every optimization so you leave no patients on the table. Check the box above to add it to your order now!`,
+    bullets: [
+      "Ready-to-use AI prompts for doctors",
+      "Content ideas for social media",
+      "Patient education content prompts",
+      "Engagement and lead generation prompts",
+      "Save hours of content creation time",
+    ],
+    bonus: null as string | null,
   },
 ] as const;
+
+const PAYMENT_ACCOUNTS = {
+  easypaisa: { label: "Easypaisa", name: "Farhan Ali Rasheed", account: "03135944817" },
+  jazzcash: { label: "JazzCash", name: "Farhan Ali Rasheed", account: "03135944817" },
+} as const;
+type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
 const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 
@@ -49,7 +69,7 @@ function OrderPage() {
   const [email, setEmail] = useState(search.email ?? "");
   const [phone, setPhone] = useState("");
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
-  const [paymentMethod, setPaymentMethod] = useState<"jazzcash" | "easypaisa" | "card">("jazzcash");
+  const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitted, setSubmitted] = useState(false);
 
   const items = useMemo(() => {
@@ -140,17 +160,46 @@ function OrderPage() {
               <div className="bg-primary text-primary-foreground px-5 py-3 font-bold text-center uppercase tracking-wider text-sm">
                 Step 2 — Payment Method
               </div>
-              <div className="p-5 space-y-3">
-                {[
-                  { id: "jazzcash", label: "JazzCash" },
-                  { id: "easypaisa", label: "Easypaisa" },
-                  { id: "card", label: "Credit / Debit Card" },
-                ].map((m) => (
-                  <label key={m.id} className={`flex items-center gap-3 rounded-md border px-4 py-3 cursor-pointer ${paymentMethod === m.id ? "border-primary bg-primary/5" : "border-input"}`}>
-                    <input type="radio" name="pm" checked={paymentMethod === m.id} onChange={() => setPaymentMethod(m.id as typeof paymentMethod)} className="accent-primary" />
-                    <span className="font-semibold">{m.label}</span>
-                  </label>
-                ))}
+              <div className="p-5 space-y-4">
+                <label className="block">
+                  <span className="text-sm font-semibold">Select Payment Method</span>
+                  <select
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value as PayMethod)}
+                    className="mt-2 w-full rounded-md border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring font-semibold"
+                  >
+                    <option value="easypaisa">Easypaisa</option>
+                    <option value="jazzcash">JazzCash</option>
+                  </select>
+                </label>
+
+                <div className="rounded-lg border-2 border-primary/30 bg-primary/5 p-4">
+                  <div className="text-xs font-bold uppercase tracking-wider text-primary">
+                    {PAYMENT_ACCOUNTS[paymentMethod].label} Payment Details
+                  </div>
+                  <div className="mt-2 space-y-1 text-sm">
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Account Title</span>
+                      <span className="font-bold">{PAYMENT_ACCOUNTS[paymentMethod].name}</span>
+                    </div>
+                    <div className="flex justify-between gap-3">
+                      <span className="text-muted-foreground">Account Number</span>
+                      <span className="font-bold tracking-wider">{PAYMENT_ACCOUNTS[paymentMethod].account}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-lg border-l-4 border-yellow-500 bg-yellow-50 p-4 text-sm text-slate-800">
+                  <p className="font-bold mb-1">📌 Important Instructions</p>
+                  <p>
+                    Please send your payment to the selected account above and then send the payment screenshot
+                    to our WhatsApp number{" "}
+                    <a href="https://wa.me/923135944817" className="font-bold underline text-emerald-700">
+                      +92 313 5944817
+                    </a>
+                    . Your access will be processed after payment verification.
+                  </p>
+                </div>
               </div>
             </section>
 
@@ -188,21 +237,24 @@ function OrderPage() {
                       onChange={(e) => setBumps((s) => ({ ...s, [b.id]: e.target.checked }))}
                       className="mt-1 size-5 accent-emerald-600 shrink-0"
                     />
-                    <div className="flex-1">
-                      <div className="flex items-start gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start gap-2">
                         <ArrowRight className="size-5 text-red-600 shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="font-extrabold text-emerald-800 uppercase text-sm md:text-base">
-                            ✅ YES! Add {b.title} for just Rs. {b.price.toLocaleString()}
-                          </div>
+                        <div className="font-extrabold text-emerald-800 uppercase text-sm md:text-base">
+                          ✅ YES! Add {b.title} for just PKR {b.price.toLocaleString()}
                         </div>
                       </div>
                       <div className="mt-3 flex gap-4">
                         <img src={b.image} alt="" className="size-20 rounded object-cover hidden sm:block" />
-                        <p className="text-sm text-slate-800 leading-relaxed">
-                          <span className="font-bold underline">SPECIAL ONE-TIME OFFER:</span>{" "}
-                          {b.copy}
-                        </p>
+                        <div className="text-sm text-slate-800 leading-relaxed flex-1 min-w-0">
+                          <p className="font-bold underline mb-2">SPECIAL ONE-TIME OFFER:</p>
+                          <ul className="space-y-1">
+                            {b.bullets.map((line) => (
+                              <li key={line}>✅ {line}</li>
+                            ))}
+                            {b.bonus && <li className="font-semibold text-emerald-800 mt-1">🎁 {b.bonus}</li>}
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>

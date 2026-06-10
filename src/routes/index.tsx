@@ -1,12 +1,17 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
+import bonus1 from "@/assets/bonus-1-cheatsheet.png.asset.json";
+import bonus2 from "@/assets/bonus-2-worksheet.png.asset.json";
+import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
+import bonus4 from "@/assets/bonus-4-community.png.asset.json";
+import drAhmed from "@/assets/dr-ahmed.png.asset.json";
 import { useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { CtaButton } from "@/components/site/CtaButton";
 import {
   Star, ShieldCheck, CheckCircle2, PlayCircle, Lock, BadgeCheck, Volume2,
-  Stethoscope, Users, TrendingUp, Calendar, Gift,
+  Stethoscope, Users, TrendingUp, Calendar, Gift, Play,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -106,6 +111,14 @@ function Hero() {
               </CtaButton>
             </div>
 
+            <div className="mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-3 shadow-2xl">
+              <img
+                src={productStack.url}
+                alt="Clinic Growth Masterclass — Everything you get"
+                className="w-full h-auto rounded-xl"
+              />
+            </div>
+
             <ReviewCard />
           </div>
 
@@ -186,14 +199,23 @@ function InlineLeadForm() {
 function ReviewCard() {
   return (
     <div className="mt-6 rounded-lg bg-white/5 ring-1 ring-white/10 p-5 text-white/95">
-      <div className="flex gap-1 text-yellow-400">
-        {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-yellow-400" />)}
+      <div className="flex items-start gap-4">
+        <img
+          src={drAhmed.url}
+          alt="Dr. Ahmed — Dermatologist, Islamabad"
+          className="size-16 sm:size-20 rounded-full object-cover ring-2 ring-yellow-400/70 shrink-0"
+        />
+        <div className="min-w-0">
+          <div className="flex gap-1 text-yellow-400">
+            {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-yellow-400" />)}
+          </div>
+          <p className="mt-2 italic">
+            "After implementing Farhan's strategies, my clinic went from 5 patients a week to 22 per week —
+            and my reputation in the city skyrocketed!"
+          </p>
+          <p className="mt-2 font-bold">— Dr. Ahmed · Dermatologist, Islamabad</p>
+        </div>
       </div>
-      <p className="mt-2 italic">
-        "After implementing Farhan's strategies, my clinic went from 5 patients a week to 22 per week —
-        and my reputation in the city skyrocketed!"
-      </p>
-      <p className="mt-2 font-bold">— Dr. Ahmed · Dermatologist, Islamabad</p>
     </div>
   );
 }
@@ -204,10 +226,23 @@ function SocialProofBar() {
   return (
     <section className="bg-white py-10 border-b">
       <div className="mx-auto max-w-6xl px-4 text-center">
-        <h2 className="text-xl md:text-2xl font-extrabold mb-6">Trusted By Leading Clinics &amp; Doctors Across Pakistan</h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-6 items-center text-muted-foreground">
-          {["DermaCare", "CityClinic", "MedPlus", "HeartWell", "SmileLab", "VisionPK"].map((n) => (
-            <div key={n} className="font-bold tracking-widest uppercase text-sm">{n}</div>
+        <h2 className="text-xl md:text-2xl font-extrabold mb-8">Trusted By Leading Clinics &amp; Doctors Across Pakistan</h2>
+        <div className="marquee">
+          {[0, 1].map((dup) => (
+            <div key={dup} className="marquee-track" aria-hidden={dup === 1}>
+              {[
+                "The Diabetes Centre",
+                "Diabetics Pakistan",
+                "Sara Dietitian",
+                "Emaan Gynecology Centre",
+                "Kulsoom International Hospital",
+                "Naqaish Hospital I-8",
+              ].map((n) => (
+                <div key={n} className="font-bold tracking-widest uppercase text-sm md:text-base text-muted-foreground whitespace-nowrap flex items-center">
+                  {n}
+                </div>
+              ))}
+            </div>
           ))}
         </div>
       </div>
@@ -244,20 +279,32 @@ function WhatIsItSection() {
           predictable flow of 20–25 patients every week.
         </p>
 
-        <ul className="mt-8 space-y-3">
-          {[
-            "The exact patient-getting system used by top Pakistani clinics",
-            "The Authority &  Personal Branding Blueprint so patients pre-choose you",
-            "How to avoid the marketing mistakes that drain your budget",
-            "How to build a referral and review engine that runs on autopilot",
-            "Live Q&A with Farhan to solve your clinic's specific bottleneck",
-          ].map((line) => (
-            <li key={line} className="flex gap-3">
-              <CheckCircle2 className="size-6 text-primary shrink-0" />
-              <span className="text-base md:text-lg">{line}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-10 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-white to-primary/5 shadow-lg p-6 md:p-8">
+          <div className="flex items-center gap-3 mb-5">
+            <div className="size-10 rounded-full bg-primary text-primary-foreground grid place-items-center">
+              <PlayCircle className="size-6" />
+            </div>
+            <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide">
+              What You'll Learn Inside The Training
+            </h3>
+          </div>
+          <ul className="space-y-3">
+            {[
+              "The exact patient-getting system used by top Pakistani clinics",
+              "The Authority & Personal Branding Blueprint so patients pre-choose you",
+              "How to avoid the marketing mistakes that drain your budget",
+              "How to build a referral and review engine that runs on autopilot",
+              "Live Q&A with Farhan to solve your clinic's specific bottleneck",
+            ].map((line) => (
+              <li key={line} className="flex items-start gap-3 rounded-lg bg-white/70 border border-primary/10 px-4 py-3">
+                <span className="mt-0.5 size-7 rounded-full bg-primary/10 text-primary grid place-items-center shrink-0">
+                  <Play className="size-3.5 fill-primary" />
+                </span>
+                <span className="text-base md:text-lg font-medium">{line}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className="mt-10 max-w-md mx-auto">
           <CtaButton subtitle="Live Masterclass — Limited Seats">YES! Reserve My Seat Now</CtaButton>
@@ -276,24 +323,28 @@ function BonusesSection() {
       title: "Authority Content Cheat Sheet for Doctors",
       copy: "30 ready-to-use post ideas to position yourself as the go-to authority in your specialty — paste, post, and grow.",
       value: "Rs. 15,000",
+      image: bonus1.url,
     },
     {
       tag: "Fast Start Bonus #2",
       title: "Doctor Personal Brand Positioning Worksheet",
       copy: "Define your niche, unique angle and patient promise so the right patients pick you instantly.",
       value: "Rs. 10,000",
+      image: bonus2.url,
     },
     {
       tag: "Fast Start Bonus #3",
       title: "Clinic WhatsApp Follow-Up Scripts",
       copy: "Plug-and-play scripts that turn website inquiries into booked appointments — no more ghosting.",
       value: "Rs. 8,000",
+      image: bonus3.url,
     },
     {
       tag: "Fast Start Bonus #4",
       title: "Private Doctor Growth Community",
       copy: "Get ongoing support, case studies, and updates with other ambitious doctors growing their practice.",
       value: "Rs. 12,000",
+      image: bonus4.url,
     },
   ];
 
@@ -304,16 +355,21 @@ function BonusesSection() {
           You Also Unlock Instant Access To<br />
           <span className="gradient-highlight">4 Additional Bonuses!</span>
         </h2>
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
+        <div className="mt-12 grid md:grid-cols-2 gap-8">
           {bonuses.map((b) => (
-            <div key={b.title} className="rounded-xl border bg-card p-6 shadow-sm">
-              <div className="text-sm font-bold uppercase tracking-wider text-primary flex items-center gap-2">
-                <Gift className="size-4" /> {b.tag}
+            <div key={b.title} className="rounded-2xl border bg-card overflow-hidden shadow-md hover:shadow-xl transition-shadow">
+              <div className="bg-secondary">
+                <img src={b.image} alt={b.title} className="w-full h-auto block" loading="lazy" />
               </div>
-              <h3 className="mt-2 text-2xl font-extrabold">{b.title}</h3>
-              <p className="mt-3 text-muted-foreground">{b.copy}</p>
-              <div className="mt-4 inline-block bg-accent text-accent-foreground font-bold px-3 py-1 rounded">
-                Value: {b.value}
+              <div className="p-6">
+                <div className="text-sm font-bold uppercase tracking-wider text-primary flex items-center gap-2">
+                  <Gift className="size-4" /> {b.tag}
+                </div>
+                <h3 className="mt-2 text-xl md:text-2xl font-extrabold">{b.title}</h3>
+                <p className="mt-3 text-muted-foreground">{b.copy}</p>
+                <div className="mt-4 inline-block bg-accent text-accent-foreground font-bold px-3 py-1 rounded">
+                  Value: {b.value}
+                </div>
               </div>
             </div>
           ))}
