@@ -237,21 +237,24 @@ function OrderPage() {
                       onChange={(e) => setBumps((s) => ({ ...s, [b.id]: e.target.checked }))}
                       className="mt-1 size-5 accent-emerald-600 shrink-0"
                     />
-                    <div className="flex-1">
-                      <div className="flex items-start gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start gap-2">
                         <ArrowRight className="size-5 text-red-600 shrink-0 mt-0.5" />
-                        <div className="flex-1">
-                          <div className="font-extrabold text-emerald-800 uppercase text-sm md:text-base">
-                            ✅ YES! Add {b.title} for just Rs. {b.price.toLocaleString()}
-                          </div>
+                        <div className="font-extrabold text-emerald-800 uppercase text-sm md:text-base">
+                          ✅ YES! Add {b.title} for just PKR {b.price.toLocaleString()}
                         </div>
                       </div>
                       <div className="mt-3 flex gap-4">
                         <img src={b.image} alt="" className="size-20 rounded object-cover hidden sm:block" />
-                        <p className="text-sm text-slate-800 leading-relaxed">
-                          <span className="font-bold underline">SPECIAL ONE-TIME OFFER:</span>{" "}
-                          {b.copy}
-                        </p>
+                        <div className="text-sm text-slate-800 leading-relaxed flex-1 min-w-0">
+                          <p className="font-bold underline mb-2">SPECIAL ONE-TIME OFFER:</p>
+                          <ul className="space-y-1">
+                            {b.bullets.map((line) => (
+                              <li key={line}>✅ {line}</li>
+                            ))}
+                            {b.bonus && <li className="font-semibold text-emerald-800 mt-1">🎁 {b.bonus}</li>}
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
