@@ -12,8 +12,9 @@ import { Footer } from "@/components/site/Footer";
 import { CtaButton } from "@/components/site/CtaButton";
 import {
   Star, ShieldCheck, CheckCircle2, PlayCircle, Lock, BadgeCheck, Volume2,
-  Stethoscope, Users, TrendingUp, Calendar, Gift, Play,
+  Stethoscope, Users, TrendingUp, Calendar, Gift, Play, ChevronDown,
 } from "lucide-react";
+import farhanInstructor from "@/assets/farhan-instructor.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
