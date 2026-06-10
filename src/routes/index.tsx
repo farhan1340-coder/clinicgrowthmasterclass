@@ -263,12 +263,14 @@ function WhatIsItSection() {
         </h2>
         <p className="mt-6 text-lg leading-relaxed">
           The Clinic Growth Masterclass is the fastest way to get a fully mapped patient-acquisition system,
-          tailored to your clinic - without spending hours on YouTube tutorials, expensive agencies, or
+          tailored to your clinic.
+          <br /><br />
+          without spending hours on YouTube tutorials, expensive agencies, or
           gambling on ads that don't convert.
         </p>
         <p className="mt-4 text-lg leading-relaxed">
           Because let's face it - you already know digital marketing works.&nbsp;
-          <br /><br /><br />
+          <br /><br />
           You've seen other doctors blow up on Instagram. You've heard the gurus preach personal branding.
           You've probably even tried running an ad or two yourself…
         </p>
@@ -284,7 +286,7 @@ function WhatIsItSection() {
           <span className="inline-block bg-red-600 text-white font-bold px-3 py-1 rounded-md ring-2 ring-red-700/40 shadow-sm">
             The Clinic Growth Masterclass flips the script.
           </span>
-          <br />
+          <br /><br />
           I've eliminated months of guesswork so you can get a predictable flow of 20–25 patients every week.
         </p>
 
