@@ -26,20 +26,40 @@ export const Route = createFileRoute("/order")({
 
 const BUMPS = [
   {
-    id: "ads",
-    title: "WINNING AD CAMPAIGN MASTERCLASS FOR DOCTORS",
-    price: 499,
+    id: "strategy",
+    title: "1-on-1 Personalized Digital Marketing Strategy Session",
+    price: 3999,
     image: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/154734ed-87c6-4167-b764-75ba8cfbd41d.jpeg",
-    copy: `SPECIAL ONE-TIME OFFER: A perfect clinic system means nothing if you can't get profitable patient traffic — and most doctors waste thousands on ads that don't convert because they're guessing instead of following a proven testing system. This Masterclass reveals the exact 3-phase methodology (Message → Creative → Audience) used to turn ad spend into a predictable patient machine. Check the box above to add it to your order now!`,
+    bullets: [
+      "90-Minute Private Strategy Session",
+      "Customized Patient Growth Plan",
+      "Meta Ads & Digital Marketing Guidance",
+      "Website & Online Presence Review",
+      "15 Days WhatsApp Support",
+    ],
+    bonus: "Bonus: Professional Clinic Website Setup",
   },
   {
-    id: "cro",
-    title: "CLINIC FOLLOW-UP & BOOKING SECRETS CHECKLIST",
-    price: 299,
+    id: "prompts",
+    title: "AI Content Prompt Vault for Doctors",
+    price: 699,
     image: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/bb687e48-f8b7-48cc-ac1e-a20f45a9136a.png",
-    copy: `SPECIAL ONE-TIME OFFER: After helping 700+ clinics, I've compiled 30+ booking-rate optimizations across WhatsApp, calls, landing pages and reception that every clinic needs to turn inquiries into confirmed appointments. Includes a walkthrough video for every optimization so you leave no patients on the table. Check the box above to add it to your order now!`,
+    bullets: [
+      "Ready-to-use AI prompts for doctors",
+      "Content ideas for social media",
+      "Patient education content prompts",
+      "Engagement and lead generation prompts",
+      "Save hours of content creation time",
+    ],
+    bonus: null as string | null,
   },
 ] as const;
+
+const PAYMENT_ACCOUNTS = {
+  easypaisa: { label: "Easypaisa", name: "Farhan Ali Rasheed", account: "03135944817" },
+  jazzcash: { label: "JazzCash", name: "Farhan Ali Rasheed", account: "03135944817" },
+} as const;
+type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
 const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 
