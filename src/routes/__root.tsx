@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Clinic Growth Masterclass" },
+      { name: "description", content: "Get 20/25 Patients per week via digital marketing" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Clinic Growth Masterclass" },
+      { property: "og:description", content: "Get 20/25 Patients per week via digital marketing" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Clinic Growth Masterclass" },
+      { name: "twitter:description", content: "Get 20/25 Patients per week via digital marketing" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sEGIV8sMycbJuv6jJyxdfCEW4pj1/social-images/social-1781086772511-Black_Logo_(3).webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sEGIV8sMycbJuv6jJyxdfCEW4pj1/social-images/social-1781086772511-Black_Logo_(3).webp" },
     ],
     links: [
       {
