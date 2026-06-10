@@ -199,14 +199,23 @@ function InlineLeadForm() {
 function ReviewCard() {
   return (
     <div className="mt-6 rounded-lg bg-white/5 ring-1 ring-white/10 p-5 text-white/95">
-      <div className="flex gap-1 text-yellow-400">
-        {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-yellow-400" />)}
+      <div className="flex items-start gap-4">
+        <img
+          src={drAhmed.url}
+          alt="Dr. Ahmed — Dermatologist, Islamabad"
+          className="size-16 sm:size-20 rounded-full object-cover ring-2 ring-yellow-400/70 shrink-0"
+        />
+        <div className="min-w-0">
+          <div className="flex gap-1 text-yellow-400">
+            {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-yellow-400" />)}
+          </div>
+          <p className="mt-2 italic">
+            "After implementing Farhan's strategies, my clinic went from 5 patients a week to 22 per week —
+            and my reputation in the city skyrocketed!"
+          </p>
+          <p className="mt-2 font-bold">— Dr. Ahmed · Dermatologist, Islamabad</p>
+        </div>
       </div>
-      <p className="mt-2 italic">
-        "After implementing Farhan's strategies, my clinic went from 5 patients a week to 22 per week —
-        and my reputation in the city skyrocketed!"
-      </p>
-      <p className="mt-2 font-bold">— Dr. Ahmed · Dermatologist, Islamabad</p>
     </div>
   );
 }
