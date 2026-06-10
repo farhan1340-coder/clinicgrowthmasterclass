@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
+import clinicGrowthHeroStack from "@/assets/clinic-growth-hero-stack.png.asset.json";
 import bonus1 from "@/assets/bonus-1-cheatsheet.png.asset.json";
 import bonus2 from "@/assets/bonus-2-worksheet.png.asset.json";
 import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
