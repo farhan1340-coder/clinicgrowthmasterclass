@@ -114,8 +114,8 @@ function Hero() {
 
             <div className="mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-3 shadow-2xl">
               <img
-                src={productStack.url}
-                alt="Clinic Growth Masterclass — Everything you get"
+                src={clinicGrowthHeroStack.url}
+                alt="Clinic Growth Masterclass product stack"
                 className="w-full h-auto rounded-xl"
               />
             </div>
