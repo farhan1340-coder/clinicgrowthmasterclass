@@ -617,3 +617,170 @@ function FinalCta() {
     </section>
   );
 }
+
+/* ---------------- CURRICULUM ACCORDION ---------------- */
+
+function CurriculumAccordion() {
+  const modules = [
+    {
+      label: "MASTERCLASS MODULE 01",
+      title: "The Patient-Getting System",
+      desc: "The exact patient-getting system used by top Pakistani clinics — mapped step-by-step for your specialty.",
+      duration: "0:00 – 0:35",
+      intro: "Lay the foundation. Understand the predictable system that fills your appointment book every single week.",
+      points: [
+        "The 3-pillar framework behind 20–25 patients/week",
+        "How leading clinics in Pakistan attract patients on autopilot",
+        "Why most doctors stay invisible online — and the fix",
+      ],
+    },
+    {
+      label: "MASTERCLASS MODULE 02",
+      title: "Authority & Personal Branding Blueprint",
+      desc: "Position yourself as the go-to specialist so patients pre-choose you before they ever call.",
+      duration: "0:35 – 1:10",
+      intro: "Build the doctor-brand patients trust on sight. Pre-sell yourself before the first consultation.",
+      points: [
+        "The Authority Stack — content that builds instant trust",
+        "Your unique patient promise and niche positioning",
+        "How to make patients say 'I want to see THIS doctor'",
+      ],
+    },
+    {
+      label: "MASTERCLASS MODULE 03",
+      title: "Marketing Mistakes That Drain Your Budget",
+      desc: "Avoid the costly ad and agency traps that quietly burn lakhs every month with zero ROI.",
+      duration: "1:10 – 1:40",
+      intro: "Stop bleeding money. Spot the silent budget-killers before they wreck your clinic's growth.",
+      points: [
+        "The 5 ad mistakes 90% of doctors make",
+        "Red flags when hiring a marketing agency",
+        "How to track every rupee back to a booked patient",
+      ],
+    },
+    {
+      label: "MASTERCLASS MODULE 04",
+      title: "Referral & Review Engine On Autopilot",
+      desc: "Build a self-running engine of word-of-mouth referrals and 5-star Google reviews.",
+      duration: "1:40 – 2:15",
+      intro: "Turn every happy patient into 3 more. Compound your growth without spending more on ads.",
+      points: [
+        "The WhatsApp follow-up script that prints reviews",
+        "Patient referral loop — built in 1 afternoon",
+        "How to dominate Google for your specialty + city",
+      ],
+    },
+    {
+      label: "MASTERCLASS MODULE 05",
+      title: "Live Q&A With Farhan",
+      desc: "Get your clinic's specific bottleneck diagnosed live — leave with a personalized action plan.",
+      duration: "2:15 – 3:00",
+      intro: "Open mic. Bring your toughest growth question and walk away with a clear next step.",
+      points: [
+        "Live audits of real doctor clinics",
+        "Personalized advice for your specialty & city",
+        "Your 7-day fast-start action plan",
+      ],
+    },
+  ];
+
+  const [openIdx, setOpenIdx] = useState(0);
+
+  return (
+    <div className="mt-12">
+      <div className="text-center mb-8">
+        <div className="inline-block text-xs font-bold tracking-[0.25em] text-primary uppercase">
+          Training Curriculum
+        </div>
+        <h3 className="mt-2 text-2xl md:text-4xl font-black uppercase tracking-tight">
+          What You'll Learn Inside The Masterclass
+        </h3>
+      </div>
+
+      <div className="space-y-4">
+        {modules.map((m, i) => {
+          const isOpen = openIdx === i;
+          return (
+            <div
+              key={m.title}
+              className={`group rounded-2xl border bg-[#0f172a] text-white shadow-lg overflow-hidden transition-all duration-300 hover:border-primary/60 ${
+                isOpen ? "border-primary/70 shadow-primary/20" : "border-white/10"
+              }`}
+            >
+              <button
+                onClick={() => setOpenIdx(isOpen ? -1 : i)}
+                className="w-full flex items-center gap-4 p-4 md:p-5 text-left"
+              >
+                <img
+                  src={farhanInstructor.url}
+                  alt="Farhan Ali — Instructor"
+                  className="size-16 md:size-20 rounded-xl object-cover ring-2 ring-primary/40 shrink-0"
+                  loading="lazy"
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="text-[10px] md:text-xs font-bold tracking-[0.18em] text-primary uppercase">
+                    {m.label}
+                  </div>
+                  <h4 className="mt-1 text-base md:text-xl font-extrabold leading-tight">
+                    {m.title}
+                  </h4>
+                  <p className="mt-1 text-xs md:text-sm text-white/70 line-clamp-2">
+                    {m.desc}
+                  </p>
+                  <span className="mt-2 inline-block bg-yellow-400 text-black text-[10px] md:text-xs font-bold px-2 py-0.5 rounded">
+                    Farhan Ali
+                  </span>
+                </div>
+                <div className="hidden sm:flex items-center gap-3 shrink-0">
+                  <span className="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                    {m.duration}
+                  </span>
+                  <ChevronDown
+                    className={`size-6 text-white/80 transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+                <ChevronDown
+                  className={`sm:hidden size-5 text-white/80 transition-transform duration-300 shrink-0 ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              <div
+                className={`grid transition-all duration-300 ease-out ${
+                  isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <div className="px-4 md:px-5 pb-5 pt-1 border-t border-white/10">
+                    <p className="mt-4 text-sm md:text-base text-white/75">
+                      {m.intro}
+                    </p>
+                    <ul className="mt-4 space-y-2.5">
+                      {m.points.map((pt) => (
+                        <li key={pt} className="flex items-start gap-3 text-sm md:text-base">
+                          <span className="mt-0.5 size-6 rounded-full bg-primary/20 text-primary grid place-items-center shrink-0 ring-1 ring-primary/40">
+                            <Play className="size-3 fill-primary" />
+                          </span>
+                          <span className="text-white/90">{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="sm:hidden mt-4">
+                      <span className="bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-full">
+                        {m.duration}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
