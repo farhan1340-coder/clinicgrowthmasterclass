@@ -291,32 +291,8 @@ function WhatIsItSection() {
           I've eliminated months of guesswork so you can get a predictable flow of 20–25 patients every week.
         </p>
 
-        <div className="mt-10 rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-white to-primary/5 shadow-lg p-6 md:p-8">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="size-10 rounded-full bg-primary text-primary-foreground grid place-items-center">
-              <PlayCircle className="size-6" />
-            </div>
-            <h3 className="text-xl md:text-2xl font-black uppercase tracking-wide">
-              What You'll Learn Inside The Training
-            </h3>
-          </div>
-          <ul className="space-y-3">
-            {[
-              "The exact patient-getting system used by top Pakistani clinics",
-              "The Authority & Personal Branding Blueprint so patients pre-choose you",
-              "How to avoid the marketing mistakes that drain your budget",
-              "How to build a referral and review engine that runs on autopilot",
-              "Live Q&A with Farhan to solve your clinic's specific bottleneck",
-            ].map((line) => (
-              <li key={line} className="flex items-start gap-3 rounded-lg bg-white/70 border border-primary/10 px-4 py-3">
-                <span className="mt-0.5 size-7 rounded-full bg-primary/10 text-primary grid place-items-center shrink-0">
-                  <Play className="size-3.5 fill-primary" />
-                </span>
-                <span className="text-base md:text-lg font-medium">{line}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <CurriculumAccordion />
+
 
         <div className="mt-10 max-w-md mx-auto">
           <CtaButton subtitle="Live Masterclass — Limited Seats">YES! Reserve My Seat Now</CtaButton>
