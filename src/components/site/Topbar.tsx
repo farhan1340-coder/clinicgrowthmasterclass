@@ -5,7 +5,7 @@ export function Topbar() {
   return (
     <div className="w-full bg-topbar text-white text-sm">
       <div className="mx-auto max-w-7xl px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-4 text-center">
-        <div className="flex flex-col items-center gap-1">
+        <div className="hidden">
           <div className="flex items-center gap-2 font-semibold">
             <Phone className="size-4" />
             <span>Call Farhan Directly:</span>
