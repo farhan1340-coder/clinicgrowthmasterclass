@@ -112,7 +112,7 @@ function Hero() {
           <aside className="md:col-span-2 bg-card text-card-foreground rounded-xl shadow-2xl overflow-hidden">
             <div className="bg-gradient-to-br from-indigo-50 to-white p-5 border-b">
               <img
-                src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/bb687e48-f8b7-48cc-ac1e-a20f45a9136a.png"
+                src={productStack.url}
                 alt="Clinic Growth Masterclass product mockup"
                 className="w-full h-auto"
               />

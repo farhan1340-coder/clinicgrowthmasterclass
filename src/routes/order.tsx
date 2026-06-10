@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import productStack from "@/assets/product-stack.png.asset.json";
 import { useMemo, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
@@ -249,7 +250,7 @@ function OrderPage() {
                 Clinic Growth Masterclass
               </div>
               <img
-                src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/bb687e48-f8b7-48cc-ac1e-a20f45a9136a.png"
+                src={productStack.url}
                 alt="Clinic Growth Masterclass"
                 className="w-full h-auto"
               />
