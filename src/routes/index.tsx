@@ -98,16 +98,7 @@ function Hero() {
               <div className="bg-topbar text-white text-center py-2 text-sm font-semibold flex items-center justify-center gap-2">
                 <Volume2 className="size-4" /> Make sure your sound is turned on
               </div>
-              <div className="relative bg-black" style={{ paddingTop: "100%" }}>
-                <iframe
-                  loading="lazy"
-                  src="https://www.canva.com/design/DAHMPMTHWpQ/eXSx0QJrdZlUfOIdDXwPEg/watch?embed"
-                  allow="fullscreen"
-                  allowFullScreen
-                  title="Clinic Growth Masterclass video"
-                  className="absolute inset-0 w-full h-full border-0"
-                />
-              </div>
+              <VideoPlayer thumbnail={videoThumbnail.url} src="https://www.canva.com/design/DAHMPMTHWpQ/eXSx0QJrdZlUfOIdDXwPEg/watch?embed&autoplay=1" />
             </div>
 
             <div className="mt-6">
