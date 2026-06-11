@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clinic_growth_leads: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          lead_status: string
+          payment_method: string
+          selected_order_bumps: Json
+          total_amount: number
+          whatsapp: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          lead_status?: string
+          payment_method: string
+          selected_order_bumps?: Json
+          total_amount: number
+          whatsapp: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          lead_status?: string
+          payment_method?: string
+          selected_order_bumps?: Json
+          total_amount?: number
+          whatsapp?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
