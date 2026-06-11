@@ -1,9 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
+import bumpStrategy from "@/assets/bump-strategy.png.asset.json";
+import bumpPrompts from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
-import { CheckCircle2, Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard } from "lucide-react";
+import { Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 type OrderSearch = {
   full_name?: string;
