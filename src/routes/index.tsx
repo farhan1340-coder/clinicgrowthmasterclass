@@ -97,13 +97,15 @@ function Hero() {
               <div className="bg-topbar text-white text-center py-2 text-sm font-semibold flex items-center justify-center gap-2">
                 <Volume2 className="size-4" /> Make sure your sound is turned on
               </div>
-              <div className="relative aspect-video bg-black flex items-center justify-center group cursor-pointer">
-                <img
-                  src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/b409dda2-038e-4f1b-96f8-8914b95d6efc.png"
-                  alt="Watch Farhan Ali explain the Clinic Growth Masterclass"
-                  className="absolute inset-0 size-full object-cover opacity-70 group-hover:opacity-80 transition"
+              <div className="relative bg-black" style={{ paddingTop: "100%" }}>
+                <iframe
+                  loading="lazy"
+                  src="https://www.canva.com/design/DAHMPMTHWpQ/eXSx0QJrdZlUfOIdDXwPEg/watch?embed"
+                  allow="fullscreen"
+                  allowFullScreen
+                  title="Clinic Growth Masterclass video"
+                  className="absolute inset-0 w-full h-full border-0"
                 />
-                <PlayCircle className="relative size-24 text-white/95 drop-shadow-2xl group-hover:scale-105 transition" />
               </div>
             </div>
 
