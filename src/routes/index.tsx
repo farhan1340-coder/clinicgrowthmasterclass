@@ -31,10 +31,12 @@ export const Route = createFileRoute("/")({
 function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col">
+      <AnnouncementBar />
       <Topbar />
       <Hero />
       <SocialProofBar />
       <WhatIsItSection />
+      <WebsiteGiveawaySection />
       <BonusesSection />
       <HowItWorks />
       <TestimonialsWall />
@@ -45,6 +47,96 @@ function LandingPage() {
       <FinalCta />
       <Footer />
     </div>
+  );
+}
+
+/* ---------------- ANNOUNCEMENT BAR ---------------- */
+
+function AnnouncementBar() {
+  const scrollToGiveaway = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const el = document.getElementById("free-website-giveaway");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <div className="sticky top-0 z-50 w-full bg-[#0b1735] text-white border-b border-white/10 shadow-md">
+      <div className="mx-auto max-w-7xl px-3 py-2 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 text-center text-[12px] sm:text-sm">
+        <span className="flex items-center gap-2 leading-snug">
+          <span className="bg-yellow-400 text-[#0b1735] font-extrabold px-2 py-0.5 rounded tracking-wider text-[11px] sm:text-xs whitespace-nowrap">
+            🎁 SPECIAL BONUS
+          </span>
+          <span className="text-white/95">
+            7 Doctors, Nutritionists &amp; Healthcare Practitioners Will Be Selected For A <span className="font-bold">FREE Professional Clinic Website Setup</span>
+          </span>
+        </span>
+        <a
+          href="#free-website-giveaway"
+          onClick={scrollToGiveaway}
+          className="text-emerald-300 hover:text-emerald-200 underline font-bold whitespace-nowrap"
+        >
+          See Bonus Details →
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- WEBSITE GIVEAWAY ---------------- */
+
+function WebsiteGiveawaySection() {
+  const benefits = [
+    "Professional Clinic Website",
+    "Mobile-Friendly Design",
+    "WhatsApp Integration",
+    "Appointment Booking Form",
+    "Services & About Pages",
+    "Basic SEO Setup",
+  ];
+  return (
+    <section id="free-website-giveaway" className="py-20 bg-white">
+      <div className="mx-auto max-w-4xl px-4">
+        <div className="relative rounded-3xl border-2 border-yellow-400/70 bg-gradient-to-br from-[#0b1735] via-[#101f47] to-[#0b1735] text-white p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(250,204,21,0.35)] overflow-hidden">
+          <div className="absolute -top-24 -right-24 size-72 rounded-full bg-yellow-400/20 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 size-72 rounded-full bg-emerald-400/15 blur-3xl pointer-events-none" />
+
+          <div className="relative">
+            <div className="inline-flex items-center gap-2 bg-yellow-400 text-[#0b1735] font-extrabold px-3 py-1 rounded-full text-xs tracking-widest uppercase shadow">
+              <Gift className="size-4" /> Special Bonus Opportunity
+            </div>
+            <h2 className="mt-5 text-3xl md:text-5xl font-black leading-tight">
+              7 Doctors Will Receive A <span className="text-yellow-300">FREE Professional Clinic Website</span> Setup
+            </h2>
+            <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed">
+              At the end of the Clinic Growth Masterclass, 7 doctors, nutritionists, or healthcare practitioners will be selected to receive a professionally designed clinic website — completely FREE.
+            </p>
+
+            <div className="mt-8 grid sm:grid-cols-2 gap-3">
+              {benefits.map((b) => (
+                <div key={b} className="flex items-center gap-3 rounded-xl bg-white/5 ring-1 ring-white/10 px-4 py-3 backdrop-blur-sm">
+                  <CheckCircle2 className="size-5 text-emerald-400 shrink-0" />
+                  <span className="font-semibold">{b}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 inline-block bg-yellow-400 text-[#0b1735] font-black px-4 py-2 rounded-lg shadow text-sm md:text-base">
+              Estimated Value: PKR 30,000+
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-yellow-400/60 bg-yellow-400/10 p-5 md:p-6">
+              <p className="text-sm md:text-base text-white/95 leading-relaxed">
+                <span className="font-extrabold text-yellow-300">🎁 FREE Website Giveaway:</span>{" "}
+                At the end of this masterclass, 7 doctors, nutritionists, or healthcare practitioners will be selected to receive a FREE professional clinic website setup (Value: PKR 30,000+).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 max-w-md mx-auto">
+          <CtaButton subtitle="Reserve Your Seat + Bonus Chance">YES! I Want In</CtaButton>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -625,63 +717,75 @@ function FinalCta() {
 function CurriculumAccordion() {
   const modules = [
     {
-      label: "MASTERCLASS MODULE 01",
-      title: "The Patient-Getting System",
-      desc: "The exact patient-getting system used by top Pakistani clinics — mapped step-by-step for your specialty.",
-      duration: "0:00 – 0:35",
-      intro: "Lay the foundation. Understand the predictable system that fills your appointment book every single week.",
+      label: "MODULE #1",
+      title: "Local Patient Domination System",
+      desc: "Position your clinic as the obvious choice in your city using Google Business Profile, local visibility strategies and patient trust signals.",
+      duration: "Module 01",
+      intro: "Become the #1 search result patients see when they're looking for your specialty in your city.",
       points: [
-        "The 3-pillar framework behind 20–25 patients/week",
-        "How leading clinics in Pakistan attract patients on autopilot",
-        "Why most doctors stay invisible online — and the fix",
+        "Google Business Profile optimization for clinics",
+        "Local visibility strategies that compound weekly",
+        "Patient trust signals that turn views into bookings",
       ],
     },
     {
-      label: "MASTERCLASS MODULE 02",
-      title: "Authority & Personal Branding Blueprint",
-      desc: "Position yourself as the go-to specialist so patients pre-choose you before they ever call.",
-      duration: "0:35 – 1:10",
-      intro: "Build the doctor-brand patients trust on sight. Pre-sell yourself before the first consultation.",
+      label: "MODULE #2",
+      title: "Doctor Personal Brand Blueprint",
+      desc: "How doctors and healthcare practitioners can build trust online, stand out from competitors and become the first choice for patients.",
+      duration: "Module 02",
+      intro: "Build a doctor-brand patients trust on sight — and pre-choose before they ever call.",
       points: [
-        "The Authority Stack — content that builds instant trust",
-        "Your unique patient promise and niche positioning",
-        "How to make patients say 'I want to see THIS doctor'",
+        "Stand out from every other doctor in your city",
+        "The trust-building content patients actually consume",
+        "Position yourself as the obvious specialist of choice",
       ],
     },
     {
-      label: "MASTERCLASS MODULE 03",
-      title: "Marketing Mistakes That Drain Your Budget",
-      desc: "Avoid the costly ad and agency traps that quietly burn lakhs every month with zero ROI.",
-      duration: "1:10 – 1:40",
-      intro: "Stop bleeding money. Spot the silent budget-killers before they wreck your clinic's growth.",
+      label: "MODULE #3",
+      title: "2-Hour Content Creation System",
+      desc: "Create weeks of educational content in a single sitting using patient FAQs, content frameworks and AI-assisted workflows.",
+      duration: "Module 03",
+      intro: "Stop staring at a blank screen. Batch a month of content in one focused session.",
       points: [
-        "The 5 ad mistakes 90% of doctors make",
-        "Red flags when hiring a marketing agency",
-        "How to track every rupee back to a booked patient",
+        "Patient-FAQ content framework that always converts",
+        "AI-assisted workflows tailored for doctors",
+        "Repurpose 1 idea into 10 high-trust pieces",
       ],
     },
     {
-      label: "MASTERCLASS MODULE 04",
-      title: "Referral & Review Engine On Autopilot",
-      desc: "Build a self-running engine of word-of-mouth referrals and 5-star Google reviews.",
-      duration: "1:40 – 2:15",
-      intro: "Turn every happy patient into 3 more. Compound your growth without spending more on ads.",
+      label: "MODULE #4",
+      title: "Patient Acquisition Through Digital Marketing",
+      desc: "The simple strategy to reach local patients consistently using Meta Ads and digital marketing — without wasting money on random tactics.",
+      duration: "Module 04",
+      intro: "A predictable patient-flow system using Meta Ads — built for Pakistani healthcare.",
       points: [
-        "The WhatsApp follow-up script that prints reviews",
-        "Patient referral loop — built in 1 afternoon",
-        "How to dominate Google for your specialty + city",
+        "Meta Ads setup that targets real local patients",
+        "Ad creatives proven to work for clinics",
+        "Track every rupee back to a booked appointment",
       ],
     },
     {
-      label: "MASTERCLASS MODULE 05",
-      title: "Live Q&A With Farhan",
-      desc: "Get your clinic's specific bottleneck diagnosed live — leave with a personalized action plan.",
-      duration: "2:15 – 3:00",
-      intro: "Open mic. Bring your toughest growth question and walk away with a clear next step.",
+      label: "MODULE #5",
+      title: "Irresistible Clinic Offer Framework",
+      desc: "Create offers patients actually respond to — instead of promoting generic consultations and services.",
+      duration: "Module 05",
+      intro: "The exact offer structure that gets your phone ringing this week.",
       points: [
-        "Live audits of real doctor clinics",
-        "Personalized advice for your specialty & city",
-        "Your 7-day fast-start action plan",
+        "The Irresistible Offer formula for clinics",
+        "Pricing & positioning that doesn't cheapen your brand",
+        "Hook patients without discounting your services",
+      ],
+    },
+    {
+      label: "MODULE #6",
+      title: "Patient Acquisition Machine",
+      desc: "Build a simple patient acquisition system that turns strangers into inquiries, inquiries into appointments, and appointments into long-term patients.",
+      duration: "Module 06",
+      intro: "Connect every piece into one self-running machine that fills your appointment book weekly.",
+      points: [
+        "End-to-end patient journey mapping",
+        "WhatsApp + booking automation that converts",
+        "Retain patients for long-term clinic growth",
       ],
     },
   ];
@@ -695,7 +799,7 @@ function CurriculumAccordion() {
           Training Curriculum
         </div>
         <h3 className="mt-2 text-2xl md:text-4xl font-black uppercase tracking-tight">
-          What You'll Learn Inside The Masterclass
+          What You'll Learn Inside The Clinic Growth Masterclass
         </h3>
       </div>
 
