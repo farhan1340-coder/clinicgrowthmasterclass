@@ -75,7 +75,7 @@ function OrderPage() {
   const [phone, setPhone] = useState("");
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const items = useMemo(() => {
     const list: { id: string; title: string; price: number; qty: number }[] = [
@@ -89,38 +89,42 @@ function OrderPage() {
 
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-  if (submitted) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Topbar />
-        <div className="flex-1 grid place-items-center bg-secondary p-6">
-          <div className="bg-card rounded-2xl shadow-xl max-w-lg w-full p-8 text-center">
-            <div className="mx-auto size-16 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center">
-              <CheckCircle2 className="size-10" />
-            </div>
-            <h1 className="mt-4 text-2xl font-black">You're In, {name || "Doctor"}! 🎉</h1>
-            <p className="mt-3 text-muted-foreground">
-              Your seat is reserved. Check your email at <span className="font-semibold text-foreground">{email}</span> —
-              we've sent your Zoom link and bonuses.
-            </p>
-            <div className="mt-6 text-left bg-secondary rounded-lg p-4 text-sm">
-              <div className="font-bold mb-2">Order Summary</div>
-              {items.map((i) => (
-                <div key={i.id} className="flex justify-between py-1">
-                  <span className="truncate pr-2">{i.title}</span>
-                  <span className="font-semibold">Rs. {i.price.toLocaleString()}</span>
-                </div>
-              ))}
-              <div className="flex justify-between border-t mt-2 pt-2 font-bold">
-                <span>Total Paid</span><span>Rs. {total.toLocaleString()}</span>
-              </div>
-            </div>
-            <Link to="/" className="mt-6 inline-block btn-cta px-6 py-3 text-base">Back to home</Link>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+
+    const selectedBumps = BUMPS.filter((b) => bumps[b.id]).map((b) => ({
+      id: b.id,
+      title: b.title,
+      price: b.price,
+    }));
+
+    try {
+      await supabase.from("clinic_growth_leads").insert({
+        full_name: name,
+        email,
+        whatsapp: phone,
+        selected_order_bumps: selectedBumps,
+        total_amount: total,
+        payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
+        lead_status: "Pending Payment",
+      });
+    } catch (err) {
+      console.error("Failed to save lead", err);
+    }
+
+    const message =
+      `Assalam-o-Alaikum,\n\n` +
+      `I have paid the fee for the Clinic Growth Masterclass.\n` +
+      `My payment screenshot is attached.\n\n` +
+      `Name: ${name}\n` +
+      `Email: ${email}\n\n` +
+      `Please verify my payment and provide access.\n\n` +
+      `Thank you.`;
+    const waUrl = `https://wa.me/923390057379?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+    setSubmitting(false);
   }
 
   return (
@@ -140,14 +144,8 @@ function OrderPage() {
       <main className="bg-secondary flex-1">
         <div className="mx-auto max-w-6xl px-4 py-10 grid lg:grid-cols-5 gap-8">
           {/* LEFT: form + bumps */}
-          <form
-            className="lg:col-span-3 space-y-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSubmitted(true);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
+          <form className="lg:col-span-3 space-y-6" onSubmit={handleSubmit}>
+
             {/* Contact */}
             <section className="bg-card rounded-xl shadow-sm border">
               <div className="bg-primary text-primary-foreground px-5 py-3 rounded-t-xl font-bold text-center uppercase tracking-wider text-sm">
