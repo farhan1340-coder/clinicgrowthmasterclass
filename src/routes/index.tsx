@@ -231,6 +231,7 @@ function Hero() {
               <div className="text-lg font-extrabold">ONLY A FEW SPOTS LEFT</div>
               <div className="mt-2 text-3xl font-black text-destructive">
                 ONLY <span className="line-through text-foreground/60 font-bold">Rs. 4,999</span>{" "}
+                <br />
                 <span>Rs. 999</span>
               </div>
               <div className="text-sm font-semibold">(SAVE Rs. 4,000 TODAY)</div>
