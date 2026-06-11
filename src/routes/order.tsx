@@ -293,11 +293,7 @@ function OrderPage() {
                   <p className="font-bold mb-1">📌 Important Instructions</p>
                   <p>
                     Please send your payment to the selected account above and then send the payment screenshot
-                    to our WhatsApp number{" "}
-                    <a href="https://wa.me/923135944817" className="font-bold underline text-emerald-700">
-                      +92 313 5944817
-                    </a>
-                    . Your access will be processed after payment verification.
+                    to our WhatsApp number by clicking on the button below. Your access will be processed after payment verification.
                   </p>
                 </div>
               </div>
