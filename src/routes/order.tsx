@@ -1,9 +1,12 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
+import bumpStrategy from "@/assets/bump-strategy.png.asset.json";
+import bumpPrompts from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
-import { CheckCircle2, Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard } from "lucide-react";
+import { Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 type OrderSearch = {
   full_name?: string;
@@ -29,7 +32,8 @@ const BUMPS = [
     id: "strategy",
     title: "1-on-1 Personalized Digital Marketing Strategy Session",
     price: 3999,
-    image: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/154734ed-87c6-4167-b764-75ba8cfbd41d.jpeg",
+    image: bumpStrategy.url,
+    badge: "Most Popular (8/10 Members Add This)",
     bullets: [
       "90-Minute Private Strategy Session",
       "Customized Patient Growth Plan",
@@ -43,7 +47,8 @@ const BUMPS = [
     id: "prompts",
     title: "AI Content Prompt Vault for Doctors",
     price: 699,
-    image: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/bb687e48-f8b7-48cc-ac1e-a20f45a9136a.png",
+    image: bumpPrompts.url,
+    badge: "Recommended (7/10 Members Add This)",
     bullets: [
       "Ready-to-use AI prompts for doctors",
       "Content ideas for social media",
@@ -70,7 +75,7 @@ function OrderPage() {
   const [phone, setPhone] = useState("");
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const items = useMemo(() => {
     const list: { id: string; title: string; price: number; qty: number }[] = [
@@ -84,38 +89,42 @@ function OrderPage() {
 
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-  if (submitted) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Topbar />
-        <div className="flex-1 grid place-items-center bg-secondary p-6">
-          <div className="bg-card rounded-2xl shadow-xl max-w-lg w-full p-8 text-center">
-            <div className="mx-auto size-16 rounded-full bg-emerald-100 text-emerald-700 grid place-items-center">
-              <CheckCircle2 className="size-10" />
-            </div>
-            <h1 className="mt-4 text-2xl font-black">You're In, {name || "Doctor"}! 🎉</h1>
-            <p className="mt-3 text-muted-foreground">
-              Your seat is reserved. Check your email at <span className="font-semibold text-foreground">{email}</span> —
-              we've sent your Zoom link and bonuses.
-            </p>
-            <div className="mt-6 text-left bg-secondary rounded-lg p-4 text-sm">
-              <div className="font-bold mb-2">Order Summary</div>
-              {items.map((i) => (
-                <div key={i.id} className="flex justify-between py-1">
-                  <span className="truncate pr-2">{i.title}</span>
-                  <span className="font-semibold">Rs. {i.price.toLocaleString()}</span>
-                </div>
-              ))}
-              <div className="flex justify-between border-t mt-2 pt-2 font-bold">
-                <span>Total Paid</span><span>Rs. {total.toLocaleString()}</span>
-              </div>
-            </div>
-            <Link to="/" className="mt-6 inline-block btn-cta px-6 py-3 text-base">Back to home</Link>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (submitting) return;
+    setSubmitting(true);
+
+    const selectedBumps = BUMPS.filter((b) => bumps[b.id]).map((b) => ({
+      id: b.id,
+      title: b.title,
+      price: b.price,
+    }));
+
+    try {
+      await supabase.from("clinic_growth_leads").insert({
+        full_name: name,
+        email,
+        whatsapp: phone,
+        selected_order_bumps: selectedBumps,
+        total_amount: total,
+        payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
+        lead_status: "Pending Payment",
+      });
+    } catch (err) {
+      console.error("Failed to save lead", err);
+    }
+
+    const message =
+      `Assalam-o-Alaikum,\n\n` +
+      `I have paid the fee for the Clinic Growth Masterclass.\n` +
+      `My payment screenshot is attached.\n\n` +
+      `Name: ${name}\n` +
+      `Email: ${email}\n\n` +
+      `Please verify my payment and provide access.\n\n` +
+      `Thank you.`;
+    const waUrl = `https://wa.me/923390057379?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+    setSubmitting(false);
   }
 
   return (
@@ -135,14 +144,8 @@ function OrderPage() {
       <main className="bg-secondary flex-1">
         <div className="mx-auto max-w-6xl px-4 py-10 grid lg:grid-cols-5 gap-8">
           {/* LEFT: form + bumps */}
-          <form
-            className="lg:col-span-3 space-y-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSubmitted(true);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
+          <form className="lg:col-span-3 space-y-6" onSubmit={handleSubmit}>
+
             {/* Contact */}
             <section className="bg-card rounded-xl shadow-sm border">
               <div className="bg-primary text-primary-foreground px-5 py-3 rounded-t-xl font-bold text-center uppercase tracking-wider text-sm">
@@ -196,19 +199,31 @@ function OrderPage() {
                           ✅ YES! Add {b.title} for just PKR {b.price.toLocaleString()}
                         </div>
                       </div>
-                      <div className="mt-3 flex gap-4">
-                        <img src={b.image} alt="" className="size-20 rounded object-cover hidden sm:block" />
-                        <div className="text-sm text-slate-800 leading-relaxed flex-1 min-w-0">
-                          <p className="font-bold underline mb-2">SPECIAL ONE-TIME OFFER:</p>
-                          <ul className="space-y-1">
-                            {b.bullets.map((line) => (
-                              <li key={line}>✅ {line}</li>
-                            ))}
-                            {b.bonus && <li className="font-semibold text-emerald-800 mt-1">🎁 {b.bonus}</li>}
-                          </ul>
-                        </div>
+                      <div className="mt-3">
+                        <img
+                          src={b.image}
+                          alt={b.title}
+                          className="w-full h-auto rounded-lg object-cover border border-emerald-200"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="mt-3">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 text-white text-xs font-bold px-3 py-1 shadow-sm">
+                          <span className="size-2 rounded-full bg-white/90" aria-hidden />
+                          {b.badge}
+                        </span>
+                      </div>
+                      <div className="mt-3 text-sm text-slate-800 leading-relaxed">
+                        <p className="font-bold underline mb-2">SPECIAL ONE-TIME OFFER:</p>
+                        <ul className="space-y-1">
+                          {b.bullets.map((line) => (
+                            <li key={line}>✅ {line}</li>
+                          ))}
+                          {b.bonus && <li className="font-semibold text-emerald-800 mt-1">🎁 {b.bonus}</li>}
+                        </ul>
                       </div>
                     </div>
+
                   </div>
                 </label>
               );
@@ -285,12 +300,13 @@ function OrderPage() {
                 </div>
               </div>
 
-              <button type="submit" className="btn-cta w-full mt-5 px-6 py-4 text-lg">
-                COMPLETE MY ORDER
+              <button type="submit" disabled={submitting} className="btn-cta w-full mt-5 px-6 py-4 text-base md:text-lg">
+                {submitting ? "OPENING WHATSAPP..." : "SEND PAYMENT SCREENSHOT & GET ACCESS"}
                 <div className="text-xs font-medium normal-case tracking-normal opacity-95">
-                  Secure my seat in the Clinic Growth Masterclass
+                  Click here to send your payment screenshot on WhatsApp and receive instant masterclass access.
                 </div>
               </button>
+
 
               <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
                 <Lock className="size-3.5" /> 100% Secure &amp; Safe Payments
