@@ -15,6 +15,7 @@ import {
   Stethoscope, Users, TrendingUp, Calendar, Gift, Play, ChevronDown,
 } from "lucide-react";
 import farhanInstructor from "@/assets/farhan-instructor.jpeg.asset.json";
+import videoThumbnail from "@/assets/video-thumbnail.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -97,16 +98,7 @@ function Hero() {
               <div className="bg-topbar text-white text-center py-2 text-sm font-semibold flex items-center justify-center gap-2">
                 <Volume2 className="size-4" /> Make sure your sound is turned on
               </div>
-              <div className="relative bg-black" style={{ paddingTop: "100%" }}>
-                <iframe
-                  loading="lazy"
-                  src="https://www.canva.com/design/DAHMPMTHWpQ/eXSx0QJrdZlUfOIdDXwPEg/watch?embed"
-                  allow="fullscreen"
-                  allowFullScreen
-                  title="Clinic Growth Masterclass video"
-                  className="absolute inset-0 w-full h-full border-0"
-                />
-              </div>
+              <VideoPlayer thumbnail={videoThumbnail.url} src="https://www.canva.com/design/DAHMPMTHWpQ/eXSx0QJrdZlUfOIdDXwPEg/watch?embed&autoplay=1" />
             </div>
 
             <div className="mt-6">
@@ -786,3 +778,32 @@ function CurriculumAccordion() {
   );
 }
 
+
+function VideoPlayer({ thumbnail, src }: { thumbnail: string; src: string }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="relative bg-black" style={{ paddingTop: "100%" }}>
+      {playing ? (
+        <iframe
+          src={src}
+          allow="fullscreen; autoplay"
+          allowFullScreen
+          title="Clinic Growth Masterclass video"
+          className="absolute inset-0 w-full h-full border-0"
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPlaying(true)}
+          aria-label="Play video"
+          className="absolute inset-0 w-full h-full group cursor-pointer"
+        >
+          <img src={thumbnail} alt="Watch the Clinic Growth Masterclass" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition flex items-center justify-center">
+            <PlayCircle className="size-24 text-white/95 drop-shadow-2xl group-hover:scale-105 transition" />
+          </div>
+        </button>
+      )}
+    </div>
+  );
+}
