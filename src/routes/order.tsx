@@ -7,6 +7,8 @@ import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { fbqTrack } from "@/lib/fbpixel";
+import { useEffect, useRef } from "react";
 
 type OrderSearch = {
   full_name?: string;
