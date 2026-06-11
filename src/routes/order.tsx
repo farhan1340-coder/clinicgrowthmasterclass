@@ -32,7 +32,8 @@ const BUMPS = [
     id: "strategy",
     title: "1-on-1 Personalized Digital Marketing Strategy Session",
     price: 3999,
-    image: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/154734ed-87c6-4167-b764-75ba8cfbd41d.jpeg",
+    image: bumpStrategy.url,
+    badge: "Most Popular (8/10 Members Add This)",
     bullets: [
       "90-Minute Private Strategy Session",
       "Customized Patient Growth Plan",
@@ -46,7 +47,8 @@ const BUMPS = [
     id: "prompts",
     title: "AI Content Prompt Vault for Doctors",
     price: 699,
-    image: "https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/gEjfcPU9sJhDOS0NobUy/media/bb687e48-f8b7-48cc-ac1e-a20f45a9136a.png",
+    image: bumpPrompts.url,
+    badge: "Recommended (7/10 Members Add This)",
     bullets: [
       "Ready-to-use AI prompts for doctors",
       "Content ideas for social media",
