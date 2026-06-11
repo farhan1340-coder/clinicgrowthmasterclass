@@ -300,12 +300,13 @@ function OrderPage() {
                 </div>
               </div>
 
-              <button type="submit" className="btn-cta w-full mt-5 px-6 py-4 text-lg">
-                COMPLETE MY ORDER
+              <button type="submit" disabled={submitting} className="btn-cta w-full mt-5 px-6 py-4 text-base md:text-lg">
+                {submitting ? "OPENING WHATSAPP..." : "SEND PAYMENT SCREENSHOT & GET ACCESS"}
                 <div className="text-xs font-medium normal-case tracking-normal opacity-95">
-                  Secure my seat in the Clinic Growth Masterclass
+                  Click here to send your payment screenshot on WhatsApp and receive instant masterclass access.
                 </div>
               </button>
+
 
               <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
                 <Lock className="size-3.5" /> 100% Secure &amp; Safe Payments
