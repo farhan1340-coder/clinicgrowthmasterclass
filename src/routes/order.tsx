@@ -78,6 +78,11 @@ function OrderPage() {
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
+  const purchaseFiredRef = useRef(false);
+
+  useEffect(() => {
+    fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
+  }, []);
 
   const items = useMemo(() => {
     const list: { id: string; title: string; price: number; qty: number }[] = [
@@ -115,6 +120,18 @@ function OrderPage() {
     } catch (err) {
       console.error("Failed to save lead", err);
     }
+
+    // Fire Lead event (form submission)
+    fbqTrack("Lead", { value: total, currency: "PKR" });
+
+    // Fire Purchase event (dedup-guarded)
+    if (!purchaseFiredRef.current) {
+      purchaseFiredRef.current = true;
+      fbqTrack("Purchase", { value: 999, currency: "PKR" });
+    }
+
+    // Give the pixel a moment to flush before opening WhatsApp
+    await new Promise((r) => setTimeout(r, 350));
 
     const message =
       `Assalam-o-Alaikum,\n\n` +
