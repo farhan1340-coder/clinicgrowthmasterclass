@@ -199,19 +199,31 @@ function OrderPage() {
                           ✅ YES! Add {b.title} for just PKR {b.price.toLocaleString()}
                         </div>
                       </div>
-                      <div className="mt-3 flex gap-4">
-                        <img src={b.image} alt="" className="size-20 rounded object-cover hidden sm:block" />
-                        <div className="text-sm text-slate-800 leading-relaxed flex-1 min-w-0">
-                          <p className="font-bold underline mb-2">SPECIAL ONE-TIME OFFER:</p>
-                          <ul className="space-y-1">
-                            {b.bullets.map((line) => (
-                              <li key={line}>✅ {line}</li>
-                            ))}
-                            {b.bonus && <li className="font-semibold text-emerald-800 mt-1">🎁 {b.bonus}</li>}
-                          </ul>
-                        </div>
+                      <div className="mt-3">
+                        <img
+                          src={b.image}
+                          alt={b.title}
+                          className="w-full h-auto rounded-lg object-cover border border-emerald-200"
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className="mt-3">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-600 text-white text-xs font-bold px-3 py-1 shadow-sm">
+                          <span className="size-2 rounded-full bg-white/90" aria-hidden />
+                          {b.badge}
+                        </span>
+                      </div>
+                      <div className="mt-3 text-sm text-slate-800 leading-relaxed">
+                        <p className="font-bold underline mb-2">SPECIAL ONE-TIME OFFER:</p>
+                        <ul className="space-y-1">
+                          {b.bullets.map((line) => (
+                            <li key={line}>✅ {line}</li>
+                          ))}
+                          {b.bonus && <li className="font-semibold text-emerald-800 mt-1">🎁 {b.bonus}</li>}
+                        </ul>
                       </div>
                     </div>
+
                   </div>
                 </label>
               );
