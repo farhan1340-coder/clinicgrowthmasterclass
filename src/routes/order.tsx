@@ -7,6 +7,8 @@ import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { fbqTrack } from "@/lib/fbpixel";
+import { useEffect, useRef } from "react";
 
 type OrderSearch = {
   full_name?: string;
@@ -76,6 +78,11 @@ function OrderPage() {
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
+  const purchaseFiredRef = useRef(false);
+
+  useEffect(() => {
+    fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
+  }, []);
 
   const items = useMemo(() => {
     const list: { id: string; title: string; price: number; qty: number }[] = [
@@ -113,6 +120,18 @@ function OrderPage() {
     } catch (err) {
       console.error("Failed to save lead", err);
     }
+
+    // Fire Lead event (form submission)
+    fbqTrack("Lead", { value: total, currency: "PKR" });
+
+    // Fire Purchase event (dedup-guarded)
+    if (!purchaseFiredRef.current) {
+      purchaseFiredRef.current = true;
+      fbqTrack("Purchase", { value: 999, currency: "PKR" });
+    }
+
+    // Give the pixel a moment to flush before opening WhatsApp
+    await new Promise((r) => setTimeout(r, 350));
 
     const message =
       `Assalam-o-Alaikum,\n\n` +
@@ -274,11 +293,7 @@ function OrderPage() {
                   <p className="font-bold mb-1">📌 Important Instructions</p>
                   <p>
                     Please send your payment to the selected account above and then send the payment screenshot
-                    to our WhatsApp number{" "}
-                    <a href="https://wa.me/923135944817" className="font-bold underline text-emerald-700">
-                      +92 313 5944817
-                    </a>
-                    . Your access will be processed after payment verification.
+                    to our WhatsApp number by clicking on the button below. Your access will be processed after payment verification.
                   </p>
                 </div>
               </div>

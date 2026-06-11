@@ -6,7 +6,8 @@ import bonus2 from "@/assets/bonus-2-worksheet.png.asset.json";
 import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
 import bonus4 from "@/assets/bonus-4-community.png.asset.json";
 import drAhmed from "@/assets/dr-ahmed.png.asset.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fbqTrack } from "@/lib/fbpixel";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { CtaButton } from "@/components/site/CtaButton";
@@ -29,6 +30,15 @@ export const Route = createFileRoute("/")({
 });
 
 function LandingPage() {
+  useEffect(() => {
+    fbqTrack("ViewContent", {
+      content_name: "Clinic Growth Masterclass",
+      content_category: "Masterclass",
+      value: 999,
+      currency: "PKR",
+    });
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <AnnouncementBar />
