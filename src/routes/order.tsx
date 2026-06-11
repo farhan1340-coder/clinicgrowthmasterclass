@@ -331,7 +331,7 @@ function OrderPage() {
               />
               <div className="p-5 text-center">
                 <div className="text-lg font-bold">Get Access For</div>
-                <div className="text-3xl font-black text-emerald-600 mt-1">Only Rs. 999 Today!</div>
+                <div className="text-3xl font-black text-emerald-600 mt-1 whitespace-pre-line">{"Only\nRs. 999 Today!"}</div>
 
                 <div className="mt-5 text-left">
                   <div className="bg-primary text-primary-foreground text-center font-bold py-2 rounded">
