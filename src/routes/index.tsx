@@ -15,6 +15,7 @@ import {
   Stethoscope, Users, TrendingUp, Calendar, Gift, Play, ChevronDown,
 } from "lucide-react";
 import farhanInstructor from "@/assets/farhan-instructor.jpeg.asset.json";
+import videoThumbnail from "@/assets/video-thumbnail.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
