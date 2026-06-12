@@ -144,7 +144,12 @@ function OrderPage() {
         .from("payment-screenshots")
         .upload(path, screenshot, { contentType: screenshot.type, upsert: false });
       if (upErr) throw upErr;
-      screenshotPath = path;
+      // Create a long-lived signed URL (~10 years) so it's clickable from DB
+      const { data: signed, error: signErr } = await supabase.storage
+        .from("payment-screenshots")
+        .createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
+      if (signErr) throw signErr;
+      screenshotPath = signed?.signedUrl ?? path;
     } catch (err) {
       console.error("Screenshot upload failed", err);
       setUploadError("Failed to upload screenshot. Please try again.");
