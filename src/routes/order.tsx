@@ -1,11 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
 import bumpStrategy from "@/assets/bump-strategy.png.asset.json";
 import bumpPrompts from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
-import { Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard } from "lucide-react";
+import { Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard, Upload, ImageIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { useEffect, useRef } from "react";
@@ -78,7 +78,11 @@ function OrderPage() {
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
+  const [screenshot, setScreenshot] = useState<File | null>(null);
+  const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const purchaseFiredRef = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
@@ -96,9 +100,33 @@ function OrderPage() {
 
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
 
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    setUploadError(null);
+    if (!file) {
+      setScreenshot(null);
+      setScreenshotPreview(null);
+      return;
+    }
+    if (!file.type.startsWith("image/")) {
+      setUploadError("Please upload an image file (JPG, PNG).");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      setUploadError("Image must be smaller than 8MB.");
+      return;
+    }
+    setScreenshot(file);
+    setScreenshotPreview(URL.createObjectURL(file));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
+    if (!screenshot) {
+      setUploadError("Please upload your payment screenshot before submitting.");
+      return;
+    }
     setSubmitting(true);
 
     const selectedBumps = BUMPS.filter((b) => bumps[b.id]).map((b) => ({
@@ -106,6 +134,23 @@ function OrderPage() {
       title: b.title,
       price: b.price,
     }));
+
+    let screenshotPath: string | null = null;
+    try {
+      const ext = screenshot.name.split(".").pop()?.toLowerCase() || "jpg";
+      const safeEmail = email.replace(/[^a-z0-9]/gi, "_").slice(0, 40);
+      const path = `${Date.now()}-${safeEmail}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("payment-screenshots")
+        .upload(path, screenshot, { contentType: screenshot.type, upsert: false });
+      if (upErr) throw upErr;
+      screenshotPath = path;
+    } catch (err) {
+      console.error("Screenshot upload failed", err);
+      setUploadError("Failed to upload screenshot. Please try again.");
+      setSubmitting(false);
+      return;
+    }
 
     try {
       await supabase.from("clinic_growth_leads").insert({
@@ -116,34 +161,23 @@ function OrderPage() {
         total_amount: total,
         payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
         lead_status: "Pending Payment",
+        payment_screenshot_url: screenshotPath,
       });
     } catch (err) {
       console.error("Failed to save lead", err);
     }
 
-    // Fire Lead event (form submission)
+    // Fire Lead (Submit) conversion event after successful submission
     fbqTrack("Lead", { value: total, currency: "PKR" });
 
-    // Fire Purchase event (dedup-guarded)
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
       fbqTrack("Purchase", { value: 999, currency: "PKR" });
     }
 
-    // Give the pixel a moment to flush before opening WhatsApp
     await new Promise((r) => setTimeout(r, 350));
 
-    const message =
-      `Assalam-o-Alaikum,\n\n` +
-      `I have paid the fee for the Clinic Growth Masterclass.\n` +
-      `My payment screenshot is attached.\n\n` +
-      `Name: ${name}\n` +
-      `Email: ${email}\n\n` +
-      `Please verify my payment and provide access.\n\n` +
-      `Thank you.`;
-    const waUrl = `https://wa.me/923390057379?text=${encodeURIComponent(message)}`;
-    window.open(waUrl, "_blank", "noopener,noreferrer");
-    setSubmitting(false);
+    navigate({ to: "/thank-you" });
   }
 
   return (
@@ -292,8 +326,8 @@ function OrderPage() {
                 <div className="rounded-lg border-l-4 border-yellow-500 bg-yellow-50 p-4 text-sm text-slate-800">
                   <p className="font-bold mb-1">📌 Important Instructions</p>
                   <p>
-                    Please send your payment to the selected account above and then send the payment screenshot
-                    to our WhatsApp number by clicking on the button below. Your access will be processed after payment verification.
+                    Please send your payment to the selected account above, then upload the payment screenshot
+                    in the field below and click submit. Your access will be processed after payment verification.
                   </p>
                 </div>
               </div>
@@ -315,12 +349,59 @@ function OrderPage() {
                 </div>
               </div>
 
+              {/* Upload Payment Screenshot — required, visually prominent, just above submit */}
+              <div className="mt-6 rounded-xl border-2 border-dashed border-primary/60 bg-primary/5 p-4">
+                <label className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide text-primary">
+                  <ImageIcon className="size-4" /> Upload Payment Screenshot <span className="text-destructive">*</span>
+                </label>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Attach a clear screenshot of your payment confirmation (JPG or PNG, max 8MB).
+                </p>
+
+                <label
+                  htmlFor="screenshot"
+                  className="mt-3 flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-primary/40 bg-background hover:bg-primary/5 transition cursor-pointer px-4 py-6 text-center"
+                >
+                  {screenshotPreview ? (
+                    <>
+                      <img
+                        src={screenshotPreview}
+                        alt="Payment screenshot preview"
+                        className="max-h-40 rounded-md border"
+                      />
+                      <span className="text-xs text-muted-foreground truncate max-w-full">
+                        {screenshot?.name} — tap to change
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="size-7 text-primary" />
+                      <span className="text-sm font-bold text-primary">Tap to upload screenshot</span>
+                      <span className="text-xs text-muted-foreground">PNG, JPG up to 8MB</span>
+                    </>
+                  )}
+                  <input
+                    id="screenshot"
+                    type="file"
+                    accept="image/*"
+                    required
+                    onChange={handleFileChange}
+                    className="sr-only"
+                  />
+                </label>
+
+                {uploadError && (
+                  <p className="mt-2 text-xs font-semibold text-destructive">{uploadError}</p>
+                )}
+              </div>
+
               <button type="submit" disabled={submitting} className="btn-cta w-full mt-5 px-6 py-4 text-base md:text-lg">
-                {submitting ? "OPENING WHATSAPP..." : "SEND PAYMENT SCREENSHOT & GET ACCESS"}
+                {submitting ? "SUBMITTING..." : "SUBMIT & GET ACCESS"}
                 <div className="text-xs font-medium normal-case tracking-normal opacity-95">
-                  Click here to send your payment screenshot on WhatsApp and receive instant masterclass access.
+                  Submit your details and screenshot to receive masterclass access.
                 </div>
               </button>
+
 
 
               <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">

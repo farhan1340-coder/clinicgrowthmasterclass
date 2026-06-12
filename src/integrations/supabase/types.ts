@@ -22,6 +22,7 @@ export type Database = {
           id: string
           lead_status: string
           payment_method: string
+          payment_screenshot_url: string | null
           selected_order_bumps: Json
           total_amount: number
           whatsapp: string
@@ -33,6 +34,7 @@ export type Database = {
           id?: string
           lead_status?: string
           payment_method: string
+          payment_screenshot_url?: string | null
           selected_order_bumps?: Json
           total_amount: number
           whatsapp: string
@@ -44,6 +46,7 @@ export type Database = {
           id?: string
           lead_status?: string
           payment_method?: string
+          payment_screenshot_url?: string | null
           selected_order_bumps?: Json
           total_amount?: number
           whatsapp?: string
