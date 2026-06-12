@@ -201,13 +201,11 @@ function Hero() {
                 <Volume2 className="size-4" /> Make sure your sound is turned on
               </div>
               <div className="relative bg-black" style={{ paddingTop: "100%" }}>
-                <iframe
+                <img
+                  src={doctorBeforeAfter.url}
+                  alt="Doctor before and after clinic growth — empty office vs. busy clinic with patients"
+                  className="absolute inset-0 w-full h-full object-cover"
                   loading="lazy"
-                  src="https://www.canva.com/design/DAHMPMTHWpQ/eXSx0QJrdZlUfOIdDXwPEg/watch?embed"
-                  allow="fullscreen"
-                  allowFullScreen
-                  title="Clinic Growth Masterclass video"
-                  className="absolute inset-0 w-full h-full border-0"
                 />
               </div>
             </div>
