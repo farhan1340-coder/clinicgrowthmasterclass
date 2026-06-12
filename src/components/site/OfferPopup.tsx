@@ -88,7 +88,7 @@ export function OfferPopup() {
             little longer.
           </p>
           <p className="text-sm text-slate-600">
-            Price will adjust to <span className="font-bold">PKR 3,999</span> after the deadline.
+            Price will adjust to <span className="font-bold">PKR 3,999</span> after the deadline due to the rising costs of managing a high number of students.
           </p>
 
           {/* Price box */}
