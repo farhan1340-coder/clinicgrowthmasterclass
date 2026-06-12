@@ -202,7 +202,7 @@ function OrderPage() {
         </div>
       </div>
 
-      <main className="bg-secondary flex-1">
+      <main className="bg-secondary flex-1 overflow-x-hidden">
         <div className="mx-auto max-w-6xl px-4 py-10 grid lg:grid-cols-5 gap-8">
           {/* LEFT: form + bumps */}
           <form className="lg:col-span-3 space-y-6 min-w-0" onSubmit={handleSubmit}>
