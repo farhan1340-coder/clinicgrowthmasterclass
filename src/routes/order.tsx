@@ -8,6 +8,7 @@ import { Footer } from "@/components/site/Footer";
 import { Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard, Upload, ImageIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
+import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { useEffect, useRef } from "react";
 
 type OrderSearch = {
@@ -144,7 +145,14 @@ function OrderPage() {
         .from("payment-screenshots")
         .upload(path, screenshot, { contentType: screenshot.type, upsert: false });
       if (upErr) throw upErr;
-      screenshotPath = path;
+      // Create a long-lived signed URL server-side so it's clickable from DB
+      try {
+        const { url } = await createScreenshotSignedUrl({ data: { path } });
+        screenshotPath = url;
+      } catch (e) {
+        console.error("Signed URL creation failed", e);
+        screenshotPath = path;
+      }
     } catch (err) {
       console.error("Screenshot upload failed", err);
       setUploadError("Failed to upload screenshot. Please try again.");

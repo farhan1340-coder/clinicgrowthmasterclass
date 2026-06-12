@@ -51,7 +51,7 @@ function ThankYouPage() {
             <div className="mt-4 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white p-6 text-center">
               <div className="text-sm uppercase tracking-widest opacity-90">Live on Zoom</div>
               <div className="mt-1 text-2xl md:text-3xl font-black">Saturday, 20th June 2026</div>
-              <div className="mt-1 text-lg font-bold">9:00 PM (Pakistan Time)</div>
+              <div className="mt-1 text-lg font-bold">5:00 PM – 8:00 PM (Pakistan Time)</div>
             </div>
           </section>
 
