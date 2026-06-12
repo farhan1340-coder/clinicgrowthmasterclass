@@ -78,7 +78,11 @@ function OrderPage() {
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
+  const [screenshot, setScreenshot] = useState<File | null>(null);
+  const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   const purchaseFiredRef = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
@@ -96,9 +100,33 @@ function OrderPage() {
 
   const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
 
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    setUploadError(null);
+    if (!file) {
+      setScreenshot(null);
+      setScreenshotPreview(null);
+      return;
+    }
+    if (!file.type.startsWith("image/")) {
+      setUploadError("Please upload an image file (JPG, PNG).");
+      return;
+    }
+    if (file.size > 8 * 1024 * 1024) {
+      setUploadError("Image must be smaller than 8MB.");
+      return;
+    }
+    setScreenshot(file);
+    setScreenshotPreview(URL.createObjectURL(file));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
+    if (!screenshot) {
+      setUploadError("Please upload your payment screenshot before submitting.");
+      return;
+    }
     setSubmitting(true);
 
     const selectedBumps = BUMPS.filter((b) => bumps[b.id]).map((b) => ({
@@ -106,6 +134,23 @@ function OrderPage() {
       title: b.title,
       price: b.price,
     }));
+
+    let screenshotPath: string | null = null;
+    try {
+      const ext = screenshot.name.split(".").pop()?.toLowerCase() || "jpg";
+      const safeEmail = email.replace(/[^a-z0-9]/gi, "_").slice(0, 40);
+      const path = `${Date.now()}-${safeEmail}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("payment-screenshots")
+        .upload(path, screenshot, { contentType: screenshot.type, upsert: false });
+      if (upErr) throw upErr;
+      screenshotPath = path;
+    } catch (err) {
+      console.error("Screenshot upload failed", err);
+      setUploadError("Failed to upload screenshot. Please try again.");
+      setSubmitting(false);
+      return;
+    }
 
     try {
       await supabase.from("clinic_growth_leads").insert({
@@ -116,34 +161,23 @@ function OrderPage() {
         total_amount: total,
         payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
         lead_status: "Pending Payment",
+        payment_screenshot_url: screenshotPath,
       });
     } catch (err) {
       console.error("Failed to save lead", err);
     }
 
-    // Fire Lead event (form submission)
+    // Fire Lead (Submit) conversion event after successful submission
     fbqTrack("Lead", { value: total, currency: "PKR" });
 
-    // Fire Purchase event (dedup-guarded)
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
       fbqTrack("Purchase", { value: 999, currency: "PKR" });
     }
 
-    // Give the pixel a moment to flush before opening WhatsApp
     await new Promise((r) => setTimeout(r, 350));
 
-    const message =
-      `Assalam-o-Alaikum,\n\n` +
-      `I have paid the fee for the Clinic Growth Masterclass.\n` +
-      `My payment screenshot is attached.\n\n` +
-      `Name: ${name}\n` +
-      `Email: ${email}\n\n` +
-      `Please verify my payment and provide access.\n\n` +
-      `Thank you.`;
-    const waUrl = `https://wa.me/923390057379?text=${encodeURIComponent(message)}`;
-    window.open(waUrl, "_blank", "noopener,noreferrer");
-    setSubmitting(false);
+    navigate({ to: "/thank-you" });
   }
 
   return (
