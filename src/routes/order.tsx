@@ -349,12 +349,59 @@ function OrderPage() {
                 </div>
               </div>
 
+              {/* Upload Payment Screenshot — required, visually prominent, just above submit */}
+              <div className="mt-6 rounded-xl border-2 border-dashed border-primary/60 bg-primary/5 p-4">
+                <label className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-wide text-primary">
+                  <ImageIcon className="size-4" /> Upload Payment Screenshot <span className="text-destructive">*</span>
+                </label>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Attach a clear screenshot of your payment confirmation (JPG or PNG, max 8MB).
+                </p>
+
+                <label
+                  htmlFor="screenshot"
+                  className="mt-3 flex flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-primary/40 bg-background hover:bg-primary/5 transition cursor-pointer px-4 py-6 text-center"
+                >
+                  {screenshotPreview ? (
+                    <>
+                      <img
+                        src={screenshotPreview}
+                        alt="Payment screenshot preview"
+                        className="max-h-40 rounded-md border"
+                      />
+                      <span className="text-xs text-muted-foreground truncate max-w-full">
+                        {screenshot?.name} — tap to change
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="size-7 text-primary" />
+                      <span className="text-sm font-bold text-primary">Tap to upload screenshot</span>
+                      <span className="text-xs text-muted-foreground">PNG, JPG up to 8MB</span>
+                    </>
+                  )}
+                  <input
+                    id="screenshot"
+                    type="file"
+                    accept="image/*"
+                    required
+                    onChange={handleFileChange}
+                    className="sr-only"
+                  />
+                </label>
+
+                {uploadError && (
+                  <p className="mt-2 text-xs font-semibold text-destructive">{uploadError}</p>
+                )}
+              </div>
+
               <button type="submit" disabled={submitting} className="btn-cta w-full mt-5 px-6 py-4 text-base md:text-lg">
-                {submitting ? "OPENING WHATSAPP..." : "SEND PAYMENT SCREENSHOT & GET ACCESS"}
+                {submitting ? "SUBMITTING..." : "SUBMIT & GET ACCESS"}
                 <div className="text-xs font-medium normal-case tracking-normal opacity-95">
-                  Click here to send your payment screenshot on WhatsApp and receive instant masterclass access.
+                  Submit your details and screenshot to receive masterclass access.
                 </div>
               </button>
+
 
 
               <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
