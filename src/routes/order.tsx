@@ -205,7 +205,7 @@ function OrderPage() {
       <main className="bg-secondary flex-1">
         <div className="mx-auto max-w-6xl px-4 py-10 grid lg:grid-cols-5 gap-8">
           {/* LEFT: form + bumps */}
-          <form className="lg:col-span-3 space-y-6" onSubmit={handleSubmit}>
+          <form className="lg:col-span-3 space-y-6 min-w-0" onSubmit={handleSubmit}>
 
             {/* Contact */}
             <section className="bg-card rounded-xl shadow-sm border">
