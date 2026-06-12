@@ -326,8 +326,8 @@ function OrderPage() {
                 <div className="rounded-lg border-l-4 border-yellow-500 bg-yellow-50 p-4 text-sm text-slate-800">
                   <p className="font-bold mb-1">📌 Important Instructions</p>
                   <p>
-                    Please send your payment to the selected account above and then send the payment screenshot
-                    to our WhatsApp number by clicking on the button below. Your access will be processed after payment verification.
+                    Please send your payment to the selected account above, then upload the payment screenshot
+                    in the field below and click submit. Your access will be processed after payment verification.
                   </p>
                 </div>
               </div>
