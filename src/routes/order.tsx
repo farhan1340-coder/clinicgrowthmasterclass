@@ -8,6 +8,7 @@ import { Footer } from "@/components/site/Footer";
 import { Lock, ShieldCheck, Star, ArrowRight, Gift, ChevronDown, CreditCard, Upload, ImageIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
+import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { useEffect, useRef } from "react";
 
 type OrderSearch = {
