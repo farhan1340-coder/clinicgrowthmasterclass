@@ -222,16 +222,20 @@ function OrderPage() {
             {/* Items table */}
             <section className="bg-card rounded-xl shadow-sm border p-5">
               <div className="text-sm font-bold uppercase tracking-wider mb-3">Your Order</div>
-              <table className="w-full text-sm">
+              <table className="w-full text-sm table-fixed">
                 <thead className="text-muted-foreground text-left">
-                  <tr><th className="py-2">Item</th><th className="py-2 text-center">Qty</th><th className="py-2 text-right">Price</th></tr>
+                  <tr>
+                    <th className="py-2 w-auto">Item</th>
+                    <th className="py-2 text-center w-12">Qty</th>
+                    <th className="py-2 text-right w-24">Price</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {items.map((i) => (
                     <tr key={i.id} className="border-t">
-                      <td className="py-3 pr-2">{i.title}</td>
+                      <td className="py-3 pr-2 break-words">{i.title}</td>
                       <td className="py-3 text-center">{i.qty}</td>
-                      <td className="py-3 text-right font-bold">Rs. {i.price.toLocaleString()}</td>
+                      <td className="py-3 text-right font-bold whitespace-nowrap">Rs. {i.price.toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
