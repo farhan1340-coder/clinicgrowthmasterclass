@@ -239,14 +239,14 @@ function Hero() {
             <div className="p-6 text-center">
               <div className="text-lg font-extrabold">ONLY A FEW SPOTS LEFT</div>
               <div className="mt-2 text-3xl font-black text-destructive">
-                ONLY <span className="line-through text-foreground/60 font-bold">Rs. 4,999</span>{" "}
+                ONLY <span className="line-through text-foreground/60 font-bold">Rs. 3,999</span>{" "}
                 <br />
                 <span>Rs. 999</span>
               </div>
-              <div className="text-sm font-semibold">(SAVE Rs. 4,000 TODAY)</div>
+              <div className="text-sm font-semibold">(SAVE Rs. 3,000 TODAY)</div>
 
               <p className="mt-4 text-sm">
-                Get Your Seat For <span className="line-through">Rs. 4,999</span> just{" "}
+                Get Your Seat For <span className="line-through">Rs. 3,999</span> just{" "}
                 <span className="font-bold">Rs. 999!</span><br />
                 Live on Zoom — Saturday, 20th June 2026.
               </p>
