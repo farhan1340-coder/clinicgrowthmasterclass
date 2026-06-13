@@ -197,8 +197,8 @@ function Hero() {
           {/* Video */}
           <div className="md:col-span-3">
             <div className="rounded-lg overflow-hidden shadow-2xl ring-1 ring-white/10">
-              <div className="bg-topbar text-white text-center py-2 text-sm font-semibold flex items-center justify-center gap-2">
-                <Volume2 className="size-4" /> Make sure your sound is turned on
+              <div className="bg-topbar text-white text-center py-2 px-3 text-sm font-semibold">
+                What Medical Schools Missed: Patient Acquisition, Authority & Clinic Growth
               </div>
               <div className="relative bg-black" style={{ paddingTop: "100%" }}>
                 <img
