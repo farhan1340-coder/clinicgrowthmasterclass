@@ -226,7 +226,12 @@ function Hero() {
             </div>
 
             <ReviewCard />
+
+            <div className="mt-6">
+              <MasterclassCountdown variant="dark" />
+            </div>
           </div>
+
 
           {/* Order summary card */}
           <aside className="md:col-span-2 bg-card text-card-foreground rounded-xl shadow-2xl overflow-hidden">
