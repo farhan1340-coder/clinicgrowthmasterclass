@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { useEffect, useRef } from "react";
+import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
 
 type OrderSearch = {
   full_name?: string;
@@ -199,8 +200,12 @@ function OrderPage() {
             You're <span className="gradient-highlight">One Step Away</span> From Filling Your Clinic
           </h1>
           <p className="mt-2 text-muted-foreground">Complete your order below to reserve your seat in the live masterclass.</p>
+          <div className="mt-6 max-w-xl mx-auto">
+            <MasterclassCountdown variant="light" />
+          </div>
         </div>
       </div>
+
 
       <main className="bg-secondary flex-1 overflow-x-hidden">
         <div className="mx-auto max-w-6xl px-4 py-10 grid lg:grid-cols-5 gap-8">

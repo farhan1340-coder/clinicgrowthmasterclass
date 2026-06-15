@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import farhanInstructor from "@/assets/farhan-instructor.jpeg.asset.json";
 import doctorBeforeAfter from "@/assets/doctor-before-after.png.asset.json";
+import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -225,7 +226,12 @@ function Hero() {
             </div>
 
             <ReviewCard />
+
+            <div className="mt-6">
+              <MasterclassCountdown variant="dark" />
+            </div>
           </div>
+
 
           {/* Order summary card */}
           <aside className="md:col-span-2 bg-card text-card-foreground rounded-xl shadow-2xl overflow-hidden">
@@ -707,8 +713,10 @@ function FinalCta() {
           Price will increase soon — lock in your seat for just <span className="font-bold">Rs. 999</span> today.
         </p>
         <div className="mt-8 max-w-md mx-auto">
+          <MasterclassCountdown variant="dark" className="mb-6" />
           <CtaButton subtitle="Enroll Now — Only Rs. 999">YES! Reserve My Seat</CtaButton>
         </div>
+
         <p className="mt-6 text-sm text-white/70">
           Questions? Email{" "}
           <a className="underline" href="mailto:Farhanali13440@gmail.com">Farhanali13440@gmail.com</a>{" "}
