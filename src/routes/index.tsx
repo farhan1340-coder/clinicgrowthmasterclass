@@ -713,8 +713,10 @@ function FinalCta() {
           Price will increase soon — lock in your seat for just <span className="font-bold">Rs. 999</span> today.
         </p>
         <div className="mt-8 max-w-md mx-auto">
+          <MasterclassCountdown variant="dark" className="mb-6" />
           <CtaButton subtitle="Enroll Now — Only Rs. 999">YES! Reserve My Seat</CtaButton>
         </div>
+
         <p className="mt-6 text-sm text-white/70">
           Questions? Email{" "}
           <a className="underline" href="mailto:Farhanali13440@gmail.com">Farhanali13440@gmail.com</a>{" "}
