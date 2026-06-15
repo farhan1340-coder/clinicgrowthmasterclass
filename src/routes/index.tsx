@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import farhanInstructor from "@/assets/farhan-instructor.jpeg.asset.json";
 import doctorBeforeAfter from "@/assets/doctor-before-after.png.asset.json";
+import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
 
 export const Route = createFileRoute("/")({
   head: () => ({
