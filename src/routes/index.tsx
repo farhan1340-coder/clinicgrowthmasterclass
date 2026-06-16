@@ -234,9 +234,6 @@ function Hero() {
 
             <ReviewCard />
 
-            <div className="mt-6">
-              <MasterclassCountdown variant="dark" />
-            </div>
           </div>
 
 
