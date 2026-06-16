@@ -193,6 +193,11 @@ function Hero() {
           patient-getting system used by leading clinics across Pakistan.
         </p>
 
+        <p className="mt-4 text-center max-w-3xl mx-auto text-sm md:text-base font-bold">
+          <Calendar className="inline-block size-4 mr-1.5 text-yellow-300 align-[-2px]" />
+          <span className="gradient-highlight">Live on Zoom:</span> Saturday, 20th June 2026, 5:00 PM – 8:00 PM PKT
+        </p>
+
         {/* Two column: Video + Order card */}
         <div className="mt-10 grid md:grid-cols-5 gap-6 items-start">
           {/* Video */}
@@ -212,10 +217,12 @@ function Hero() {
             </div>
 
             <div className="mt-6">
+              <MasterclassCountdown variant="dark" className="mb-4" />
               <CtaButton subtitle="Get instant access to the live masterclass">
                 YES! I Want My Patient-Getting System
               </CtaButton>
             </div>
+
 
             <div className="mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-3 shadow-2xl">
               <img
