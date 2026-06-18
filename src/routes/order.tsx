@@ -78,7 +78,7 @@ function OrderPage() {
   const search = Route.useSearch();
   const [name, setName] = useState(search.full_name ?? "");
   const [email, setEmail] = useState(search.email ?? "");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(search.whatsapp ?? "");
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
