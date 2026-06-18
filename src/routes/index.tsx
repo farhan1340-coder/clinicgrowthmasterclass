@@ -160,8 +160,10 @@ function Hero() {
       <div className="mx-auto max-w-7xl px-4 pt-10 pb-16">
         {/* Trust badge */}
         <div className="flex justify-center">
-          <div className="inline-flex items-center gap-2 sm:gap-2.5 rounded-2xl sm:rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 shadow-sm max-w-[92%] sm:max-w-none">
-            <BadgeCheck className="size-4 sm:size-5 text-yellow-300 shrink-0" />
+          <div className="inline-flex items-center gap-2.5 sm:gap-3 rounded-full border border-white/20 bg-white/10 backdrop-blur-md pl-1.5 pr-4 py-1.5 sm:pl-2 sm:pr-5 sm:py-2 shadow-sm max-w-[92%] sm:max-w-none">
+            <span className="flex items-center justify-center size-6 sm:size-7 rounded-full bg-yellow-300/20 ring-1 ring-yellow-300/40 shrink-0">
+              <BadgeCheck className="size-3.5 sm:size-4 text-yellow-300" />
+            </span>
             <span className="text-[11px] sm:text-sm font-semibold tracking-wide text-white/95 leading-snug text-center">
               Attended by Doctors, Nutritionists &amp; Clinic owners across Pakistan
             </span>
