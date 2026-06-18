@@ -5,7 +5,7 @@ import bonus1 from "@/assets/bonus-1-cheatsheet.png.asset.json";
 import bonus2 from "@/assets/bonus-2-worksheet.png.asset.json";
 import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
 import bonus4 from "@/assets/bonus-4-community.png.asset.json";
-import drAhmed from "@/assets/dr-ahmed.png.asset.json";
+import emanLogo from "@/assets/eman-medical-tower-logo.jpg.asset.json";
 import { useEffect, useState } from "react";
 import { fbqTrack } from "@/lib/fbpixel";
 import { Topbar } from "@/components/site/Topbar";
@@ -304,19 +304,22 @@ function ReviewCard() {
     <div className="mt-6 rounded-lg bg-white/5 ring-1 ring-white/10 p-5 text-white/95">
       <div className="flex items-start gap-4">
         <img
-          src={drAhmed.url}
-          alt="Dr. Ahmed — Dermatologist, Islamabad"
-          className="size-16 sm:size-20 rounded-full object-cover ring-2 ring-yellow-400/70 shrink-0"
+          src={emanLogo.url}
+          alt="Eman Medical Tower, Hafizabad — clinic logo"
+          className="size-14 sm:size-16 rounded-full object-contain bg-white p-1.5 ring-2 ring-yellow-400/70 shrink-0"
         />
         <div className="min-w-0">
           <div className="flex gap-1 text-yellow-400">
             {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-yellow-400" />)}
           </div>
-          <p className="mt-2 italic">
-            "After implementing Farhan's strategies, my clinic went from 5 patients a week to 22 per week —
-            and my reputation in the city skyrocketed!"
+          <p className="mt-2 italic text-sm sm:text-base leading-relaxed">
+            "Farhan's masterclass was very practical. As doctors, we are experts in our practice, but most of us have almost zero knowledge of digital marketing. The patient acquisition strategies shared were very helpful and easy to understand. Highly recommended for other doctors."
           </p>
-          <p className="mt-2 font-bold">— Dr. Ahmed · Dermatologist, Islamabad</p>
+          <div className="mt-3">
+            <p className="font-bold leading-tight">— Dr. Qurat Ul Ain</p>
+            <p className="text-xs sm:text-sm text-white/80 leading-snug">Gynecologist · MBBS, FCPS (Gyne)</p>
+            <p className="text-xs sm:text-sm text-white/80 leading-snug">CEO, Eman Medical Tower, Hafizabad</p>
+          </div>
         </div>
       </div>
     </div>
