@@ -48,12 +48,19 @@ export function OfferPopup() {
   const goToOrder = () => {
     setOpen(false);
     setShowBar(false);
-    if (location.pathname === "/order") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      navigate({ to: "/order" });
+    // Route every CTA to the Step 1 lead-capture form, not directly to checkout
+    if (location.pathname === "/") {
+      const el = document.getElementById("lead-form");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        const firstInput = el.querySelector<HTMLInputElement>("input");
+        setTimeout(() => firstInput?.focus({ preventScroll: true }), 600);
+        return;
+      }
     }
+    navigate({ to: "/", hash: "lead-form" });
   };
+
 
   // Hide sticky bar on the order page
   const showStickyBar = showBar && isMobile && location.pathname !== "/order";
