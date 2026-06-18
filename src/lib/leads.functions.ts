@@ -85,14 +85,15 @@ export const upsertLead = createServerFn({ method: "POST" })
         full_name: data.full_name,
         email: data.email,
         whatsapp: data.whatsapp,
-        selected_order_bumps: data.selected_order_bumps,
-        total_amount: data.total_amount,
-        payment_method: data.payment_method,
+        selected_order_bumps: data.selected_order_bumps ?? [],
+        total_amount: data.total_amount ?? 0,
+        payment_method: data.payment_method ?? "pending",
         lead_status: data.lead_status,
-        payment_screenshot_url: data.payment_screenshot_url,
+        payment_screenshot_url: data.payment_screenshot_url ?? null,
       })
       .select("id")
       .single();
     if (insErr) throw insErr;
     return { id: ins.id as string, updated: false };
   });
+
