@@ -159,25 +159,12 @@ function Hero() {
     <section className="hero-bg text-white">
       <div className="mx-auto max-w-7xl px-4 pt-10 pb-16">
         {/* Trust badge */}
-        <div className="flex flex-col items-center gap-2 text-center">
-          <div className="flex items-center gap-3">
-            <div className="flex -space-x-2">
-              {[
-                "https://i.pravatar.cc/64?img=12",
-                "https://i.pravatar.cc/64?img=14",
-                "https://i.pravatar.cc/64?img=33",
-                "https://i.pravatar.cc/64?img=52",
-                "https://i.pravatar.cc/64?img=60",
-              ].map((src) => (
-                <img key={src} src={src} alt="" className="size-10 rounded-full border-2 border-white object-cover" />
-              ))}
-            </div>
-            <div className="text-left">
-              <div className="flex gap-0.5 text-yellow-400">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-yellow-400" />)}
-              </div>
-              <div className="text-xs font-bold tracking-wider">TRUSTED BY 500+<br />DOCTORS &amp; CLINIC OWNERS</div>
-            </div>
+        <div className="flex justify-center">
+          <div className="inline-flex items-center gap-2 sm:gap-2.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 shadow-sm">
+            <BadgeCheck className="size-4 sm:size-5 text-yellow-300 shrink-0" />
+            <span className="text-[11px] sm:text-sm font-semibold tracking-wide text-white/95 leading-snug text-center">
+              Attended by doctors, nutritionists, physiotherapists &amp; clinic owners across Pakistan
+            </span>
           </div>
         </div>
 
