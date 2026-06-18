@@ -164,22 +164,23 @@ function OrderPage() {
     }
 
     try {
-      await supabase.from("clinic_growth_leads").insert({
-        full_name: name,
-        email,
-        whatsapp: phone,
-        selected_order_bumps: selectedBumps,
-        total_amount: total,
-        payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
-        lead_status: "Pending Payment",
-        payment_screenshot_url: screenshotPath,
+      const { upsertLead } = await import("@/lib/leads.functions");
+      await upsertLead({
+        data: {
+          full_name: name,
+          email,
+          whatsapp: phone,
+          selected_order_bumps: selectedBumps,
+          total_amount: total,
+          payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
+          lead_status: "Pending Payment",
+          payment_screenshot_url: screenshotPath,
+        },
       });
     } catch (err) {
       console.error("Failed to save lead", err);
     }
 
-    // Fire Lead (Submit) conversion event after successful submission
-    fbqTrack("Lead", { value: total, currency: "PKR" });
 
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
