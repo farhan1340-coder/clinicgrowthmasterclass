@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
 import clinicGrowthHeroStack from "@/assets/masterclass-banner.png.asset.json";
 import bonus1 from "@/assets/bonus-1-cheatsheet.png.asset.json";
@@ -267,14 +267,61 @@ function InlineLeadForm() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
   return (
     <form
-      className="mt-5 space-y-3 text-left"
-      onSubmit={(e) => {
+      id="lead-form"
+      className="mt-5 space-y-3 text-left scroll-mt-24"
+      onSubmit={async (e) => {
         e.preventDefault();
+        setError(null);
+
+        const fullName = name.trim();
+        const emailNorm = email.trim().toLowerCase();
+        const wa = whatsapp.trim();
+
+        if (fullName.length < 2) {
+          setError("Please enter your full name.");
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailNorm)) {
+          setError("Please enter a valid email address.");
+          return;
+        }
+        const digits = wa.replace(/\D/g, "");
+        if (digits.length < 10) {
+          setError("Please enter a valid WhatsApp number (e.g. 03XX XXXXXXX).");
+          return;
+        }
+
+        setSubmitting(true);
+        try {
+          const { upsertLead } = await import("@/lib/leads.functions");
+          await upsertLead({
+            data: {
+              full_name: fullName,
+              email: emailNorm,
+              whatsapp: wa,
+              lead_status: "Opted In - Checkout Not Completed",
+            },
+          });
+          fbqTrack("Lead", {
+            content_name: "Clinic Growth Masterclass — Step 1 Opt-In",
+            value: 0,
+            currency: "PKR",
+          });
+        } catch (err) {
+          console.error("Failed to save lead", err);
+          // Don't block the funnel — still send them to checkout
+        }
+
         const params = new URLSearchParams();
-        if (name) params.set("full_name", name);
-        if (email) params.set("email", email);
+        params.set("full_name", fullName);
+        params.set("email", emailNorm);
+        params.set("whatsapp", wa);
         navigate({ to: "/order", search: Object.fromEntries(params) });
       }}
     >
@@ -283,6 +330,7 @@ function InlineLeadForm() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Full Name*"
+        autoComplete="name"
         className="w-full rounded-md border border-input bg-background px-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
       />
       <input
@@ -291,12 +339,35 @@ function InlineLeadForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Email*"
+        autoComplete="email"
         className="w-full rounded-md border border-input bg-background px-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
       />
-      <button type="submit" className="btn-cta w-full px-4 py-4 text-lg">
-        GO TO STEP #2
-        <div className="text-xs font-medium normal-case tracking-normal opacity-95">Reserve Your Spot Now</div>
+      <input
+        required
+        type="tel"
+        inputMode="tel"
+        value={whatsapp}
+        onChange={(e) => setWhatsapp(e.target.value)}
+        placeholder="WhatsApp Number* (e.g. 03XX XXXXXXX)"
+        autoComplete="tel"
+        className="w-full rounded-md border border-input bg-background px-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+      />
+      {error && (
+        <p className="text-xs font-semibold text-destructive">{error}</p>
+      )}
+      <button
+        type="submit"
+        disabled={submitting}
+        className="btn-cta w-full px-4 py-4 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
+      >
+        {submitting ? "SAVING..." : "GO TO STEP #2"}
+        <div className="text-xs font-medium normal-case tracking-normal opacity-95">
+          Reserve Your Spot Now
+        </div>
       </button>
+      <p className="text-[11px] text-center text-muted-foreground">
+        Your details are saved securely. Payment is on the next step.
+      </p>
     </form>
   );
 }
@@ -717,9 +788,6 @@ function FinalCta() {
           Questions? Email{" "}
           <a className="underline" href="mailto:Farhanali13440@gmail.com">Farhanali13440@gmail.com</a>{" "}
           or call <a className="underline" href="tel:+923390057379">+92 339 0057379</a>
-        </p>
-        <p className="mt-6">
-          <Link to="/order" className="underline text-white/90">Go to checkout →</Link>
         </p>
       </div>
     </section>

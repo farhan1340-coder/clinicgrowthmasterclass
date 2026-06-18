@@ -15,12 +15,14 @@ import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
 type OrderSearch = {
   full_name?: string;
   email?: string;
+  whatsapp?: string;
 };
 
 export const Route = createFileRoute("/order")({
   validateSearch: (search: Record<string, unknown>): OrderSearch => ({
     full_name: typeof search.full_name === "string" ? search.full_name : undefined,
     email: typeof search.email === "string" ? search.email : undefined,
+    whatsapp: typeof search.whatsapp === "string" ? search.whatsapp : undefined,
   }),
   head: () => ({
     meta: [
@@ -76,7 +78,7 @@ function OrderPage() {
   const search = Route.useSearch();
   const [name, setName] = useState(search.full_name ?? "");
   const [email, setEmail] = useState(search.email ?? "");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(search.whatsapp ?? "");
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
@@ -162,22 +164,23 @@ function OrderPage() {
     }
 
     try {
-      await supabase.from("clinic_growth_leads").insert({
-        full_name: name,
-        email,
-        whatsapp: phone,
-        selected_order_bumps: selectedBumps,
-        total_amount: total,
-        payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
-        lead_status: "Pending Payment",
-        payment_screenshot_url: screenshotPath,
+      const { upsertLead } = await import("@/lib/leads.functions");
+      await upsertLead({
+        data: {
+          full_name: name,
+          email,
+          whatsapp: phone,
+          selected_order_bumps: selectedBumps,
+          total_amount: total,
+          payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
+          lead_status: "Pending Payment",
+          payment_screenshot_url: screenshotPath,
+        },
       });
     } catch (err) {
       console.error("Failed to save lead", err);
     }
 
-    // Fire Lead (Submit) conversion event after successful submission
-    fbqTrack("Lead", { value: total, currency: "PKR" });
 
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
