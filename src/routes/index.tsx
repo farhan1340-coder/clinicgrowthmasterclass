@@ -163,7 +163,7 @@ function Hero() {
           <div className="inline-flex items-start sm:items-center gap-2 sm:gap-2.5 rounded-2xl sm:rounded-full border border-white/20 bg-white/10 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 shadow-sm max-w-[92%] sm:max-w-none">
             <BadgeCheck className="size-4 sm:size-5 text-yellow-300 shrink-0 mt-0.5 sm:mt-0" />
             <span className="text-[11px] sm:text-sm font-semibold tracking-wide text-white/95 leading-snug text-left sm:text-center">
-              Attended by doctors, nutritionists, physiotherapists &amp; clinic owners across Pakistan
+              Attended by Doctors, Nutritionists &amp; Clinic owners across Pakistan
             </span>
           </div>
         </div>
