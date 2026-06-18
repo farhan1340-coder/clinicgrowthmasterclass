@@ -43,7 +43,7 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <AnnouncementBar />
+      
       <Topbar />
       <Hero />
       <SocialProofBar />
