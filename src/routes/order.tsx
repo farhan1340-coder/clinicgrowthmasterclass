@@ -15,12 +15,14 @@ import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
 type OrderSearch = {
   full_name?: string;
   email?: string;
+  whatsapp?: string;
 };
 
 export const Route = createFileRoute("/order")({
   validateSearch: (search: Record<string, unknown>): OrderSearch => ({
     full_name: typeof search.full_name === "string" ? search.full_name : undefined,
     email: typeof search.email === "string" ? search.email : undefined,
+    whatsapp: typeof search.whatsapp === "string" ? search.whatsapp : undefined,
   }),
   head: () => ({
     meta: [
