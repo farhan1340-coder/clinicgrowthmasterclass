@@ -789,9 +789,6 @@ function FinalCta() {
           <a className="underline" href="mailto:Farhanali13440@gmail.com">Farhanali13440@gmail.com</a>{" "}
           or call <a className="underline" href="tel:+923390057379">+92 339 0057379</a>
         </p>
-        <p className="mt-6">
-          <Link to="/order" className="underline text-white/90">Go to checkout →</Link>
-        </p>
       </div>
     </section>
   );
