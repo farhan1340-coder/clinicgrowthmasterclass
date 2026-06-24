@@ -258,25 +258,6 @@ function Hero() {
   );
 }
 
-const SPECIALTY_OPTIONS = [
-  "General Physician (GP)",
-  "Dentist",
-  "Dermatologist / Skin Specialist",
-  "Gynecologist / Obstetrician",
-  "Pediatrician",
-  "Nutritionist / Dietitian",
-  "Physiotherapist",
-  "Psychologist / Psychiatrist",
-  "ENT Specialist",
-  "Eye Specialist",
-  "Orthopedic Surgeon",
-  "Cardiologist",
-  "Aesthetic / Cosmetic Practitioner",
-  "Hakeem / Homeopath",
-  "Clinic Owner / Manager",
-  "Medical Student",
-  "Other",
-];
 
 function InlineLeadForm() {
   const navigate = useNavigate();
