@@ -105,7 +105,7 @@ function WebsiteGiveawaySection() {
     "Basic SEO Setup",
   ];
   return (
-    <section id="free-website-giveaway" className="py-20 bg-white">
+    <section id="free-website-giveaway" className="py-12 md:py-20 bg-white">
       <div className="mx-auto max-w-4xl px-4">
         <div className="relative rounded-3xl border-2 border-yellow-400/70 bg-gradient-to-br from-[#0b1735] via-[#101f47] to-[#0b1735] text-white p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(250,204,21,0.35)] overflow-hidden">
           <div className="absolute -top-24 -right-24 size-72 rounded-full bg-yellow-400/20 blur-3xl pointer-events-none" />
@@ -157,37 +157,37 @@ function WebsiteGiveawaySection() {
 function Hero() {
   return (
     <section className="hero-bg text-white">
-      <div className="mx-auto max-w-7xl px-4 pt-10 pb-16">
+      <div className="mx-auto max-w-[380px] sm:max-w-2xl md:max-w-7xl px-3 sm:px-4 pt-4 pb-8 md:pt-10 md:pb-16">
         {/* Trust badge */}
         <div className="flex justify-center">
-          <div className="inline-flex items-center gap-2.5 sm:gap-3 rounded-full border border-white/20 bg-white/10 backdrop-blur-md pl-1.5 pr-4 py-1.5 sm:pl-2 sm:pr-5 sm:py-2 shadow-sm max-w-[92%] sm:max-w-none">
-            <span className="flex items-center justify-center size-6 sm:size-7 rounded-full bg-yellow-300/20 ring-1 ring-yellow-300/40 shrink-0">
-              <BadgeCheck className="size-3.5 sm:size-4 text-yellow-300" />
+          <div className="inline-flex items-center gap-2 sm:gap-3 rounded-full border border-white/20 bg-white/10 backdrop-blur-md pl-1.5 pr-3 py-1 sm:pl-2 sm:pr-5 sm:py-2 shadow-sm">
+            <span className="flex items-center justify-center size-5 sm:size-7 rounded-full bg-yellow-300/20 ring-1 ring-yellow-300/40 shrink-0">
+              <BadgeCheck className="size-3 sm:size-4 text-yellow-300" />
             </span>
-            <span className="text-[11px] sm:text-sm font-semibold tracking-wide text-white/95 leading-snug text-center">
+            <span className="text-[10px] sm:text-sm font-semibold tracking-wide text-white/95 leading-snug text-center">
               Attended by Doctors, Nutritionists &amp; Clinic owners across Pakistan
             </span>
           </div>
         </div>
 
         {/* Headline */}
-        <h1 className="mt-8 text-center text-3xl md:text-5xl lg:text-6xl font-black leading-[1.05] uppercase">
+        <h1 className="mt-4 md:mt-8 text-center text-[22px] leading-[1.15] sm:text-3xl md:text-5xl lg:text-6xl font-black md:leading-[1.05] uppercase">
           Discover How Busy Doctors Are Getting{" "}
           <span className="gradient-highlight">20–25 Patients</span>{" "}
           Every Week Without Spending Hours On{" "}
           <span className="gradient-highlight">Digital Marketing</span>!
         </h1>
-        <p className="mt-6 text-center max-w-3xl mx-auto text-lg md:text-xl text-white/85">
+        <p className="mt-3 md:mt-6 text-center max-w-3xl mx-auto text-sm md:text-xl text-white/85 leading-snug">
           Even if you've struggled with ads, social media, or personal branding before.
         </p>
 
 
         {/* Two column: Video + Order card */}
-        <div className="mt-10 grid md:grid-cols-5 gap-6 items-start">
+        <div className="mt-5 md:mt-10 grid md:grid-cols-5 gap-5 md:gap-6 items-start">
           {/* Video */}
           <div className="md:col-span-3">
             <div className="rounded-lg overflow-hidden shadow-2xl ring-1 ring-white/10">
-              <div className="bg-topbar text-white text-center py-2 px-3 text-sm font-semibold">
+              <div className="bg-topbar text-white text-center py-1.5 md:py-2 px-3 text-[11px] md:text-sm font-semibold leading-snug">
                 What Medical Schools Missed: Patient Acquisition, Authority & Clinic Growth
               </div>
               <div className="relative bg-black" style={{ paddingTop: "100%" }}>
@@ -200,15 +200,15 @@ function Hero() {
               </div>
             </div>
 
-            <div className="mt-6">
-              <MasterclassCountdown variant="dark" className="mb-4" />
+            <div className="mt-4 md:mt-6">
+              <MasterclassCountdown variant="dark" className="mb-3 md:mb-4" />
               <CtaButton subtitle="Get instant access to the live masterclass">
                 YES! I Want My Patient-Getting System
               </CtaButton>
             </div>
 
 
-            <div className="mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-3 shadow-2xl">
+            <div className="mt-5 md:mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-2 md:p-3 shadow-2xl">
               <img
                 src={clinicGrowthHeroStack.url}
                 alt="Clinic Growth Masterclass product stack"
@@ -446,9 +446,9 @@ function SocialProofBar() {
 
 function WhatIsItSection() {
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-12 md:py-20 bg-secondary">
       <div className="mx-auto max-w-4xl px-4">
-        <h2 className="text-3xl md:text-5xl font-black text-center">
+        <h2 className="text-2xl md:text-5xl font-black text-center">
           What is the <br className="md:hidden" />
           <span className="gradient-highlight">Clinic Growth Masterclass?</span>
         </h2>
@@ -527,9 +527,9 @@ function BonusesSection() {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 md:py-20 bg-white">
       <div className="mx-auto max-w-6xl px-4">
-        <h2 className="text-center text-3xl md:text-5xl font-black">
+        <h2 className="text-center text-2xl md:text-5xl font-black">
           You Also Unlock Instant Access To<br />
           <span className="gradient-highlight">4 Additional Bonuses!</span>
         </h2>
@@ -573,9 +573,9 @@ function HowItWorks() {
     { icon: TrendingUp, title: "Step 3 — Get 20–25 New Patients/Week", text: "Implement the system the same week and watch your appointment book fill up." },
   ];
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-12 md:py-20 bg-secondary">
       <div className="mx-auto max-w-6xl px-4">
-        <h2 className="text-center text-3xl md:text-5xl font-black">
+        <h2 className="text-center text-2xl md:text-5xl font-black">
           How Does The <span className="gradient-highlight">Clinic Growth Masterclass</span> Work?
         </h2>
         <p className="mt-3 text-center text-muted-foreground">
@@ -609,7 +609,7 @@ function TestimonialsWall() {
     { name: "Dr. Faisal H.", spec: "IVF Specialist, Karachi", text: "We crossed 100 new patient inquiries in 30 days. Strongly recommended." },
   ];
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 md:py-20 bg-white">
       <div className="mx-auto max-w-6xl px-4">
         <p className="text-center font-bold uppercase text-sm text-primary">Excellent — based on dozens of reviews</p>
         <h2 className="mt-2 text-center text-3xl md:text-5xl font-black">What Doctors Are Saying</h2>
@@ -645,9 +645,9 @@ function WhoFor() {
     "Physiotherapists",
   ];
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-12 md:py-20 bg-secondary">
       <div className="mx-auto max-w-5xl px-4">
-        <h2 className="text-center text-3xl md:text-5xl font-black">
+        <h2 className="text-center text-2xl md:text-5xl font-black">
           Who's This <span className="gradient-highlight">Perfect For?</span>
         </h2>
         <div className="mt-10 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -670,7 +670,7 @@ function WhoFor() {
 
 function TrainerSection() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 md:py-20 bg-white">
       <div className="mx-auto max-w-5xl px-4 grid md:grid-cols-2 gap-10 items-center">
         <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-border">
           <img
@@ -711,13 +711,13 @@ function TrainerSection() {
 
 function GuaranteeSection() {
   return (
-    <section className="py-20 bg-hero-deep text-white">
+    <section className="py-12 md:py-20 bg-hero-deep text-white">
       <div className="mx-auto max-w-3xl px-4 text-center">
         <div className="mx-auto size-24 rounded-full bg-yellow-400 text-hero-deep grid place-items-center shadow-lg">
           <ShieldCheck className="size-12" />
         </div>
         <p className="mt-6 uppercase tracking-widest text-yellow-300 font-bold">Try It Risk Free</p>
-        <h2 className="mt-2 text-3xl md:text-5xl font-black">100% Money-Back Guarantee</h2>
+        <h2 className="mt-2 text-2xl md:text-5xl font-black">100% Money-Back Guarantee</h2>
         <p className="mt-6 text-lg text-white/85">
           If you attend the complete training, take notes, and implement the learnings — and still feel it
           wasn't worth it or brought no change to your clinic — I'll return 100% of your money.
@@ -757,9 +757,9 @@ function FAQSection() {
     },
   ];
   return (
-    <section className="py-20 bg-secondary">
+    <section className="py-12 md:py-20 bg-secondary">
       <div className="mx-auto max-w-3xl px-4">
-        <h2 className="text-center text-3xl md:text-5xl font-black">FAQs</h2>
+        <h2 className="text-center text-2xl md:text-5xl font-black">FAQs</h2>
         <p className="text-center text-muted-foreground mt-2">
           Find answers to commonly asked questions about the Clinic Growth Masterclass.
         </p>
@@ -786,7 +786,7 @@ function FinalCta() {
     <section className="hero-bg text-white py-20">
       <div className="mx-auto max-w-3xl px-4 text-center">
         <p className="uppercase tracking-widest text-yellow-300 font-bold">Limited-Time Offer</p>
-        <h2 className="mt-2 text-3xl md:text-5xl font-black">
+        <h2 className="mt-2 text-2xl md:text-5xl font-black">
           Reserve your spot before all seats fill.
         </h2>
         <p className="mt-4 text-lg text-white/85">
