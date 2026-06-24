@@ -157,37 +157,37 @@ function WebsiteGiveawaySection() {
 function Hero() {
   return (
     <section className="hero-bg text-white">
-      <div className="mx-auto max-w-7xl px-4 pt-10 pb-16">
+      <div className="mx-auto max-w-[380px] sm:max-w-2xl md:max-w-7xl px-3 sm:px-4 pt-4 pb-8 md:pt-10 md:pb-16">
         {/* Trust badge */}
         <div className="flex justify-center">
-          <div className="inline-flex items-center gap-2.5 sm:gap-3 rounded-full border border-white/20 bg-white/10 backdrop-blur-md pl-1.5 pr-4 py-1.5 sm:pl-2 sm:pr-5 sm:py-2 shadow-sm max-w-[92%] sm:max-w-none">
-            <span className="flex items-center justify-center size-6 sm:size-7 rounded-full bg-yellow-300/20 ring-1 ring-yellow-300/40 shrink-0">
-              <BadgeCheck className="size-3.5 sm:size-4 text-yellow-300" />
+          <div className="inline-flex items-center gap-2 sm:gap-3 rounded-full border border-white/20 bg-white/10 backdrop-blur-md pl-1.5 pr-3 py-1 sm:pl-2 sm:pr-5 sm:py-2 shadow-sm">
+            <span className="flex items-center justify-center size-5 sm:size-7 rounded-full bg-yellow-300/20 ring-1 ring-yellow-300/40 shrink-0">
+              <BadgeCheck className="size-3 sm:size-4 text-yellow-300" />
             </span>
-            <span className="text-[11px] sm:text-sm font-semibold tracking-wide text-white/95 leading-snug text-center">
+            <span className="text-[10px] sm:text-sm font-semibold tracking-wide text-white/95 leading-snug text-center">
               Attended by Doctors, Nutritionists &amp; Clinic owners across Pakistan
             </span>
           </div>
         </div>
 
         {/* Headline */}
-        <h1 className="mt-8 text-center text-3xl md:text-5xl lg:text-6xl font-black leading-[1.05] uppercase">
+        <h1 className="mt-4 md:mt-8 text-center text-[22px] leading-[1.15] sm:text-3xl md:text-5xl lg:text-6xl font-black md:leading-[1.05] uppercase">
           Discover How Busy Doctors Are Getting{" "}
           <span className="gradient-highlight">20–25 Patients</span>{" "}
           Every Week Without Spending Hours On{" "}
           <span className="gradient-highlight">Digital Marketing</span>!
         </h1>
-        <p className="mt-6 text-center max-w-3xl mx-auto text-lg md:text-xl text-white/85">
+        <p className="mt-3 md:mt-6 text-center max-w-3xl mx-auto text-sm md:text-xl text-white/85 leading-snug">
           Even if you've struggled with ads, social media, or personal branding before.
         </p>
 
 
         {/* Two column: Video + Order card */}
-        <div className="mt-10 grid md:grid-cols-5 gap-6 items-start">
+        <div className="mt-5 md:mt-10 grid md:grid-cols-5 gap-5 md:gap-6 items-start">
           {/* Video */}
           <div className="md:col-span-3">
             <div className="rounded-lg overflow-hidden shadow-2xl ring-1 ring-white/10">
-              <div className="bg-topbar text-white text-center py-2 px-3 text-sm font-semibold">
+              <div className="bg-topbar text-white text-center py-1.5 md:py-2 px-3 text-[11px] md:text-sm font-semibold leading-snug">
                 What Medical Schools Missed: Patient Acquisition, Authority & Clinic Growth
               </div>
               <div className="relative bg-black" style={{ paddingTop: "100%" }}>
@@ -200,15 +200,15 @@ function Hero() {
               </div>
             </div>
 
-            <div className="mt-6">
-              <MasterclassCountdown variant="dark" className="mb-4" />
+            <div className="mt-4 md:mt-6">
+              <MasterclassCountdown variant="dark" className="mb-3 md:mb-4" />
               <CtaButton subtitle="Get instant access to the live masterclass">
                 YES! I Want My Patient-Getting System
               </CtaButton>
             </div>
 
 
-            <div className="mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-3 shadow-2xl">
+            <div className="mt-5 md:mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-2 md:p-3 shadow-2xl">
               <img
                 src={clinicGrowthHeroStack.url}
                 alt="Clinic Growth Masterclass product stack"
