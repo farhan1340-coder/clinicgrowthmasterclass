@@ -266,7 +266,83 @@ function OrderPage() {
       <main className="bg-secondary flex-1 overflow-x-hidden">
         <div className="mx-auto max-w-6xl px-4 py-10 grid lg:grid-cols-5 gap-8">
           {/* LEFT: form + bumps */}
+          {!hasContact ? (
+            <section className="lg:col-span-3 min-w-0">
+              <form
+                onSubmit={handleMiniSubmit}
+                className="bg-card rounded-xl shadow-lg border-2 border-primary/40 ring-2 ring-primary/10 overflow-hidden"
+              >
+                <div className="bg-primary text-primary-foreground px-5 py-3 font-bold text-center uppercase tracking-wider text-sm">
+                  Complete Your Details Before Payment
+                </div>
+                <div className="p-5 space-y-4">
+                  <p className="text-sm text-muted-foreground">
+                    Quickly enter your contact info to unlock checkout. We'll send your masterclass access to these details.
+                  </p>
+                  <div>
+                    <label htmlFor="mini-name" className="text-sm font-bold">Full Name *</label>
+                    <input
+                      id="mini-name"
+                      type="text"
+                      required
+                      value={miniName}
+                      onChange={(e) => setMiniName(e.target.value)}
+                      className="mt-1 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
+                      placeholder="e.g. Dr. Ahmed Khan"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="mini-phone" className="text-sm font-bold">WhatsApp Number *</label>
+                    <input
+                      id="mini-phone"
+                      type="tel"
+                      required
+                      value={miniPhone}
+                      onChange={(e) => setMiniPhone(e.target.value)}
+                      className="mt-1 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
+                      placeholder="e.g. 03135944817"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="mini-email" className="text-sm font-bold">Email Address *</label>
+                    <input
+                      id="mini-email"
+                      type="email"
+                      required
+                      value={miniEmail}
+                      onChange={(e) => setMiniEmail(e.target.value)}
+                      className="mt-1 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
+                      placeholder="you@email.com"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="mini-specialty" className="text-sm font-bold">Medical Speciality / Field of Practice *</label>
+                    <input
+                      id="mini-specialty"
+                      type="text"
+                      required
+                      value={miniSpecialty}
+                      onChange={(e) => setMiniSpecialty(e.target.value)}
+                      className="mt-1 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
+                      placeholder="e.g. Dentist, Dermatologist"
+                    />
+                  </div>
+                  {miniError && <p className="text-sm font-semibold text-destructive">{miniError}</p>}
+                  <button
+                    type="submit"
+                    disabled={miniSubmitting}
+                    className="btn-cta w-full px-6 py-4 text-base"
+                  >
+                    {miniSubmitting ? "SAVING..." : "CONTINUE TO PAYMENT"}
+                  </button>
+                </div>
+              </form>
+            </section>
+          ) : (
           <form className="lg:col-span-3 space-y-6 min-w-0" onSubmit={handleSubmit}>
+
+
+
 
 
             {/* Items table */}
