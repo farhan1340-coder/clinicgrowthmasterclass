@@ -1,0 +1,1 @@
+ALTER TABLE public.clinic_growth_leads ADD COLUMN IF NOT EXISTS specialty text;

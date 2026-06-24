@@ -16,6 +16,7 @@ type OrderSearch = {
   full_name?: string;
   email?: string;
   whatsapp?: string;
+  specialty?: string;
 };
 
 export const Route = createFileRoute("/order")({
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/order")({
     full_name: typeof search.full_name === "string" ? search.full_name : undefined,
     email: typeof search.email === "string" ? search.email : undefined,
     whatsapp: typeof search.whatsapp === "string" ? search.whatsapp : undefined,
+    specialty: typeof search.specialty === "string" ? search.specialty : undefined,
   }),
   head: () => ({
     meta: [
@@ -170,6 +172,7 @@ function OrderPage() {
           full_name: name,
           email,
           whatsapp: phone,
+          specialty: search.specialty,
           selected_order_bumps: selectedBumps,
           total_amount: total,
           payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,

@@ -24,6 +24,7 @@ export type Database = {
           payment_method: string
           payment_screenshot_url: string | null
           selected_order_bumps: Json
+          specialty: string | null
           total_amount: number
           whatsapp: string
         }
@@ -36,6 +37,7 @@ export type Database = {
           payment_method: string
           payment_screenshot_url?: string | null
           selected_order_bumps?: Json
+          specialty?: string | null
           total_amount: number
           whatsapp: string
         }
@@ -48,6 +50,7 @@ export type Database = {
           payment_method?: string
           payment_screenshot_url?: string | null
           selected_order_bumps?: Json
+          specialty?: string | null
           total_amount?: number
           whatsapp?: string
         }
