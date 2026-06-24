@@ -181,10 +181,6 @@ function Hero() {
           Even if you've struggled with ads, social media, or personal branding before.
         </p>
 
-        <p className="mt-4 text-center max-w-3xl mx-auto text-sm md:text-base font-bold">
-          <Calendar className="inline-block size-4 mr-1.5 text-yellow-300 align-[-2px]" />
-          <span className="gradient-highlight">Live on Zoom:</span> Saturday, 20th June 2026, 5:00 PM – 8:00 PM PKT
-        </p>
 
         {/* Two column: Video + Order card */}
         <div className="mt-10 grid md:grid-cols-5 gap-6 items-start">
