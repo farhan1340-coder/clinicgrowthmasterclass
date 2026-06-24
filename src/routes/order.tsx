@@ -219,7 +219,7 @@ function OrderPage() {
           full_name: name,
           email,
           whatsapp: phone,
-          specialty: search.specialty,
+          specialty: specialty || undefined,
           selected_order_bumps: selectedBumps,
           total_amount: total,
           payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
