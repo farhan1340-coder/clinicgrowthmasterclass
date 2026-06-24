@@ -455,11 +455,12 @@ function OrderPage() {
                     Here's Everything You Get:
                   </div>
                   <ul className="mt-3 space-y-3 text-sm">
-                    <Item title="Clinic Growth Masterclass (Live on Zoom)">
+                    <Item title="Clinic Growth Masterclass">
                       The complete patient-acquisition blueprint that eliminates months of guesswork.
                       Get the exact patient-getting system, ad strategy, and follow-up flow used by leading
-                      Pakistani clinics — delivered live on Saturday, 27th June 2026.
+                      Pakistani clinics.
                     </Item>
+
 
                     <div className="bg-emerald-600 text-white text-center font-bold py-2 rounded mt-4">
                       You'll Also Receive 4 Bonuses:
