@@ -176,6 +176,7 @@ function OrderPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
+    if (!hasContact) return;
     if (!screenshot) {
       setUploadError("Please upload your payment screenshot before submitting.");
       return;
