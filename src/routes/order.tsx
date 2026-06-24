@@ -10,7 +10,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { useEffect, useRef } from "react";
-import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
 
 type OrderSearch = {
   full_name?: string;
@@ -78,9 +77,10 @@ const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 
 function OrderPage() {
   const search = Route.useSearch();
-  const [name, setName] = useState(search.full_name ?? "");
-  const [email, setEmail] = useState(search.email ?? "");
-  const [phone, setPhone] = useState(search.whatsapp ?? "");
+  const navigate = useNavigate();
+  const name = (search.full_name ?? "").trim();
+  const email = (search.email ?? "").trim().toLowerCase();
+  const phone = (search.whatsapp ?? "").trim();
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
@@ -88,11 +88,18 @@ function OrderPage() {
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const purchaseFiredRef = useRef(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
   }, []);
+
+  // If a visitor lands directly on /order without opt-in data, send them back.
+  useEffect(() => {
+    if (!name || !email || !phone) {
+      navigate({ to: "/" });
+    }
+  }, [name, email, phone, navigate]);
+
 
   const items = useMemo(() => {
     const list: { id: string; title: string; price: number; qty: number }[] = [
@@ -201,14 +208,16 @@ function OrderPage() {
 
       {/* Headline strip */}
       <div className="bg-secondary border-b">
-        <div className="mx-auto max-w-6xl px-4 py-8 text-center">
+        <div className="mx-auto max-w-6xl px-4 py-6 md:py-8 text-center">
           <h1 className="text-2xl md:text-4xl font-black">
             You're <span className="gradient-highlight">One Step Away</span> From Filling Your Clinic
           </h1>
-          <p className="mt-2 text-muted-foreground">Complete your order below to reserve your seat in the live masterclass.</p>
-          <div className="mt-6 max-w-xl mx-auto">
-            <MasterclassCountdown variant="light" />
-          </div>
+          <p className="mt-2 text-muted-foreground">Complete your order below to confirm your seat.</p>
+          {name && (
+            <p className="mt-3 text-sm text-muted-foreground">
+              Checking out as <span className="font-bold text-foreground">{name}</span> · {email}
+            </p>
+          )}
         </div>
       </div>
 
@@ -218,17 +227,6 @@ function OrderPage() {
           {/* LEFT: form + bumps */}
           <form className="lg:col-span-3 space-y-6 min-w-0" onSubmit={handleSubmit}>
 
-            {/* Contact */}
-            <section className="bg-card rounded-xl shadow-sm border">
-              <div className="bg-primary text-primary-foreground px-5 py-3 rounded-t-xl font-bold text-center uppercase tracking-wider text-sm">
-                Step 1 — Your Contact Info
-              </div>
-              <div className="p-5 space-y-3">
-                <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Full Name*" className="w-full rounded-md border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
-                <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email*" className="w-full rounded-md border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
-                <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone Number (WhatsApp preferred)*" className="w-full rounded-md border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
-              </div>
-            </section>
 
             {/* Items table */}
             <section className="bg-card rounded-xl shadow-sm border p-5">
@@ -308,7 +306,7 @@ function OrderPage() {
             {/* Payment */}
             <section className="bg-card rounded-xl shadow-lg border-2 border-primary/40 ring-2 ring-primary/10 overflow-hidden">
               <div className="bg-primary text-primary-foreground px-5 py-3 font-bold text-center uppercase tracking-wider text-sm">
-                Step 3 — Payment Method
+                Step 2 — Payment Method
               </div>
               <div className="p-5 space-y-4">
                 <div>
@@ -457,11 +455,12 @@ function OrderPage() {
                     Here's Everything You Get:
                   </div>
                   <ul className="mt-3 space-y-3 text-sm">
-                    <Item title="Clinic Growth Masterclass (Live on Zoom)">
+                    <Item title="Clinic Growth Masterclass">
                       The complete patient-acquisition blueprint that eliminates months of guesswork.
                       Get the exact patient-getting system, ad strategy, and follow-up flow used by leading
-                      Pakistani clinics — delivered live on Saturday, 27th June 2026.
+                      Pakistani clinics.
                     </Item>
+
 
                     <div className="bg-emerald-600 text-white text-center font-bold py-2 rounded mt-4">
                       You'll Also Receive 4 Bonuses:
