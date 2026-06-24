@@ -86,17 +86,61 @@ const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 function OrderPage() {
   const search = Route.useSearch();
   const navigate = useNavigate();
-  const [name, setName] = useState((search.full_name ?? "").trim());
-  const [email, setEmail] = useState((search.email ?? "").trim().toLowerCase());
-  const [phone, setPhone] = useState((search.whatsapp ?? "").trim());
-  const [specialty, setSpecialty] = useState((search.specialty ?? "").trim());
-  const hasContact = !!(name && email && phone);
-  const [miniName, setMiniName] = useState("");
-  const [miniEmail, setMiniEmail] = useState("");
-  const [miniPhone, setMiniPhone] = useState("");
-  const [miniSpecialty, setMiniSpecialty] = useState("");
-  const [miniError, setMiniError] = useState<string | null>(null);
-  const [miniSubmitting, setMiniSubmitting] = useState(false);
+
+  // GHL passes contact details via URL params. Store them silently for submission.
+  const ghlName = (search.name ?? "").trim();
+  const ghlEmail = (search.email ?? "").trim().toLowerCase();
+  const ghlPhone = (search.phone ?? "").trim();
+  const ghlSpecialty = (search.specialty ?? "").trim();
+  const hasGhlContact = !!(ghlName && ghlEmail && ghlPhone);
+
+  // Persist GHL params across the session so a refresh doesn't lose them
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      if (hasGhlContact) {
+        sessionStorage.setItem(
+          "ghl_lead",
+          JSON.stringify({ name: ghlName, email: ghlEmail, phone: ghlPhone, specialty: ghlSpecialty }),
+        );
+      }
+    } catch {
+      /* ignore */
+    }
+  }, [hasGhlContact, ghlName, ghlEmail, ghlPhone, ghlSpecialty]);
+
+  function getLead() {
+    if (hasGhlContact) {
+      return {
+        full_name: ghlName,
+        email: ghlEmail,
+        whatsapp: ghlPhone,
+        specialty: ghlSpecialty || undefined,
+        source: "GHL Opt-In",
+      };
+    }
+    if (typeof window !== "undefined") {
+      try {
+        const raw = sessionStorage.getItem("ghl_lead");
+        if (raw) {
+          const p = JSON.parse(raw) as { name?: string; email?: string; phone?: string; specialty?: string };
+          if (p.name && p.email && p.phone) {
+            return {
+              full_name: p.name,
+              email: p.email.toLowerCase(),
+              whatsapp: p.phone,
+              specialty: p.specialty || undefined,
+              source: "GHL Opt-In",
+            };
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+    return null;
+  }
+
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
@@ -109,42 +153,6 @@ function OrderPage() {
     fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
   }, []);
 
-  async function handleMiniSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (miniSubmitting) return;
-    setMiniError(null);
-    const n = miniName.trim();
-    const em = miniEmail.trim().toLowerCase();
-    const ph = miniPhone.trim();
-    const sp = miniSpecialty.trim();
-    if (n.length < 1) return setMiniError("Please enter your full name.");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return setMiniError("Please enter a valid email.");
-    if (ph.length < 3) return setMiniError("Please enter your WhatsApp number.");
-    if (sp.length < 1) return setMiniError("Please enter your medical speciality.");
-    setMiniSubmitting(true);
-    try {
-      const { upsertLead } = await import("@/lib/leads.functions");
-      await upsertLead({
-        data: {
-          full_name: n,
-          email: em,
-          whatsapp: ph,
-          specialty: sp,
-          lead_status: "Opted In - Checkout Not Completed",
-        },
-      });
-      setName(n);
-      setEmail(em);
-      setPhone(ph);
-      setSpecialty(sp);
-      fbqTrack("Lead");
-    } catch (err) {
-      console.error("Mini opt-in save failed", err);
-      setMiniError("Something went wrong. Please try again.");
-    } finally {
-      setMiniSubmitting(false);
-    }
-  }
 
 
 
