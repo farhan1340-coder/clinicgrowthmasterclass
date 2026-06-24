@@ -208,14 +208,16 @@ function OrderPage() {
 
       {/* Headline strip */}
       <div className="bg-secondary border-b">
-        <div className="mx-auto max-w-6xl px-4 py-8 text-center">
+        <div className="mx-auto max-w-6xl px-4 py-6 md:py-8 text-center">
           <h1 className="text-2xl md:text-4xl font-black">
             You're <span className="gradient-highlight">One Step Away</span> From Filling Your Clinic
           </h1>
-          <p className="mt-2 text-muted-foreground">Complete your order below to reserve your seat in the live masterclass.</p>
-          <div className="mt-6 max-w-xl mx-auto">
-            <MasterclassCountdown variant="light" />
-          </div>
+          <p className="mt-2 text-muted-foreground">Complete your order below to confirm your seat.</p>
+          {name && (
+            <p className="mt-3 text-sm text-muted-foreground">
+              Checking out as <span className="font-bold text-foreground">{name}</span> · {email}
+            </p>
+          )}
         </div>
       </div>
 
@@ -225,17 +227,6 @@ function OrderPage() {
           {/* LEFT: form + bumps */}
           <form className="lg:col-span-3 space-y-6 min-w-0" onSubmit={handleSubmit}>
 
-            {/* Contact */}
-            <section className="bg-card rounded-xl shadow-sm border">
-              <div className="bg-primary text-primary-foreground px-5 py-3 rounded-t-xl font-bold text-center uppercase tracking-wider text-sm">
-                Step 1 — Your Contact Info
-              </div>
-              <div className="p-5 space-y-3">
-                <input required value={name} onChange={(e) => setName(e.target.value)} placeholder="Full Name*" className="w-full rounded-md border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
-                <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email*" className="w-full rounded-md border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
-                <input required value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone Number (WhatsApp preferred)*" className="w-full rounded-md border border-input bg-background px-4 py-3 outline-none focus:ring-2 focus:ring-ring" />
-              </div>
-            </section>
 
             {/* Items table */}
             <section className="bg-card rounded-xl shadow-sm border p-5">
