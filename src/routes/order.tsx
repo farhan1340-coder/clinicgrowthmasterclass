@@ -10,7 +10,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { useEffect, useRef } from "react";
-import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
 
 type OrderSearch = {
   full_name?: string;
