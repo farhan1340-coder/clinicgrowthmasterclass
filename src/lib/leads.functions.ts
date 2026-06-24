@@ -4,6 +4,7 @@ type UpsertLeadInput = {
   full_name: string;
   email: string;
   whatsapp: string;
+  specialty?: string;
   selected_order_bumps?: Array<{ id: string; title: string; price: number }>;
   total_amount?: number;
   payment_method?: string;
@@ -18,6 +19,7 @@ function validate(data: unknown): UpsertLeadInput {
   const email = String(d.email ?? "").trim().toLowerCase();
   const whatsapp = String(d.whatsapp ?? "").trim();
   const lead_status = String(d.lead_status ?? "").trim();
+  const specialty = String(d.specialty ?? "").trim().slice(0, 120);
   if (full_name.length < 1 || full_name.length > 120) throw new Error("Invalid name");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 255) throw new Error("Invalid email");
   if (whatsapp.length < 3 || whatsapp.length > 40) throw new Error("Invalid WhatsApp number");
@@ -26,6 +28,7 @@ function validate(data: unknown): UpsertLeadInput {
     full_name,
     email,
     whatsapp,
+    specialty: specialty || undefined,
     selected_order_bumps: Array.isArray(d.selected_order_bumps)
       ? (d.selected_order_bumps as UpsertLeadInput["selected_order_bumps"])
       : [],
@@ -62,6 +65,7 @@ export const upsertLead = createServerFn({ method: "POST" })
         full_name: data.full_name,
         email: data.email,
         whatsapp: data.whatsapp,
+        ...(data.specialty ? { specialty: data.specialty } : {}),
         selected_order_bumps: preservePayment ? existing.selected_order_bumps : data.selected_order_bumps,
         total_amount: preservePayment ? existing.total_amount : data.total_amount,
         payment_method: preservePayment ? existing.payment_method : data.payment_method,
@@ -85,6 +89,7 @@ export const upsertLead = createServerFn({ method: "POST" })
         full_name: data.full_name,
         email: data.email,
         whatsapp: data.whatsapp,
+        ...(data.specialty ? { specialty: data.specialty } : {}),
         selected_order_bumps: data.selected_order_bumps ?? [],
         total_amount: data.total_amount ?? 0,
         payment_method: data.payment_method ?? "pending",

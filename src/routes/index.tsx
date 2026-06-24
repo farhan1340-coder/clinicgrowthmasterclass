@@ -258,11 +258,32 @@ function Hero() {
   );
 }
 
+const SPECIALTY_OPTIONS = [
+  "General Physician (GP)",
+  "Dentist",
+  "Dermatologist / Skin Specialist",
+  "Gynecologist / Obstetrician",
+  "Pediatrician",
+  "Nutritionist / Dietitian",
+  "Physiotherapist",
+  "Psychologist / Psychiatrist",
+  "ENT Specialist",
+  "Eye Specialist",
+  "Orthopedic Surgeon",
+  "Cardiologist",
+  "Aesthetic / Cosmetic Practitioner",
+  "Hakeem / Homeopath",
+  "Clinic Owner / Manager",
+  "Medical Student",
+  "Other",
+];
+
 function InlineLeadForm() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
+  const [specialty, setSpecialty] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -277,6 +298,7 @@ function InlineLeadForm() {
         const fullName = name.trim();
         const emailNorm = email.trim().toLowerCase();
         const wa = whatsapp.trim();
+        const spec = specialty.trim();
 
         if (fullName.length < 2) {
           setError("Please enter your full name.");
@@ -291,6 +313,10 @@ function InlineLeadForm() {
           setError("Please enter a valid WhatsApp number (e.g. 03XX XXXXXXX).");
           return;
         }
+        if (!spec) {
+          setError("Please select your medical speciality / field of practice.");
+          return;
+        }
 
         setSubmitting(true);
         try {
@@ -300,6 +326,7 @@ function InlineLeadForm() {
               full_name: fullName,
               email: emailNorm,
               whatsapp: wa,
+              specialty: spec,
               lead_status: "Opted In - Checkout Not Completed",
             },
           });
@@ -317,6 +344,7 @@ function InlineLeadForm() {
         params.set("full_name", fullName);
         params.set("email", emailNorm);
         params.set("whatsapp", wa);
+        params.set("specialty", spec);
         navigate({ to: "/order", search: Object.fromEntries(params) });
       }}
     >
@@ -347,6 +375,17 @@ function InlineLeadForm() {
         autoComplete="tel"
         className="w-full rounded-md border border-input bg-background px-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
       />
+      <select
+        required
+        value={specialty}
+        onChange={(e) => setSpecialty(e.target.value)}
+        className="w-full rounded-md border border-input bg-background px-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+      >
+        <option value="" disabled>Medical Speciality / Field of Practice*</option>
+        {SPECIALTY_OPTIONS.map((opt) => (
+          <option key={opt} value={opt}>{opt}</option>
+        ))}
+      </select>
       {error && (
         <p className="text-xs font-semibold text-destructive">{error}</p>
       )}
