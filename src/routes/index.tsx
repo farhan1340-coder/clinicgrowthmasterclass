@@ -258,25 +258,6 @@ function Hero() {
   );
 }
 
-const SPECIALTY_OPTIONS = [
-  "General Physician (GP)",
-  "Dentist",
-  "Dermatologist / Skin Specialist",
-  "Gynecologist / Obstetrician",
-  "Pediatrician",
-  "Nutritionist / Dietitian",
-  "Physiotherapist",
-  "Psychologist / Psychiatrist",
-  "ENT Specialist",
-  "Eye Specialist",
-  "Orthopedic Surgeon",
-  "Cardiologist",
-  "Aesthetic / Cosmetic Practitioner",
-  "Hakeem / Homeopath",
-  "Clinic Owner / Manager",
-  "Medical Student",
-  "Other",
-];
 
 function InlineLeadForm() {
   const navigate = useNavigate();
@@ -314,7 +295,7 @@ function InlineLeadForm() {
           return;
         }
         if (!spec) {
-          setError("Please select your medical speciality / field of practice.");
+          setError("Please enter your medical speciality / field of practice.");
           return;
         }
 
@@ -375,17 +356,15 @@ function InlineLeadForm() {
         autoComplete="tel"
         className="w-full rounded-md border border-input bg-background px-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
       />
-      <select
+      <input
         required
+        type="text"
         value={specialty}
         onChange={(e) => setSpecialty(e.target.value)}
+        placeholder="Medical Speciality / Field of Practice*"
+        maxLength={120}
         className="w-full rounded-md border border-input bg-background px-3 py-3 text-sm outline-none focus:ring-2 focus:ring-ring"
-      >
-        <option value="" disabled>Medical Speciality / Field of Practice*</option>
-        {SPECIALTY_OPTIONS.map((opt) => (
-          <option key={opt} value={opt}>{opt}</option>
-        ))}
-      </select>
+      />
       {error && (
         <p className="text-xs font-semibold text-destructive">{error}</p>
       )}
