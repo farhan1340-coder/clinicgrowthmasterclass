@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Calendar, Clock } from "lucide-react";
 
-// 20th June 2026 (Saturday), 5:00 PM Pakistan Standard Time (UTC+5)
-// => 2026-06-20T17:00:00+05:00 => 2026-06-20T12:00:00Z
-export const MASTERCLASS_DATE_ISO = "2026-06-20T12:00:00Z";
+// 27th June 2026 (Saturday), 5:00 PM Pakistan Standard Time (UTC+5)
+// => 2026-06-27T17:00:00+05:00 => 2026-06-27T12:00:00Z
+export const MASTERCLASS_DATE_ISO = "2026-06-27T12:00:00Z";
 export const MASTERCLASS_DATE_LABEL =
-  "Live Masterclass: 20th (Sat) June at 5 PM – 8 PM Pakistan Standard Time";
+  "Live Masterclass: 27th (Sat) June at 5 PM – 8 PM Pakistan Standard Time";
 
 function getTimeLeft(target: number) {
   const diff = Math.max(0, target - Date.now());
@@ -59,7 +59,7 @@ export function MasterclassCountdown({
           <Calendar className="size-4 sm:size-5 text-yellow-300 shrink-0" />
           <span>
             Live Masterclass:{" "}
-            <span className="gradient-highlight">20th (Sat) June</span> at{" "}
+            <span className="gradient-highlight">27th (Sat) June</span> at{" "}
             <span className="gradient-highlight">5 PM – 8 PM</span> Pakistan Standard Time
           </span>
         </div>

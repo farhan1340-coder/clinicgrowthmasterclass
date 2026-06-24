@@ -457,7 +457,7 @@ function OrderPage() {
                     <Item title="Clinic Growth Masterclass (Live on Zoom)">
                       The complete patient-acquisition blueprint that eliminates months of guesswork.
                       Get the exact patient-getting system, ad strategy, and follow-up flow used by leading
-                      Pakistani clinics — delivered live on Saturday, 20th June 2026.
+                      Pakistani clinics — delivered live on Saturday, 27th June 2026.
                     </Item>
 
                     <div className="bg-emerald-600 text-white text-center font-bold py-2 rounded mt-4">
