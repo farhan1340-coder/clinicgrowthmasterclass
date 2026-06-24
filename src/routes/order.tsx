@@ -12,18 +12,26 @@ import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { useEffect, useRef } from "react";
 
 type OrderSearch = {
-  full_name?: string;
+  name?: string;
   email?: string;
-  whatsapp?: string;
+  phone?: string;
   specialty?: string;
 };
 
+function pickStr(...vals: unknown[]): string | undefined {
+  for (const v of vals) {
+    if (typeof v === "string" && v.trim().length > 0) return v;
+  }
+  return undefined;
+}
+
 export const Route = createFileRoute("/order")({
   validateSearch: (search: Record<string, unknown>): OrderSearch => ({
-    full_name: typeof search.full_name === "string" ? search.full_name : undefined,
-    email: typeof search.email === "string" ? search.email : undefined,
-    whatsapp: typeof search.whatsapp === "string" ? search.whatsapp : undefined,
-    specialty: typeof search.specialty === "string" ? search.specialty : undefined,
+    // Accept GHL params (name, phone, email, specialty) plus legacy aliases
+    name: pickStr(search.name, search.full_name, search.fullname),
+    email: pickStr(search.email),
+    phone: pickStr(search.phone, search.whatsapp, search.mobile),
+    specialty: pickStr(search.specialty, search.speciality, search.field),
   }),
   head: () => ({
     meta: [
@@ -78,17 +86,61 @@ const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 function OrderPage() {
   const search = Route.useSearch();
   const navigate = useNavigate();
-  const [name, setName] = useState((search.full_name ?? "").trim());
-  const [email, setEmail] = useState((search.email ?? "").trim().toLowerCase());
-  const [phone, setPhone] = useState((search.whatsapp ?? "").trim());
-  const [specialty, setSpecialty] = useState((search.specialty ?? "").trim());
-  const hasContact = !!(name && email && phone);
-  const [miniName, setMiniName] = useState("");
-  const [miniEmail, setMiniEmail] = useState("");
-  const [miniPhone, setMiniPhone] = useState("");
-  const [miniSpecialty, setMiniSpecialty] = useState("");
-  const [miniError, setMiniError] = useState<string | null>(null);
-  const [miniSubmitting, setMiniSubmitting] = useState(false);
+
+  // GHL passes contact details via URL params. Store them silently for submission.
+  const ghlName = (search.name ?? "").trim();
+  const ghlEmail = (search.email ?? "").trim().toLowerCase();
+  const ghlPhone = (search.phone ?? "").trim();
+  const ghlSpecialty = (search.specialty ?? "").trim();
+  const hasGhlContact = !!(ghlName && ghlEmail && ghlPhone);
+
+  // Persist GHL params across the session so a refresh doesn't lose them
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      if (hasGhlContact) {
+        sessionStorage.setItem(
+          "ghl_lead",
+          JSON.stringify({ name: ghlName, email: ghlEmail, phone: ghlPhone, specialty: ghlSpecialty }),
+        );
+      }
+    } catch {
+      /* ignore */
+    }
+  }, [hasGhlContact, ghlName, ghlEmail, ghlPhone, ghlSpecialty]);
+
+  function getLead() {
+    if (hasGhlContact) {
+      return {
+        full_name: ghlName,
+        email: ghlEmail,
+        whatsapp: ghlPhone,
+        specialty: ghlSpecialty || undefined,
+        source: "GHL Opt-In",
+      };
+    }
+    if (typeof window !== "undefined") {
+      try {
+        const raw = sessionStorage.getItem("ghl_lead");
+        if (raw) {
+          const p = JSON.parse(raw) as { name?: string; email?: string; phone?: string; specialty?: string };
+          if (p.name && p.email && p.phone) {
+            return {
+              full_name: p.name,
+              email: p.email.toLowerCase(),
+              whatsapp: p.phone,
+              specialty: p.specialty || undefined,
+              source: "GHL Opt-In",
+            };
+          }
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+    return null;
+  }
+
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
@@ -101,42 +153,6 @@ function OrderPage() {
     fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
   }, []);
 
-  async function handleMiniSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (miniSubmitting) return;
-    setMiniError(null);
-    const n = miniName.trim();
-    const em = miniEmail.trim().toLowerCase();
-    const ph = miniPhone.trim();
-    const sp = miniSpecialty.trim();
-    if (n.length < 1) return setMiniError("Please enter your full name.");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return setMiniError("Please enter a valid email.");
-    if (ph.length < 3) return setMiniError("Please enter your WhatsApp number.");
-    if (sp.length < 1) return setMiniError("Please enter your medical speciality.");
-    setMiniSubmitting(true);
-    try {
-      const { upsertLead } = await import("@/lib/leads.functions");
-      await upsertLead({
-        data: {
-          full_name: n,
-          email: em,
-          whatsapp: ph,
-          specialty: sp,
-          lead_status: "Opted In - Checkout Not Completed",
-        },
-      });
-      setName(n);
-      setEmail(em);
-      setPhone(ph);
-      setSpecialty(sp);
-      fbqTrack("Lead");
-    } catch (err) {
-      console.error("Mini opt-in save failed", err);
-      setMiniError("Something went wrong. Please try again.");
-    } finally {
-      setMiniSubmitting(false);
-    }
-  }
 
 
 
@@ -176,7 +192,6 @@ function OrderPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
-    if (!hasContact) return;
     if (!screenshot) {
       setUploadError("Please upload your payment screenshot before submitting.");
       return;
@@ -189,16 +204,26 @@ function OrderPage() {
       price: b.price,
     }));
 
+    // Resolve lead — prefer GHL params, then sessionStorage, otherwise mark as direct.
+    const stored = getLead();
+    const isDirect = !stored;
+    const leadFullName = stored?.full_name ?? "Direct Visitor";
+    const leadEmail = stored?.email ?? `direct-${Date.now()}@unknown.local`;
+    const leadWhatsapp = stored?.whatsapp ?? "unknown";
+    const leadSpecialty = stored?.specialty;
+    const leadStatus = isDirect
+      ? "Direct Checkout / Missing GHL Details"
+      : "Pending Payment";
+
     let screenshotPath: string | null = null;
     try {
       const ext = screenshot.name.split(".").pop()?.toLowerCase() || "jpg";
-      const safeEmail = email.replace(/[^a-z0-9]/gi, "_").slice(0, 40);
+      const safeEmail = leadEmail.replace(/[^a-z0-9]/gi, "_").slice(0, 40);
       const path = `${Date.now()}-${safeEmail}.${ext}`;
       const { error: upErr } = await supabase.storage
         .from("payment-screenshots")
         .upload(path, screenshot, { contentType: screenshot.type, upsert: false });
       if (upErr) throw upErr;
-      // Create a long-lived signed URL server-side so it's clickable from DB
       try {
         const { url } = await createScreenshotSignedUrl({ data: { path } });
         screenshotPath = url;
@@ -217,14 +242,14 @@ function OrderPage() {
       const { upsertLead } = await import("@/lib/leads.functions");
       await upsertLead({
         data: {
-          full_name: name,
-          email,
-          whatsapp: phone,
-          specialty: specialty || undefined,
+          full_name: leadFullName,
+          email: leadEmail,
+          whatsapp: leadWhatsapp,
+          specialty: leadSpecialty,
           selected_order_bumps: selectedBumps,
           total_amount: total,
           payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
-          lead_status: "Pending Payment",
+          lead_status: leadStatus,
           payment_screenshot_url: screenshotPath,
         },
       });
@@ -254,92 +279,15 @@ function OrderPage() {
             You're <span className="gradient-highlight">One Step Away</span> From Filling Your Clinic
           </h1>
           <p className="mt-2 text-muted-foreground">Complete your order below to confirm your seat.</p>
-          {name && (
-            <p className="mt-3 text-sm text-muted-foreground">
-              Checking out as <span className="font-bold text-foreground">{name}</span> · {email}
-            </p>
-          )}
         </div>
       </div>
 
 
       <main className="bg-secondary flex-1 overflow-x-hidden">
         <div className="mx-auto max-w-6xl px-4 py-10 grid lg:grid-cols-5 gap-8">
-          {/* LEFT: form + bumps */}
-          {!hasContact ? (
-            <section className="lg:col-span-3 min-w-0">
-              <form
-                onSubmit={handleMiniSubmit}
-                className="bg-card rounded-xl shadow-lg border-2 border-primary/40 ring-2 ring-primary/10 overflow-hidden"
-              >
-                <div className="bg-primary text-primary-foreground px-5 py-3 font-bold text-center uppercase tracking-wider text-sm">
-                  Complete Your Details Before Payment
-                </div>
-                <div className="p-5 space-y-4">
-                  <p className="text-sm text-muted-foreground">
-                    Quickly enter your contact info to unlock checkout. We'll send your masterclass access to these details.
-                  </p>
-                  <div>
-                    <label htmlFor="mini-name" className="text-sm font-bold">Full Name *</label>
-                    <input
-                      id="mini-name"
-                      type="text"
-                      required
-                      value={miniName}
-                      onChange={(e) => setMiniName(e.target.value)}
-                      className="mt-1 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
-                      placeholder="e.g. Dr. Ahmed Khan"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="mini-phone" className="text-sm font-bold">WhatsApp Number *</label>
-                    <input
-                      id="mini-phone"
-                      type="tel"
-                      required
-                      value={miniPhone}
-                      onChange={(e) => setMiniPhone(e.target.value)}
-                      className="mt-1 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
-                      placeholder="e.g. 03135944817"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="mini-email" className="text-sm font-bold">Email Address *</label>
-                    <input
-                      id="mini-email"
-                      type="email"
-                      required
-                      value={miniEmail}
-                      onChange={(e) => setMiniEmail(e.target.value)}
-                      className="mt-1 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
-                      placeholder="you@email.com"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="mini-specialty" className="text-sm font-bold">Medical Speciality / Field of Practice *</label>
-                    <input
-                      id="mini-specialty"
-                      type="text"
-                      required
-                      value={miniSpecialty}
-                      onChange={(e) => setMiniSpecialty(e.target.value)}
-                      className="mt-1 w-full rounded-lg border-2 border-input bg-background px-4 py-3 text-base outline-none focus:border-primary"
-                      placeholder="e.g. Dentist, Dermatologist"
-                    />
-                  </div>
-                  {miniError && <p className="text-sm font-semibold text-destructive">{miniError}</p>}
-                  <button
-                    type="submit"
-                    disabled={miniSubmitting}
-                    className="btn-cta w-full px-6 py-4 text-base"
-                  >
-                    {miniSubmitting ? "SAVING..." : "CONTINUE TO PAYMENT"}
-                  </button>
-                </div>
-              </form>
-            </section>
-          ) : (
+          {/* LEFT: bumps + payment */}
           <form className="lg:col-span-3 space-y-6 min-w-0" onSubmit={handleSubmit}>
+
 
 
 
@@ -551,7 +499,8 @@ function OrderPage() {
               </p>
             </section>
           </form>
-          )}
+
+
 
 
           {/* RIGHT: product card */}
