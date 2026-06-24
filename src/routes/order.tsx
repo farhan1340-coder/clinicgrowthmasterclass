@@ -78,9 +78,17 @@ const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 function OrderPage() {
   const search = Route.useSearch();
   const navigate = useNavigate();
-  const name = (search.full_name ?? "").trim();
-  const email = (search.email ?? "").trim().toLowerCase();
-  const phone = (search.whatsapp ?? "").trim();
+  const [name, setName] = useState((search.full_name ?? "").trim());
+  const [email, setEmail] = useState((search.email ?? "").trim().toLowerCase());
+  const [phone, setPhone] = useState((search.whatsapp ?? "").trim());
+  const [specialty, setSpecialty] = useState((search.specialty ?? "").trim());
+  const hasContact = !!(name && email && phone);
+  const [miniName, setMiniName] = useState("");
+  const [miniEmail, setMiniEmail] = useState("");
+  const [miniPhone, setMiniPhone] = useState("");
+  const [miniSpecialty, setMiniSpecialty] = useState("");
+  const [miniError, setMiniError] = useState<string | null>(null);
+  const [miniSubmitting, setMiniSubmitting] = useState(false);
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
@@ -93,12 +101,44 @@ function OrderPage() {
     fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
   }, []);
 
-  // If a visitor lands directly on /order without opt-in data, send them back.
-  useEffect(() => {
-    if (!name || !email || !phone) {
-      navigate({ to: "/" });
+  async function handleMiniSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (miniSubmitting) return;
+    setMiniError(null);
+    const n = miniName.trim();
+    const em = miniEmail.trim().toLowerCase();
+    const ph = miniPhone.trim();
+    const sp = miniSpecialty.trim();
+    if (n.length < 1) return setMiniError("Please enter your full name.");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) return setMiniError("Please enter a valid email.");
+    if (ph.length < 3) return setMiniError("Please enter your WhatsApp number.");
+    if (sp.length < 1) return setMiniError("Please enter your medical speciality.");
+    setMiniSubmitting(true);
+    try {
+      const { upsertLead } = await import("@/lib/leads.functions");
+      await upsertLead({
+        data: {
+          full_name: n,
+          email: em,
+          whatsapp: ph,
+          specialty: sp,
+          lead_status: "Opted In - Checkout Not Completed",
+        },
+      });
+      setName(n);
+      setEmail(em);
+      setPhone(ph);
+      setSpecialty(sp);
+      fbqTrack("Lead");
+    } catch (err) {
+      console.error("Mini opt-in save failed", err);
+      setMiniError("Something went wrong. Please try again.");
+    } finally {
+      setMiniSubmitting(false);
     }
-  }, [name, email, phone, navigate]);
+  }
+
+
 
 
   const items = useMemo(() => {
