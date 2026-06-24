@@ -314,7 +314,7 @@ function InlineLeadForm() {
           return;
         }
         if (!spec) {
-          setError("Please select your medical speciality / field of practice.");
+          setError("Please enter your medical speciality / field of practice.");
           return;
         }
 
