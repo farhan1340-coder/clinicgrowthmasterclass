@@ -12,18 +12,26 @@ import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { useEffect, useRef } from "react";
 
 type OrderSearch = {
-  full_name?: string;
+  name?: string;
   email?: string;
-  whatsapp?: string;
+  phone?: string;
   specialty?: string;
 };
 
+function pickStr(...vals: unknown[]): string | undefined {
+  for (const v of vals) {
+    if (typeof v === "string" && v.trim().length > 0) return v;
+  }
+  return undefined;
+}
+
 export const Route = createFileRoute("/order")({
   validateSearch: (search: Record<string, unknown>): OrderSearch => ({
-    full_name: typeof search.full_name === "string" ? search.full_name : undefined,
-    email: typeof search.email === "string" ? search.email : undefined,
-    whatsapp: typeof search.whatsapp === "string" ? search.whatsapp : undefined,
-    specialty: typeof search.specialty === "string" ? search.specialty : undefined,
+    // Accept GHL params (name, phone, email, specialty) plus legacy aliases
+    name: pickStr(search.name, search.full_name, search.fullname),
+    email: pickStr(search.email),
+    phone: pickStr(search.phone, search.whatsapp, search.mobile),
+    specialty: pickStr(search.specialty, search.speciality, search.field),
   }),
   head: () => ({
     meta: [
