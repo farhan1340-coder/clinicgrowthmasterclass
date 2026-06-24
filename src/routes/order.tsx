@@ -192,7 +192,6 @@ function OrderPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (submitting) return;
-    if (!hasContact) return;
     if (!screenshot) {
       setUploadError("Please upload your payment screenshot before submitting.");
       return;
@@ -205,16 +204,26 @@ function OrderPage() {
       price: b.price,
     }));
 
+    // Resolve lead — prefer GHL params, then sessionStorage, otherwise mark as direct.
+    const stored = getLead();
+    const isDirect = !stored;
+    const leadFullName = stored?.full_name ?? "Direct Visitor";
+    const leadEmail = stored?.email ?? `direct-${Date.now()}@unknown.local`;
+    const leadWhatsapp = stored?.whatsapp ?? "unknown";
+    const leadSpecialty = stored?.specialty;
+    const leadStatus = isDirect
+      ? "Direct Checkout / Missing GHL Details"
+      : "Pending Payment";
+
     let screenshotPath: string | null = null;
     try {
       const ext = screenshot.name.split(".").pop()?.toLowerCase() || "jpg";
-      const safeEmail = email.replace(/[^a-z0-9]/gi, "_").slice(0, 40);
+      const safeEmail = leadEmail.replace(/[^a-z0-9]/gi, "_").slice(0, 40);
       const path = `${Date.now()}-${safeEmail}.${ext}`;
       const { error: upErr } = await supabase.storage
         .from("payment-screenshots")
         .upload(path, screenshot, { contentType: screenshot.type, upsert: false });
       if (upErr) throw upErr;
-      // Create a long-lived signed URL server-side so it's clickable from DB
       try {
         const { url } = await createScreenshotSignedUrl({ data: { path } });
         screenshotPath = url;
@@ -233,14 +242,14 @@ function OrderPage() {
       const { upsertLead } = await import("@/lib/leads.functions");
       await upsertLead({
         data: {
-          full_name: name,
-          email,
-          whatsapp: phone,
-          specialty: specialty || undefined,
+          full_name: leadFullName,
+          email: leadEmail,
+          whatsapp: leadWhatsapp,
+          specialty: leadSpecialty,
           selected_order_bumps: selectedBumps,
           total_amount: total,
           payment_method: PAYMENT_ACCOUNTS[paymentMethod].label,
-          lead_status: "Pending Payment",
+          lead_status: leadStatus,
           payment_screenshot_url: screenshotPath,
         },
       });
