@@ -178,8 +178,7 @@ function Hero() {
           <span className="gradient-highlight">Digital Marketing</span>!
         </h1>
         <p className="mt-6 text-center max-w-3xl mx-auto text-lg md:text-xl text-white/85">
-          Even if you've struggled with ads, social media, or personal branding before — I'll show you the exact
-          patient-getting system used by leading clinics across Pakistan.
+          Even if you've struggled with ads, social media, or personal branding before.
         </p>
 
         <p className="mt-4 text-center max-w-3xl mx-auto text-sm md:text-base font-bold">
