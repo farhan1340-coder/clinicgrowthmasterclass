@@ -306,7 +306,7 @@ function OrderPage() {
             {/* Payment */}
             <section className="bg-card rounded-xl shadow-lg border-2 border-primary/40 ring-2 ring-primary/10 overflow-hidden">
               <div className="bg-primary text-primary-foreground px-5 py-3 font-bold text-center uppercase tracking-wider text-sm">
-                Step 3 — Payment Method
+                Step 2 — Payment Method
               </div>
               <div className="p-5 space-y-4">
                 <div>
