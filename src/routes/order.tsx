@@ -77,9 +77,10 @@ const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 
 function OrderPage() {
   const search = Route.useSearch();
-  const [name, setName] = useState(search.full_name ?? "");
-  const [email, setEmail] = useState(search.email ?? "");
-  const [phone, setPhone] = useState(search.whatsapp ?? "");
+  const navigate = useNavigate();
+  const name = (search.full_name ?? "").trim();
+  const email = (search.email ?? "").trim().toLowerCase();
+  const phone = (search.whatsapp ?? "").trim();
   const [bumps, setBumps] = useState<Record<string, boolean>>({});
   const [paymentMethod, setPaymentMethod] = useState<PayMethod>("easypaisa");
   const [submitting, setSubmitting] = useState(false);
@@ -87,11 +88,18 @@ function OrderPage() {
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const purchaseFiredRef = useRef(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
   }, []);
+
+  // If a visitor lands directly on /order without opt-in data, send them back.
+  useEffect(() => {
+    if (!name || !email || !phone) {
+      navigate({ to: "/" });
+    }
+  }, [name, email, phone, navigate]);
+
 
   const items = useMemo(() => {
     const list: { id: string; title: string; price: number; qty: number }[] = [
