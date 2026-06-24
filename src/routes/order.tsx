@@ -551,6 +551,8 @@ function OrderPage() {
               </p>
             </section>
           </form>
+          )}
+
 
           {/* RIGHT: product card */}
           <aside className="lg:col-span-2 space-y-6">
