@@ -47,6 +47,7 @@ function LandingPage() {
       
       <Topbar />
       <Hero />
+      <WhatsAppFeedback />
       <SocialProofBar />
       <WhatIsItSection />
       <WebsiteGiveawaySection />
