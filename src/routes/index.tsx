@@ -18,7 +18,6 @@ import {
 import farhanInstructor from "@/assets/farhan-instructor.jpeg.asset.json";
 import doctorBeforeAfter from "@/assets/doctor-before-after.png.asset.json";
 import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
-import { WhatsAppFeedback } from "@/components/site/WhatsAppFeedback";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,7 +46,6 @@ function LandingPage() {
       
       <Topbar />
       <Hero />
-      <WhatsAppFeedback />
       <SocialProofBar />
       <WhatIsItSection />
       <WebsiteGiveawaySection />
