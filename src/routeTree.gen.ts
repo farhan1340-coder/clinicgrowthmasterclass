@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminLeads1340RouteImport } from './routes/admin.leads1340'
 
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
@@ -28,35 +29,44 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLeads1340Route = AdminLeads1340RouteImport.update({
+  id: '/admin/leads1340',
+  path: '/admin/leads1340',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/order': typeof OrderRoute
   '/thank-you': typeof ThankYouRoute
+  '/admin/leads1340': typeof AdminLeads1340Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/order': typeof OrderRoute
   '/thank-you': typeof ThankYouRoute
+  '/admin/leads1340': typeof AdminLeads1340Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/order': typeof OrderRoute
   '/thank-you': typeof ThankYouRoute
+  '/admin/leads1340': typeof AdminLeads1340Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/order' | '/thank-you'
+  fullPaths: '/' | '/order' | '/thank-you' | '/admin/leads1340'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/order' | '/thank-you'
-  id: '__root__' | '/' | '/order' | '/thank-you'
+  to: '/' | '/order' | '/thank-you' | '/admin/leads1340'
+  id: '__root__' | '/' | '/order' | '/thank-you' | '/admin/leads1340'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   OrderRoute: typeof OrderRoute
   ThankYouRoute: typeof ThankYouRoute
+  AdminLeads1340Route: typeof AdminLeads1340Route
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/leads1340': {
+      id: '/admin/leads1340'
+      path: '/admin/leads1340'
+      fullPath: '/admin/leads1340'
+      preLoaderRoute: typeof AdminLeads1340RouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   OrderRoute: OrderRoute,
   ThankYouRoute: ThankYouRoute,
+  AdminLeads1340Route: AdminLeads1340Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
