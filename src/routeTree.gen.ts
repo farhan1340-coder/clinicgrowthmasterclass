@@ -13,6 +13,7 @@ import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminLeads1340RouteImport } from './routes/admin.leads1340'
+import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
@@ -34,18 +35,26 @@ const AdminLeads1340Route = AdminLeads1340RouteImport.update({
   path: '/admin/leads1340',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LovableEmailQueueProcessRoute =
+  LovableEmailQueueProcessRouteImport.update({
+    id: '/lovable/email/queue/process',
+    path: '/lovable/email/queue/process',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/order': typeof OrderRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
+  '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/order': typeof OrderRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
+  '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +62,30 @@ export interface FileRoutesById {
   '/order': typeof OrderRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
+  '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/order' | '/thank-you' | '/admin/leads1340'
+  fullPaths:
+    | '/'
+    | '/order'
+    | '/thank-you'
+    | '/admin/leads1340'
+    | '/lovable/email/queue/process'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/order' | '/thank-you' | '/admin/leads1340'
-  id: '__root__' | '/' | '/order' | '/thank-you' | '/admin/leads1340'
+  to:
+    | '/'
+    | '/order'
+    | '/thank-you'
+    | '/admin/leads1340'
+    | '/lovable/email/queue/process'
+  id:
+    | '__root__'
+    | '/'
+    | '/order'
+    | '/thank-you'
+    | '/admin/leads1340'
+    | '/lovable/email/queue/process'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +93,7 @@ export interface RootRouteChildren {
   OrderRoute: typeof OrderRoute
   ThankYouRoute: typeof ThankYouRoute
   AdminLeads1340Route: typeof AdminLeads1340Route
+  LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLeads1340RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lovable/email/queue/process': {
+      id: '/lovable/email/queue/process'
+      path: '/lovable/email/queue/process'
+      fullPath: '/lovable/email/queue/process'
+      preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +141,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrderRoute: OrderRoute,
   ThankYouRoute: ThankYouRoute,
   AdminLeads1340Route: AdminLeads1340Route,
+  LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
