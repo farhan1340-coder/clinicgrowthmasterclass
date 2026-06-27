@@ -15,7 +15,7 @@ export const Route = createFileRoute("/thank-you")({
 });
 
 function ThankYouPage() {
-  const waCommunity = "https://chat.whatsapp.com/BSkqjqwb5Uh8TRVVOPkI6r";
+  const waCommunity = "https://chat.whatsapp.com/D5RErdi4ZnhJGNOOEK37c6";
   const waSupport = `https://wa.me/923135944817?text=${encodeURIComponent(
     "Assalam-o-Alaikum, I need help with my Clinic Growth Masterclass order.",
   )}`;
