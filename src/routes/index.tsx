@@ -242,7 +242,7 @@ function Hero() {
               <p className="mt-4 text-sm">
                 Get Your Seat For <span className="line-through">Rs. 3,999</span> just{" "}
                 <span className="font-bold">Rs. 999!</span><br />
-                Live on Zoom — Saturday, 27th June 2026.
+                Live on Zoom — Sunday, 12th July 2026.
               </p>
 
               <InlineLeadForm />
@@ -569,7 +569,7 @@ function BonusesSection() {
 function HowItWorks() {
   const steps = [
     { icon: Calendar, title: "Step 1 — Reserve Your Seat", text: "Lock in your Rs. 999 spot and get the Zoom link instantly in your email." },
-    { icon: Stethoscope, title: "Step 2 — Attend Live on Zoom", text: "Join the 3-hour deep-dive on Saturday, 27th June 2026 — interactive and personal." },
+    { icon: Stethoscope, title: "Step 2 — Attend Live on Zoom", text: "Join the 3-hour deep-dive on Sunday, 12th July 2026 — interactive and personal." },
     { icon: TrendingUp, title: "Step 3 — Get 20–25 New Patients/Week", text: "Implement the system the same week and watch your appointment book fill up." },
   ];
   return (
@@ -749,7 +749,7 @@ function FAQSection() {
     },
     {
       q: "4. When is the masterclass?",
-      a: "Saturday, 27th June 2026 — from 5:00 PM to 8:00 PM (PKT). Block your calendar now.",
+      a: "Sunday, 12th July 2026 — from 5:00 PM to 8:00 PM (PKT). Block your calendar now.",
     },
     {
       q: "5. Is this only for Pakistani doctors?",
