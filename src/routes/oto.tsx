@@ -499,6 +499,9 @@ lastError: ${debug.lastError ?? "-"}`}
               disabled={!!pending}
               text={"YES! I WANT MY PERSONALIZED CLINIC GROWTH PLAN →"}
             />
+            <button type="button" onClick={handleDecline} disabled={!!pending} className="mt-4 block mx-auto text-xs md:text-sm text-white/70 underline underline-offset-4 hover:text-white disabled:opacity-60">
+              ← No Thanks, I’ll Go With Clinic Growth Masterclass Only
+            </button>
           </div>
         </ContentSection>
 
