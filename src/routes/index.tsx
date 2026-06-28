@@ -747,31 +747,14 @@ function TrainerSection() {
 
 function GuaranteeSection() {
   const accessPoints: { title: string; desc: string }[] = [
-    {
-      title: "Module 1: Local Patient Domination System",
-      desc: "Position your clinic as the obvious choice in your city using Google Business Profile, local visibility strategies, and patient trust signals.",
-    },
-    {
-      title: "Module 2: Doctor Personal Brand Blueprint",
-      desc: "Learn how doctors and healthcare practitioners can build trust online, stand out from competitors, and become the first choice for patients.",
-    },
-    {
-      title: "Module 3: 2-Hour Content Creation System",
-      desc: "Create weeks of educational content in a single sitting using patient FAQs, content frameworks, and AI-assisted workflows.",
-    },
-    {
-      title: "Module 4: Patient Acquisition Through Digital Marketing",
-      desc: "Learn the simple strategy to reach local patients consistently using Meta Ads and digital marketing, without wasting money on random tactics.",
-    },
-    {
-      title: "Module 5: Irresistible Clinic Offer Framework",
-      desc: "Create offers patients actually respond to instead of promoting generic consultations and services.",
-    },
-    {
-      title: "Module 6: Patient Acquisition Machine",
-      desc: "Build a complete patient-acquisition system that turns strangers into inquiries, inquiries into appointments, and appointments into long-term patients.",
-    },
+    { title: "Local Patient Domination System", desc: "Get found by more local patients." },
+    { title: "Doctor Personal Brand Blueprint", desc: "Build trust and stand out online." },
+    { title: "2-Hour Content Creation System", desc: "Create weeks of content faster with AI." },
+    { title: "Patient Acquisition Through Digital Marketing", desc: "Attract patients with simple Meta ad strategies." },
+    { title: "Irresistible Clinic Offer Framework", desc: "Create offers patients actually respond to." },
+    { title: "Patient Acquisition Machine", desc: "Turn visibility into inquiries and appointments." },
   ];
+
 
   const reassurance = [
     "No complicated forms.",
