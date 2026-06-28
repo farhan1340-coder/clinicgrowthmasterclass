@@ -819,15 +819,19 @@ function GuaranteeSection() {
             </div>
 
             {/* Access list */}
-            <h3 className="mt-10 text-xl md:text-2xl font-black">Here Is What You Will Get Access To:</h3>
-            <ul className="mt-5 space-y-3">
+            <h3 className="mt-10 text-xl md:text-2xl font-black">Here Is What You Will Learn Inside the Clinic Growth Masterclass:</h3>
+            <ul className="mt-5 space-y-4">
               {accessPoints.map((p) => (
-                <li key={p} className="flex items-start gap-3">
+                <li key={p.title} className="flex items-start gap-3">
                   <CheckCircle2 className="size-6 text-emerald-600 shrink-0 mt-0.5" />
-                  <span className="text-base md:text-lg">{p}</span>
+                  <span className="text-base md:text-lg">
+                    <span className="font-bold">{p.title}</span>
+                    <span className="block text-slate-700 mt-1">{p.desc}</span>
+                  </span>
                 </li>
               ))}
             </ul>
+
 
             {/* Guarantee copy */}
             <div className="mt-10 space-y-4 text-base md:text-lg leading-relaxed">
