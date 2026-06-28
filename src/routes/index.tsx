@@ -222,16 +222,8 @@ function Hero() {
               />
             </div>
 
-            <div className="mt-10 md:mt-14 mb-4 md:mb-6 text-center">
-              <h2 className="text-white text-2xl md:text-4xl font-extrabold leading-tight">
-                What Our <span className="text-[oklch(0.82_0.18_80)]">Masterclass Attendees</span> Say
-              </h2>
-              <p className="mt-2 text-white/70 text-sm md:text-base max-w-xl mx-auto">
-                Real feedback from doctors and healthcare practitioners who attended the masterclass.
-              </p>
-            </div>
 
-            <ReviewCard />
+
 
           </div>
 
