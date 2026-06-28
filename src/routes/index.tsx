@@ -907,7 +907,7 @@ function FAQSection() {
                 {f.q}
                 <span className="ml-4 text-primary group-open:rotate-45 transition">+</span>
               </summary>
-              <p className="mt-3 text-muted-foreground">{f.a}</p>
+              <p className="mt-3 text-muted-foreground whitespace-pre-line">{f.a}</p>
             </details>
           ))}
         </div>
