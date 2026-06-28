@@ -1,5 +1,5 @@
-import { createFileRoute, Link, redirect, useNavigate, useRouter } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { CheckCircle2, ChevronRight, CircleCheckBig, Lock, ShieldCheck } from "lucide-react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
@@ -166,35 +166,124 @@ function OtoNotFound() {
   );
 }
 
+const DECISION_KEY = (leadId: string) => `oto_decision_${leadId}`;
+
+function readDecision(leadId: string): "accepted" | "declined" | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const v = localStorage.getItem(DECISION_KEY(leadId));
+    return v === "accepted" || v === "declined" ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeDecision(leadId: string, decision: "accepted" | "declined") {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(DECISION_KEY(leadId), decision);
+  } catch {
+    /* ignore */
+  }
+}
+
 function OtoPage() {
   const { leadId } = Route.useLoaderData();
   const navigate = useNavigate();
   const [pending, setPending] = useState<"accept" | "decline" | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [checking, setChecking] = useState(true);
+  const submittedRef = useRef(false);
+
+  // Gate: if decision already saved locally OR eligibility check says ineligible, skip OTO.
+  // Falls back to /thank-you if the eligibility call doesn't resolve within 4s.
+  useEffect(() => {
+    let done = false;
+    const goThankYou = () => {
+      if (done) return;
+      done = true;
+      navigate({ to: "/thank-you", replace: true });
+    };
+
+    if (!leadId) {
+      goThankYou();
+      return;
+    }
+
+    if (readDecision(leadId)) {
+      goThankYou();
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      // Don't strand the user — proceed to thank-you on slow backend
+      goThankYou();
+    }, 4000);
+
+    getOtoEligibility({ data: { leadId } })
+      .then((state) => {
+        if (done) return;
+        window.clearTimeout(timeoutId);
+        if (state.accepted) writeDecision(leadId, "accepted");
+        if (state.declined) writeDecision(leadId, "declined");
+        if (!state.eligible) {
+          goThankYou();
+          return;
+        }
+        setChecking(false);
+      })
+      .catch(() => {
+        if (done) return;
+        window.clearTimeout(timeoutId);
+        // Backend check failed — show the offer rather than stranding the buyer.
+        setChecking(false);
+      });
+
+    return () => {
+      done = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [leadId, navigate]);
 
   const handleAccept = async () => {
+    if (submittedRef.current || pending) return;
+    submittedRef.current = true;
     setPending("accept");
     setError(null);
+    writeDecision(leadId, "accepted");
     try {
       await acceptOtoOffer({ data: { leadId } });
-      await navigate({ to: "/thank-you" });
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not add the offer right now.");
-      setPending(null);
+      console.error("OTO accept failed", e);
+      // Decision is already persisted locally — continue to thank-you so the user isn't stuck.
     }
+    await navigate({ to: "/thank-you", replace: true });
   };
 
   const handleDecline = async () => {
+    if (submittedRef.current || pending) return;
+    submittedRef.current = true;
     setPending("decline");
     setError(null);
+    writeDecision(leadId, "declined");
     try {
       await declineOtoOffer({ data: { leadId } });
-      await navigate({ to: "/thank-you" });
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not continue right now.");
-      setPending(null);
+      console.error("OTO decline failed", e);
     }
+    await navigate({ to: "/thank-you", replace: true });
   };
+
+  if (checking) {
+    return (
+      <div className="min-h-screen bg-secondary flex items-center justify-center px-4">
+        <div className="text-center">
+          <div className="mx-auto size-10 rounded-full border-4 border-primary/30 border-t-primary animate-spin" />
+          <p className="mt-4 text-sm text-muted-foreground">Preparing your offer…</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-secondary">
@@ -383,15 +472,14 @@ export const Route = createFileRoute("/oto")({
     lead: typeof search.lead === "string" ? search.lead : undefined,
   }),
   loaderDeps: ({ search }) => ({ lead: search.lead }),
-  loader: async ({ deps }) => {
+  // Loader stays cheap (no server call) so SSR/build prerender never blocks on the eligibility lookup.
+  // Real eligibility + decision check happens client-side with a timeout fallback in OtoPage.
+  loader: ({ deps }) => {
     if (!deps.lead) {
-      throw redirect({ to: "/thank-you" });
+      // No lead id — just go to thank-you on the client.
+      return { leadId: "" };
     }
-    const state = await getOtoEligibility({ data: { leadId: deps.lead } });
-    if (!state.eligible) {
-      throw redirect({ to: "/thank-you" });
-    }
-    return { leadId: state.leadId };
+    return { leadId: deps.lead };
   },
   head: () => ({
     meta: [
