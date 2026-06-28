@@ -461,6 +461,9 @@ lastError: ${debug.lastError ?? "-"}`}
                 text={"YES! ADD MY 1-ON-1 SESSION →"}
                 subtext="Get your personalized clinic growth plan + 15-day WhatsApp support"
               />
+              <button type="button" onClick={handleDecline} disabled={!!pending} className="mt-4 block mx-auto text-xs md:text-sm text-white/70 underline underline-offset-4 hover:text-white disabled:opacity-60">
+                ← No Thanks, I’ll Go With Clinic Growth Masterclass Only
+              </button>
             </div>
             <p className="mt-4 flex items-center justify-center gap-2 text-xs text-white/60">
               <Lock className="size-3.5" /> Your masterclass order stays intact either way.
