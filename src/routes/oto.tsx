@@ -1,5 +1,4 @@
 import { createFileRoute, Link, redirect, useNavigate, useRouter } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { CheckCircle2, ChevronRight, CircleCheckBig, Lock, ShieldCheck } from "lucide-react";
 import { Topbar } from "@/components/site/Topbar";
