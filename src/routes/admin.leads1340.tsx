@@ -24,6 +24,9 @@ type Lead = {
   lead_status: string;
   payment_screenshot_url: string | null;
   created_at: string;
+  registration_email_sent?: boolean | null;
+  registration_email_sent_at?: string | null;
+  registration_email_error?: string | null;
 };
 
 function copy(text: string) {
