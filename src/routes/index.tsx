@@ -747,31 +747,14 @@ function TrainerSection() {
 
 function GuaranteeSection() {
   const accessPoints: { title: string; desc: string }[] = [
-    {
-      title: "Module 1: Local Patient Domination System",
-      desc: "Position your clinic as the obvious choice in your city using Google Business Profile, local visibility strategies, and patient trust signals.",
-    },
-    {
-      title: "Module 2: Doctor Personal Brand Blueprint",
-      desc: "Learn how doctors and healthcare practitioners can build trust online, stand out from competitors, and become the first choice for patients.",
-    },
-    {
-      title: "Module 3: 2-Hour Content Creation System",
-      desc: "Create weeks of educational content in a single sitting using patient FAQs, content frameworks, and AI-assisted workflows.",
-    },
-    {
-      title: "Module 4: Patient Acquisition Through Digital Marketing",
-      desc: "Learn the simple strategy to reach local patients consistently using Meta Ads and digital marketing, without wasting money on random tactics.",
-    },
-    {
-      title: "Module 5: Irresistible Clinic Offer Framework",
-      desc: "Create offers patients actually respond to instead of promoting generic consultations and services.",
-    },
-    {
-      title: "Module 6: Patient Acquisition Machine",
-      desc: "Build a complete patient-acquisition system that turns strangers into inquiries, inquiries into appointments, and appointments into long-term patients.",
-    },
+    { title: "Local Patient Domination System", desc: "Get found by more local patients." },
+    { title: "Doctor Personal Brand Blueprint", desc: "Build trust and stand out online." },
+    { title: "2-Hour Content Creation System", desc: "Create weeks of content faster with AI." },
+    { title: "Patient Acquisition Through Digital Marketing", desc: "Attract patients with simple Meta ad strategies." },
+    { title: "Irresistible Clinic Offer Framework", desc: "Create offers patients actually respond to." },
+    { title: "Patient Acquisition Machine", desc: "Turn visibility into inquiries and appointments." },
   ];
+
 
   const reassurance = [
     "No complicated forms.",
@@ -820,17 +803,18 @@ function GuaranteeSection() {
 
             {/* Access list */}
             <h3 className="mt-10 text-xl md:text-2xl font-black">Here Is What You Will Learn Inside the Clinic Growth Masterclass:</h3>
-            <ul className="mt-5 space-y-4">
+            <ul className="mt-5 space-y-2.5">
               {accessPoints.map((p) => (
-                <li key={p.title} className="flex items-start gap-3">
-                  <CheckCircle2 className="size-6 text-emerald-600 shrink-0 mt-0.5" />
-                  <span className="text-base md:text-lg">
+                <li key={p.title} className="flex items-start gap-2.5 rounded-lg bg-white/60 border border-emerald-100 px-3 py-2">
+                  <CheckCircle2 className="size-5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span className="text-sm md:text-base leading-snug">
                     <span className="font-bold">{p.title}</span>
-                    <span className="block text-slate-700 mt-1">{p.desc}</span>
+                    <span className="text-slate-700"> — {p.desc}</span>
                   </span>
                 </li>
               ))}
             </ul>
+
 
 
             {/* Guarantee copy */}
