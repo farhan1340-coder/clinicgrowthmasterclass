@@ -456,9 +456,9 @@ lastError: ${debug.lastError ?? "-"}`}
             <VisualCard src={heroVisual.url} alt="1-on-1 Personalized Digital Marketing Strategy Session visual" className="mt-7" />
             <div className="mt-6 max-w-2xl mx-auto">
               <PrimaryAction
-                onClick={handleAccept}
+                onClick={scrollToPayment}
                 disabled={!!pending}
-                text={pending === "accept" ? "ADDING YOUR SESSION..." : "YES! ADD MY 1-ON-1 SESSION →"}
+                text={"YES! ADD MY 1-ON-1 SESSION →"}
                 subtext="Get your personalized clinic growth plan + 15-day WhatsApp support"
               />
             </div>
@@ -492,9 +492,9 @@ lastError: ${debug.lastError ?? "-"}`}
           <VisualCard src={privateSessionVisual.url} alt="Private 90-Minute Strategy Session visual" className="mt-6" />
           <div className="mt-6 max-w-2xl mx-auto">
             <PrimaryAction
-              onClick={handleAccept}
+              onClick={scrollToPayment}
               disabled={!!pending}
-              text={pending === "accept" ? "ADDING YOUR SESSION..." : "YES! I WANT MY PERSONALIZED CLINIC GROWTH PLAN →"}
+              text={"YES! I WANT MY PERSONALIZED CLINIC GROWTH PLAN →"}
             />
           </div>
         </ContentSection>
@@ -530,9 +530,9 @@ lastError: ${debug.lastError ?? "-"}`}
           <VisualCard src={whyTakeOfferVisual.url} alt="Why Take This One-Time Offer visual" className="mt-6" />
           <div className="mt-6 max-w-2xl mx-auto">
             <PrimaryAction
-              onClick={handleAccept}
+              onClick={scrollToPayment}
               disabled={!!pending}
-              text={pending === "accept" ? "ADDING YOUR SESSION..." : "YES! ADD MY 1-ON-1 SESSION NOW →"}
+              text={"YES! ADD MY 1-ON-1 SESSION NOW →"}
               subtext="This one-time offer is available only on this page."
             />
           </div>
@@ -579,9 +579,9 @@ lastError: ${debug.lastError ?? "-"}`}
               </p>
               <div className="mt-6 max-w-2xl mx-auto">
                 <PrimaryAction
-                  onClick={handleAccept}
+                  onClick={scrollToPayment}
                   disabled={!!pending}
-                  text={pending === "accept" ? "ADDING YOUR SESSION..." : "YES! ADD MY 1-ON-1 CLINIC GROWTH SESSION →"}
+                  text={"YES! ADD MY 1-ON-1 CLINIC GROWTH SESSION →"}
                   subtext="90-minute private session + customized plan + 15-day WhatsApp support + free website setup bonus"
                 />
               </div>
