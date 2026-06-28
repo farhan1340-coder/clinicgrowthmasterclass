@@ -881,7 +881,8 @@ function FAQSection() {
     },
     {
       q: "3. Will I get the recording of the program?",
-      a: "This is a LIVE training program, personally conducted by Farhan Ali. To maintain the quality, focus and integrity of the session — no recording will be provided after the training.",
+      a: "Yes. A recording will be shared with participants who are genuinely unable to attend live.\n\nHowever, we strongly recommend joining live because that is where you will get the most value. You can follow the strategies in real time, stay focused, participate in discussions, and take action while the training is happening.\n\nAlso, live attendees may get access to special opportunities during the session — including the chance to receive a free clinic website. This opportunity is only available for people attending live and will not apply to those watching the recording later.\n\nThe recording is there as a backup, but attending live gives you the complete experience and the best chance to benefit from everything included.",
+
     },
     {
       q: "4. When is the masterclass?",
