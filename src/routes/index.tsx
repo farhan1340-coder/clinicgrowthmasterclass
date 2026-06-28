@@ -56,7 +56,7 @@ function LandingPage() {
       <WebsiteGiveawaySection />
       <BonusesSection />
       <HowItWorks />
-      <TestimonialsWall />
+      
       <ProofGallery />
       <WhoFor />
       <TrainerSection />
