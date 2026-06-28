@@ -12,6 +12,12 @@ type UpsertLeadInput = {
   payment_screenshot_url?: string | null;
 };
 
+type SavedLeadResult = {
+  id: string;
+  updated: boolean;
+  strategy_session_order_bump_selected: boolean;
+};
+
 function validate(data: unknown): UpsertLeadInput {
   if (!data || typeof data !== "object") throw new Error("Invalid payload");
   const d = data as Record<string, unknown>;
@@ -44,12 +50,12 @@ function validate(data: unknown): UpsertLeadInput {
 
 export const upsertLead = createServerFn({ method: "POST" })
   .inputValidator(validate)
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<SavedLeadResult> => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: existing, error: selErr } = await supabaseAdmin
+    const { data: existing, error: selErr } = await (supabaseAdmin as any)
       .from("clinic_growth_leads")
-      .select("id, lead_status, total_amount, payment_screenshot_url, selected_order_bumps, payment_method")
+      .select("id, lead_status, total_amount, payment_screenshot_url, selected_order_bumps, payment_method, strategy_session_order_bump_selected")
       .eq("email", data.email)
       .order("created_at", { ascending: false })
       .limit(1)
@@ -75,15 +81,21 @@ export const upsertLead = createServerFn({ method: "POST" })
           : data.payment_screenshot_url,
         created_at: nowIso,
       };
-      const { error } = await supabaseAdmin
+      const { data: updated, error } = await (supabaseAdmin as any)
         .from("clinic_growth_leads")
         .update(payload)
-        .eq("id", existing.id);
+        .eq("id", existing.id)
+        .select("id, strategy_session_order_bump_selected")
+        .single();
       if (error) throw error;
-      return { id: existing.id as string, updated: true };
+      return {
+        id: updated.id as string,
+        updated: true,
+        strategy_session_order_bump_selected: updated.strategy_session_order_bump_selected === true,
+      };
     }
 
-    const { data: ins, error: insErr } = await supabaseAdmin
+    const { data: ins, error: insErr } = await (supabaseAdmin as any)
       .from("clinic_growth_leads")
       .insert({
         full_name: data.full_name,
@@ -96,9 +108,13 @@ export const upsertLead = createServerFn({ method: "POST" })
         lead_status: data.lead_status,
         payment_screenshot_url: data.payment_screenshot_url ?? null,
       })
-      .select("id")
+      .select("id, strategy_session_order_bump_selected")
       .single();
     if (insErr) throw insErr;
-    return { id: ins.id as string, updated: false };
+    return {
+      id: ins.id as string,
+      updated: false,
+      strategy_session_order_bump_selected: ins.strategy_session_order_bump_selected === true,
+    };
   });
 
