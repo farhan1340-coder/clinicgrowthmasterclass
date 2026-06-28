@@ -408,7 +408,7 @@ function ReviewCard() {
           loading="lazy"
         />
         <div className="mt-3 px-1">
-          <p className="font-bold leading-tight">— Dr. Manal Fatimah</p>
+          <p className="font-bold leading-tight">- Dr. Manal Fatimah</p>
           <p className="text-xs sm:text-sm text-white/80 leading-snug">Lahore, Pakistan</p>
         </div>
       </div>
@@ -420,7 +420,7 @@ function ReviewCard() {
           loading="lazy"
         />
         <div className="mt-3 px-1">
-          <p className="font-bold leading-tight">— Dr. Jasim Mumtaz</p>
+          <p className="font-bold leading-tight">- Dr. Jasim Mumtaz</p>
           <p className="text-xs sm:text-sm text-white/80 leading-snug">Peshawar</p>
         </div>
       </div>
