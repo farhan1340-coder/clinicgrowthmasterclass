@@ -205,6 +205,11 @@ function OtoPage() {
       navigate({ to: "/thank-you", replace: true });
     };
 
+    if (!leadId) {
+      goThankYou();
+      return;
+    }
+
     if (readDecision(leadId)) {
       goThankYou();
       return;
