@@ -404,13 +404,6 @@ function OtoPage() {
     }
     await navigate({ to: "/thank-you", replace: true });
   };
-    try {
-      await declineOtoOffer({ data: { leadId } });
-    } catch (e) {
-      console.error("OTO decline failed", e);
-    }
-    await navigate({ to: "/thank-you", replace: true });
-  };
 
   if (checking) {
     return (
