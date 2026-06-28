@@ -18,6 +18,14 @@ import textDrManalCrop from "@/assets/proof/text-dr-manal-crop.jpg.asset.json";
 import textPatientJourney from "@/assets/proof/text-patient-journey.jpg.asset.json";
 import textSocialAds from "@/assets/proof/text-social-ads.jpg.asset.json";
 import textAbdulHaq from "@/assets/proof/text-abdul-haq.jpg.asset.json";
+import payJazzAyesha from "@/assets/proof/pay-jazzcash-ayesha-999.jpg.asset.json";
+import payEp1000 from "@/assets/proof/pay-easypaisa-1000.jpg.asset.json";
+import payEpQuick from "@/assets/proof/pay-easypaisa-quick-999.jpg.asset.json";
+import payEpJasam from "@/assets/proof/pay-easypaisa-jasam-999.jpg.asset.json";
+import payRaastIqra from "@/assets/proof/pay-raast-iqra-999.jpg.asset.json";
+import payEpAdeel from "@/assets/proof/pay-easypaisa-adeel-999.jpg.asset.json";
+import payEpShaheen from "@/assets/proof/pay-easypaisa-shaheen-999.jpg.asset.json";
+import payEpUmair from "@/assets/proof/pay-easypaisa-umair-1999.jpg.asset.json";
 
 type Proof = { url: string; kind: "text" | "payment"; alt: string };
 
@@ -34,13 +42,21 @@ const PROOFS: Proof[] = [
   { url: textAhmadMunir.url, kind: "text", alt: "WhatsApp feedback from Ahmad Munir: Session was amazing" },
   { url: payEasypaisa999.url, kind: "payment", alt: "Easypaisa payment proof Rs. 999" },
   { url: textThankyou.url, kind: "text", alt: "Messenger feedback: Session was outstanding, worth thousands of rupees" },
+  { url: payJazzAyesha.url, kind: "payment", alt: "JazzCash payment proof Rs. 999 — webinar payment" },
   { url: textTanveer.url, kind: "text", alt: "WhatsApp feedback from Tanveer Ahmad: Way of teaching is excellent" },
+  { url: payEp1000.url, kind: "payment", alt: "Easypaisa payment proof Rs. 1,000" },
   { url: textTanveerHr.url, kind: "text", alt: "WhatsApp feedback from Tanveer Ahmad: Bundle of knowledge, simple action steps" },
+  { url: payEpQuick.url, kind: "payment", alt: "Easypaisa quick send payment proof Rs. 999" },
   { url: textAmazingWorthy.url, kind: "text", alt: "WhatsApp feedback: Clinic Growth Masterclass truly amazing and worthy" },
+  { url: payEpJasam.url, kind: "payment", alt: "Easypaisa payment proof Rs. 999 — Jasam Mumtaz" },
   { url: textDrAmnah.url, kind: "text", alt: "WhatsApp feedback from Dr. Amnah: Most valuable lesson was Google My Business strategy" },
+  { url: payRaastIqra.url, kind: "payment", alt: "Raast bank transfer proof PKR 999 — Iqra Siddique" },
   { url: textDrManalFull.url, kind: "text", alt: "WhatsApp feedback from Dr. Manal: Personal profile building & audience targeting" },
+  { url: payEpAdeel.url, kind: "payment", alt: "Easypaisa payment proof Rs. 999 — Adeel ur Rehman" },
   { url: textDrManalCrop.url, kind: "text", alt: "WhatsApp feedback from Dr. Manal: Recommends masterclass to doctors & practitioners" },
+  { url: payEpShaheen.url, kind: "payment", alt: "Easypaisa payment proof Rs. 999 — Shaheen Fatima" },
   { url: textPatientJourney.url, kind: "text", alt: "WhatsApp feedback: Patient-centric journey converting first-time visitors into loyal patients" },
+  { url: payEpUmair.url, kind: "payment", alt: "Easypaisa payment proof Rs. 1,999 — Umair Akbar" },
   { url: textSocialAds.url, kind: "text", alt: "WhatsApp feedback: Improved patient numbers via social media ads & clinical strategies" },
   { url: textAbdulHaq.url, kind: "text", alt: "Facebook recommendation from Abdul Haq: Beneficial for medical practitioners & consultants" },
 ]
