@@ -1,9 +1,10 @@
 import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2, ChevronRight, CircleCheckBig, Lock, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ChevronRight, CircleCheckBig, Copy, Lock, ShieldCheck, Upload, ImageIcon } from "lucide-react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
-import { getOtoEligibility, acceptOtoOffer, declineOtoOffer } from "@/lib/oto.functions";
+import { getOtoEligibility, declineOtoOffer, submitOtoPayment } from "@/lib/oto.functions";
+import { supabase } from "@/integrations/supabase/client";
 import heroVisual from "@/assets/oto-hero-strategy-session.png.asset.json";
 import growthPlanVisual from "@/assets/oto-growth-plan.png.asset.json";
 import privateSessionVisual from "@/assets/oto-private-session.png.asset.json";
@@ -204,11 +205,18 @@ function dbg(...args: unknown[]) {
 function OtoPage() {
   const { leadId } = Route.useLoaderData();
   const navigate = useNavigate();
-  const [pending, setPending] = useState<"accept" | "decline" | null>(null);
+  const [pending, setPending] = useState<"decline" | "submit" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [checking, setChecking] = useState(true);
   const [debug, setDebug] = useState<EligibilityDebug>({ attempts: 0, source: "pending" });
   const submittedRef = useRef(false);
+  const [copied, setCopied] = useState(false);
+  const [otoName, setOtoName] = useState("");
+  const [otoWhatsapp, setOtoWhatsapp] = useState("");
+  const [otoTxn, setOtoTxn] = useState("");
+  const [otoFile, setOtoFile] = useState<File | null>(null);
+  const [otoPreview, setOtoPreview] = useState<string | null>(null);
+  const [otoErr, setOtoErr] = useState<string | null>(null);
 
   // Eligibility gate.
   // NEVER auto-redirect to /thank-you on timeout. Only redirect when the backend
@@ -283,19 +291,103 @@ function OtoPage() {
     };
   }, [leadId, navigate]);
 
-  const handleAccept = async () => {
-    if (submittedRef.current || pending) return;
-    submittedRef.current = true;
-    setPending("accept");
-    setError(null);
-    writeDecision(leadId, "accepted");
-    dbg("accept clicked", { leadId });
-    try {
-      await acceptOtoOffer({ data: { leadId } });
-    } catch (e) {
-      console.error("OTO accept failed", e);
+  const scrollToPayment = () => {
+    if (typeof document === "undefined") return;
+    const el = document.getElementById("oto-payment");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        const input = el.querySelector<HTMLInputElement>("input[name='oto_full_name']");
+        input?.focus({ preventScroll: true });
+      }, 600);
     }
-    await navigate({ to: "/thank-you", replace: true });
+  };
+
+  const handleCopyAccount = async () => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText("03135944817");
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  const handleOtoFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0] ?? null;
+    setOtoErr(null);
+    if (!f) {
+      setOtoFile(null);
+      setOtoPreview(null);
+      return;
+    }
+    if (!f.type.startsWith("image/")) {
+      setOtoErr("Please upload an image file (JPG or PNG).");
+      return;
+    }
+    if (f.size > 8 * 1024 * 1024) {
+      setOtoErr("Image must be smaller than 8MB.");
+      return;
+    }
+    setOtoFile(f);
+    setOtoPreview(URL.createObjectURL(f));
+  };
+
+  const handleOtoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (pending || submittedRef.current) return;
+    setOtoErr(null);
+    if (!leadId) {
+      setOtoErr("Missing order reference. Please return to checkout.");
+      return;
+    }
+    if (otoName.trim().length < 1) return setOtoErr("Please enter your full name.");
+    if (otoWhatsapp.trim().length < 3) return setOtoErr("Please enter your WhatsApp number.");
+    if (!otoFile) return setOtoErr("Please upload your payment screenshot.");
+    setPending("submit");
+    try {
+      const ext = otoFile.name.split(".").pop()?.toLowerCase() || "jpg";
+      const safe = otoName.replace(/[^a-z0-9]/gi, "_").slice(0, 30);
+      const path = `oto-${Date.now()}-${safe}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("payment-screenshots")
+        .upload(path, otoFile, { contentType: otoFile.type, upsert: false });
+      if (upErr) throw upErr;
+
+      let screenshotUrl: string = path;
+      try {
+        const { createScreenshotSignedUrl } = await import("@/lib/payment-screenshot.functions");
+        const { url } = await createScreenshotSignedUrl({ data: { path } });
+        screenshotUrl = url;
+      } catch (err) {
+        console.error("OTO signed url failed", err);
+      }
+
+      await submitOtoPayment({
+        data: {
+          leadId,
+          full_name: otoName.trim(),
+          whatsapp: otoWhatsapp.trim(),
+          transaction_id: otoTxn.trim() || undefined,
+          screenshot_url: screenshotUrl,
+        },
+      });
+      submittedRef.current = true;
+      writeDecision(leadId, "accepted");
+      try {
+        localStorage.setItem(`oto_submitted_${leadId}`, "1");
+        localStorage.setItem("oto_last_submitted", leadId);
+      } catch {
+        /* ignore */
+      }
+      await navigate({ to: "/thank-you", replace: true });
+    } catch (err) {
+      console.error("OTO submit failed", err);
+      setOtoErr("Couldn't submit payment. Please try again.");
+      setPending(null);
+    }
   };
 
   const handleDecline = async () => {
@@ -364,11 +456,14 @@ lastError: ${debug.lastError ?? "-"}`}
             <VisualCard src={heroVisual.url} alt="1-on-1 Personalized Digital Marketing Strategy Session visual" className="mt-7" />
             <div className="mt-6 max-w-2xl mx-auto">
               <PrimaryAction
-                onClick={handleAccept}
+                onClick={scrollToPayment}
                 disabled={!!pending}
-                text={pending === "accept" ? "ADDING YOUR SESSION..." : "YES! ADD MY 1-ON-1 SESSION →"}
+                text={"YES! ADD MY 1-ON-1 SESSION →"}
                 subtext="Get your personalized clinic growth plan + 15-day WhatsApp support"
               />
+              <button type="button" onClick={handleDecline} disabled={!!pending} className="mt-4 block mx-auto text-xs md:text-sm text-white/70 underline underline-offset-4 hover:text-white disabled:opacity-60">
+                ← No Thanks, I’ll Go With Clinic Growth Masterclass Only
+              </button>
             </div>
             <p className="mt-4 flex items-center justify-center gap-2 text-xs text-white/60">
               <Lock className="size-3.5" /> Your masterclass order stays intact either way.
@@ -400,10 +495,13 @@ lastError: ${debug.lastError ?? "-"}`}
           <VisualCard src={privateSessionVisual.url} alt="Private 90-Minute Strategy Session visual" className="mt-6" />
           <div className="mt-6 max-w-2xl mx-auto">
             <PrimaryAction
-              onClick={handleAccept}
+              onClick={scrollToPayment}
               disabled={!!pending}
-              text={pending === "accept" ? "ADDING YOUR SESSION..." : "YES! I WANT MY PERSONALIZED CLINIC GROWTH PLAN →"}
+              text={"YES! I WANT MY PERSONALIZED CLINIC GROWTH PLAN →"}
             />
+            <button type="button" onClick={handleDecline} disabled={!!pending} className="mt-4 block mx-auto text-xs md:text-sm text-white/70 underline underline-offset-4 hover:text-white disabled:opacity-60">
+              ← No Thanks, I’ll Go With Clinic Growth Masterclass Only
+            </button>
           </div>
         </ContentSection>
 
@@ -438,11 +536,14 @@ lastError: ${debug.lastError ?? "-"}`}
           <VisualCard src={whyTakeOfferVisual.url} alt="Why Take This One-Time Offer visual" className="mt-6" />
           <div className="mt-6 max-w-2xl mx-auto">
             <PrimaryAction
-              onClick={handleAccept}
+              onClick={scrollToPayment}
               disabled={!!pending}
-              text={pending === "accept" ? "ADDING YOUR SESSION..." : "YES! ADD MY 1-ON-1 SESSION NOW →"}
+              text={"YES! ADD MY 1-ON-1 SESSION NOW →"}
               subtext="This one-time offer is available only on this page."
             />
+            <button type="button" onClick={handleDecline} disabled={!!pending} className="mt-4 block mx-auto text-xs md:text-sm text-foreground/60 underline underline-offset-4 hover:text-foreground disabled:opacity-60">
+              ← No Thanks, I’ll Go With Clinic Growth Masterclass Only
+            </button>
           </div>
         </ContentSection>
 
@@ -487,9 +588,9 @@ lastError: ${debug.lastError ?? "-"}`}
               </p>
               <div className="mt-6 max-w-2xl mx-auto">
                 <PrimaryAction
-                  onClick={handleAccept}
+                  onClick={scrollToPayment}
                   disabled={!!pending}
-                  text={pending === "accept" ? "ADDING YOUR SESSION..." : "YES! ADD MY 1-ON-1 CLINIC GROWTH SESSION →"}
+                  text={"YES! ADD MY 1-ON-1 CLINIC GROWTH SESSION →"}
                   subtext="90-minute private session + customized plan + 15-day WhatsApp support + free website setup bonus"
                 />
               </div>
@@ -499,12 +600,147 @@ lastError: ${debug.lastError ?? "-"}`}
                 disabled={!!pending}
                 className="mt-5 text-sm text-white/70 underline underline-offset-4 hover:text-white disabled:opacity-60"
               >
-                {pending === "decline" ? "CONTINUING..." : "No thanks, I’ll continue with the masterclass only"}
+                {pending === "decline" ? "CONTINUING..." : "← No Thanks, I’ll Go With Clinic Growth Masterclass Only"}
               </button>
             </div>
             {error && <p className="mt-4 text-sm text-red-300">{error}</p>}
           </div>
         </section>
+
+        {/* ============= OTO PAYMENT SECTION ============= */}
+        <section id="oto-payment" className="py-12 md:py-16 bg-[oklch(0.16_0.05_272)] text-white scroll-mt-20">
+          <div className="mx-auto max-w-3xl px-4">
+            <div className="text-center">
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-yellow-300">Final Step</p>
+              <h2 className="mt-3 text-2xl md:text-4xl font-black tracking-tight">
+                Complete Your 1-on-1 Session Upgrade
+              </h2>
+              <p className="mt-4 text-sm md:text-base text-white/80 leading-relaxed max-w-2xl mx-auto">
+                You are one step away from getting your personalized 90-minute clinic growth strategy session.
+                Complete your payment of <span className="font-bold text-yellow-300">PKR 3,999</span> and upload the screenshot below to confirm your upgrade.
+              </p>
+              <div className="mt-6 inline-flex flex-col items-center rounded-2xl bg-yellow-300/10 border border-yellow-300/30 px-6 py-4">
+                <div className="text-xs uppercase tracking-widest text-yellow-300/90">One-Time Offer Price</div>
+                <div className="mt-1 text-3xl md:text-5xl font-black text-yellow-300">PKR 3,999</div>
+              </div>
+            </div>
+
+            {/* Payment account card */}
+            <div className="mt-8 rounded-2xl bg-white text-foreground p-5 md:p-6 shadow-2xl">
+              <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Easypaisa / JazzCash
+              </div>
+              <dl className="mt-4 space-y-3 text-sm md:text-base">
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="text-muted-foreground">Account Title</dt>
+                  <dd className="font-bold text-right">Farhan Ali Rasheed</dd>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="text-muted-foreground">Account Number</dt>
+                  <dd className="font-bold text-right tracking-wider">03135944817</dd>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="text-muted-foreground">Amount</dt>
+                  <dd className="font-bold text-right">PKR 3,999</dd>
+                </div>
+              </dl>
+              <button
+                type="button"
+                onClick={handleCopyAccount}
+                className="mt-4 inline-flex items-center gap-2 rounded-md border-2 border-primary px-4 py-2 text-sm font-bold text-primary hover:bg-primary hover:text-primary-foreground transition"
+              >
+                <Copy className="size-4" />
+                {copied ? "Number copied successfully" : "Copy Number"}
+              </button>
+
+              <div className="mt-6 rounded-xl bg-secondary/60 p-4 text-sm">
+                <div className="font-bold mb-2">Payment Instructions</div>
+                <ol className="list-decimal pl-5 space-y-1 text-foreground/80">
+                  <li>Send PKR 3,999 through Easypaisa or JazzCash.</li>
+                  <li>Take a screenshot of the successful payment.</li>
+                  <li>Upload the screenshot below.</li>
+                  <li>Submit to confirm your 1-on-1 strategy session upgrade.</li>
+                </ol>
+              </div>
+            </div>
+
+            {/* Confirmation form */}
+            <form onSubmit={handleOtoSubmit} className="mt-6 rounded-2xl bg-white text-foreground p-5 md:p-6 shadow-2xl space-y-4">
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Full Name *</label>
+                <input
+                  name="oto_full_name"
+                  type="text"
+                  required
+                  value={otoName}
+                  onChange={(e) => setOtoName(e.target.value)}
+                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Your full name"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">WhatsApp Number *</label>
+                <input
+                  name="oto_whatsapp"
+                  type="tel"
+                  required
+                  value={otoWhatsapp}
+                  onChange={(e) => setOtoWhatsapp(e.target.value)}
+                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="03XXXXXXXXX"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Transaction ID (Optional)</label>
+                <input
+                  name="oto_txn"
+                  type="text"
+                  value={otoTxn}
+                  onChange={(e) => setOtoTxn(e.target.value)}
+                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="From Easypaisa/JazzCash confirmation"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Payment Screenshot *</label>
+                <label className="mt-1 flex cursor-pointer items-center gap-3 rounded-md border-2 border-dashed border-muted-foreground/40 px-4 py-4 text-sm hover:border-primary transition">
+                  <Upload className="size-5 text-muted-foreground" />
+                  <span className="text-foreground/80">
+                    {otoFile ? otoFile.name : "Tap to upload payment screenshot (JPG/PNG, max 8MB)"}
+                  </span>
+                  <input type="file" accept="image/*" onChange={handleOtoFile} className="hidden" />
+                </label>
+                {otoPreview && (
+                  <div className="mt-3 rounded-md border overflow-hidden">
+                    <img src={otoPreview} alt="Payment screenshot preview" className="max-h-64 w-full object-contain bg-muted" />
+                  </div>
+                )}
+                {!otoPreview && (
+                  <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+                    <ImageIcon className="size-3.5" /> Required to confirm your 1-on-1 upgrade.
+                  </p>
+                )}
+              </div>
+
+              {otoErr && <p className="text-sm font-medium text-destructive">{otoErr}</p>}
+
+              <button
+                type="submit"
+                disabled={pending === "submit"}
+                className="btn-cta w-full px-6 py-4 text-center disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                <div className="text-lg md:text-xl">
+                  {pending === "submit" ? "SUBMITTING…" : "CONFIRM MY 1-ON-1 SESSION UPGRADE →"}
+                </div>
+              </button>
+              <p className="text-center text-xs text-muted-foreground">
+                Your upgrade will be confirmed after payment verification.
+              </p>
+            </form>
+          </div>
+        </section>
+
+
 
         <ContentSection title="Frequently Asked Questions">
           <div className="space-y-3">

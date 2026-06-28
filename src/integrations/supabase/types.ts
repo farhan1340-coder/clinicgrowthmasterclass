@@ -21,6 +21,15 @@ export type Database = {
           full_name: string
           id: string
           lead_status: string
+          oto_accepted: boolean
+          oto_full_name: string | null
+          oto_payment_amount: number | null
+          oto_payment_screenshot_url: string | null
+          oto_payment_submitted: boolean
+          oto_status: string | null
+          oto_submitted_at: string | null
+          oto_transaction_id: string | null
+          oto_whatsapp: string | null
           payment_method: string
           payment_screenshot_url: string | null
           selected_order_bumps: Json
@@ -35,6 +44,15 @@ export type Database = {
           full_name: string
           id?: string
           lead_status?: string
+          oto_accepted?: boolean
+          oto_full_name?: string | null
+          oto_payment_amount?: number | null
+          oto_payment_screenshot_url?: string | null
+          oto_payment_submitted?: boolean
+          oto_status?: string | null
+          oto_submitted_at?: string | null
+          oto_transaction_id?: string | null
+          oto_whatsapp?: string | null
           payment_method: string
           payment_screenshot_url?: string | null
           selected_order_bumps?: Json
@@ -49,6 +67,15 @@ export type Database = {
           full_name?: string
           id?: string
           lead_status?: string
+          oto_accepted?: boolean
+          oto_full_name?: string | null
+          oto_payment_amount?: number | null
+          oto_payment_screenshot_url?: string | null
+          oto_payment_submitted?: boolean
+          oto_status?: string | null
+          oto_submitted_at?: string | null
+          oto_transaction_id?: string | null
+          oto_whatsapp?: string | null
           payment_method?: string
           payment_screenshot_url?: string | null
           selected_order_bumps?: Json

@@ -3,6 +3,14 @@ import { z } from "zod";
 
 const leadIdSchema = z.object({ leadId: z.string().uuid() });
 
+const otoPaymentSchema = z.object({
+  leadId: z.string().uuid(),
+  full_name: z.string().trim().min(1).max(120),
+  whatsapp: z.string().trim().min(3).max(40),
+  transaction_id: z.string().trim().max(120).optional().nullable(),
+  screenshot_url: z.string().trim().min(1).max(1000),
+});
+
 const STRATEGY_BUMP = {
   id: "strategy",
   title: "1-on-1 Personalized Digital Marketing Strategy Session",
@@ -36,16 +44,16 @@ function normalizeStatus(base: string, decision: "accepted" | "declined") {
   return `${cleaned} - OTO ${decision === "accepted" ? "Accepted" : "Declined"}`;
 }
 
-async function getLeadRow(leadId: string): Promise<LeadRow | null> {
+async function getLeadRow(leadId: string): Promise<(LeadRow & { oto_status?: string | null; oto_payment_submitted?: boolean | null }) | null> {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await (supabaseAdmin as any)
     .from("clinic_growth_leads")
-    .select("id, lead_status, total_amount, selected_order_bumps")
+    .select("id, lead_status, total_amount, selected_order_bumps, oto_status, oto_payment_submitted")
     .eq("id", leadId)
     .maybeSingle();
 
   if (error) throw error;
-  return (data ?? null) as LeadRow | null;
+  return (data ?? null) as any;
 }
 
 export const getOtoEligibility = createServerFn({ method: "GET" })
@@ -56,8 +64,10 @@ export const getOtoEligibility = createServerFn({ method: "GET" })
       return { eligible: false, accepted: false, declined: false };
     }
 
-    const accepted = hasStrategyBump(lead.selected_order_bumps);
-    const declined = hasDeclinedStatus(lead.lead_status);
+    const otoStatus = (lead as any).oto_status as string | null | undefined;
+    const otoSubmitted = Boolean((lead as any).oto_payment_submitted);
+    const accepted = hasStrategyBump(lead.selected_order_bumps) || otoSubmitted || otoStatus === "payment_submitted";
+    const declined = hasDeclinedStatus(lead.lead_status) || otoStatus === "declined";
 
     return {
       eligible: !accepted && !declined,
@@ -107,7 +117,7 @@ export const declineOtoOffer = createServerFn({ method: "POST" })
     if (hasStrategyBump(lead.selected_order_bumps)) {
       return { ok: true, reason: "already-accepted" as const };
     }
-    if (hasDeclinedStatus(lead.lead_status)) {
+    if (hasDeclinedStatus(lead.lead_status) || (lead as any).oto_status === "declined") {
       return { ok: true, reason: "already-declined" as const };
     }
 
@@ -115,9 +125,48 @@ export const declineOtoOffer = createServerFn({ method: "POST" })
       .from("clinic_growth_leads")
       .update({
         lead_status: normalizeStatus(lead.lead_status || "Pending Payment", "declined"),
+        oto_status: "declined",
       })
       .eq("id", lead.id);
 
     if (error) throw error;
     return { ok: true, reason: "declined" as const };
+  });
+
+export const submitOtoPayment = createServerFn({ method: "POST" })
+  .inputValidator((data) => otoPaymentSchema.parse(data))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const lead = await getLeadRow(data.leadId);
+    if (!lead) throw new Error("Lead not found");
+
+    const selected = parseBumps(lead.selected_order_bumps);
+    const updatedBumps = hasStrategyBump(lead.selected_order_bumps)
+      ? selected
+      : [...selected, STRATEGY_BUMP];
+
+    const baseStatus = (lead.lead_status || "Pending Payment")
+      .replace(/\s*[—-]\s*OTO Accepted/g, "")
+      .replace(/\s*[—-]\s*OTO Declined/g, "")
+      .trim();
+
+    const { error } = await (supabaseAdmin as any)
+      .from("clinic_growth_leads")
+      .update({
+        selected_order_bumps: updatedBumps,
+        lead_status: `${baseStatus} - OTO Payment Submitted (Pending Verification)`,
+        oto_accepted: true,
+        oto_payment_submitted: true,
+        oto_payment_amount: STRATEGY_BUMP.price,
+        oto_payment_screenshot_url: data.screenshot_url,
+        oto_transaction_id: data.transaction_id || null,
+        oto_status: "payment_submitted",
+        oto_full_name: data.full_name,
+        oto_whatsapp: data.whatsapp,
+        oto_submitted_at: new Date().toISOString(),
+      })
+      .eq("id", lead.id);
+
+    if (error) throw error;
+    return { ok: true as const };
   });
