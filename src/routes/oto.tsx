@@ -1,9 +1,10 @@
 import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2, ChevronRight, CircleCheckBig, Lock, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ChevronRight, CircleCheckBig, Copy, Lock, ShieldCheck, Upload, ImageIcon } from "lucide-react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
-import { getOtoEligibility, acceptOtoOffer, declineOtoOffer } from "@/lib/oto.functions";
+import { getOtoEligibility, declineOtoOffer, submitOtoPayment } from "@/lib/oto.functions";
+import { supabase } from "@/integrations/supabase/client";
 import heroVisual from "@/assets/oto-hero-strategy-session.png.asset.json";
 import growthPlanVisual from "@/assets/oto-growth-plan.png.asset.json";
 import privateSessionVisual from "@/assets/oto-private-session.png.asset.json";
