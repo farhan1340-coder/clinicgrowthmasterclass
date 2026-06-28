@@ -434,9 +434,13 @@ function ReviewCard() {
           <p className="font-bold leading-tight">- Dr. Mehwish Rasheed</p>
         </div>
       </div>
+      <div className="mt-7 mb-2 max-w-md mx-auto">
+        <CtaButton>YES! I WANT TO ENROLL NOW →</CtaButton>
+      </div>
     </>
   );
 }
+
 
 function TopTestimonials() {
   return (
