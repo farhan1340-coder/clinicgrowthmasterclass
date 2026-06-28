@@ -51,7 +51,6 @@ function LandingPage() {
       
       <Topbar />
       <Hero />
-      <TopTestimonials />
       <SocialProofBar />
 
       <WhatIsItSection />
@@ -214,6 +213,9 @@ function Hero() {
                 YES! I Want My Patient-Getting System
               </CtaButton>
             </div>
+
+            <TopTestimonials />
+
 
 
             <div className="mt-5 md:mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-2 md:p-3 shadow-2xl">
@@ -438,19 +440,17 @@ function ReviewCard() {
 
 function TopTestimonials() {
   return (
-    <section className="bg-gradient-to-b from-[#0b1020] via-[#10142a] to-[#0b1020] py-12 md:py-16">
-      <div className="mx-auto max-w-2xl px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white">
-            What Our <span className="text-primary">Masterclass Attendees</span> Say
-          </h2>
-          <p className="mt-3 text-white/70 text-sm md:text-base">
-            Real feedback from doctors and healthcare practitioners who attended the masterclass.
-          </p>
-        </div>
-        <ReviewCard />
+    <div className="mt-6 md:mt-8">
+      <div className="text-center mb-5 md:mb-6">
+        <h2 className="text-2xl md:text-3xl font-extrabold text-white">
+          What Our <span className="text-primary">Masterclass Attendees</span> Say
+        </h2>
+        <p className="mt-2 text-white/70 text-sm md:text-base">
+          Real feedback from doctors and healthcare practitioners who attended the masterclass.
+        </p>
       </div>
-    </section>
+      <ReviewCard />
+    </div>
   );
 }
 
