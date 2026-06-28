@@ -85,7 +85,7 @@ function AnnouncementBar() {
             🎁 SPECIAL BONUS
           </span>
           <span className="text-white/95">
-            7 Doctors, Nutritionists &amp; Healthcare Practitioners Will Be Selected For A <span className="font-bold">FREE Professional Clinic Website Setup</span>
+            <span className="font-extrabold text-yellow-300">2 Doctors</span>, Nutritionists &amp; Healthcare Practitioners Will Be Selected For A <span className="font-bold">FREE Professional Clinic Website Setup</span>
           </span>
         </span>
         <a
