@@ -211,9 +211,6 @@ function OtoPage() {
   const [debug, setDebug] = useState<EligibilityDebug>({ attempts: 0, source: "pending" });
   const submittedRef = useRef(false);
   const [copied, setCopied] = useState(false);
-  const [otoName, setOtoName] = useState("");
-  const [otoWhatsapp, setOtoWhatsapp] = useState("");
-  const [otoTxn, setOtoTxn] = useState("");
   const [otoFile, setOtoFile] = useState<File | null>(null);
   const [otoPreview, setOtoPreview] = useState<string | null>(null);
   const [otoErr, setOtoErr] = useState<string | null>(null);
