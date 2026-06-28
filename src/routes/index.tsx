@@ -146,7 +146,7 @@ function WebsiteGiveawaySection() {
             <div className="mt-6 rounded-2xl border border-yellow-400/60 bg-yellow-400/10 p-5 md:p-6">
               <p className="text-sm md:text-base text-white/95 leading-relaxed">
                 <span className="font-extrabold text-yellow-300">🎁 FREE Website Giveaway:</span>{" "}
-                At the end of this masterclass, 7 doctors, nutritionists, or healthcare practitioners will be selected to receive a FREE professional clinic website setup (Value: PKR 30,000+).
+                At the end of this masterclass, only <span className="font-extrabold text-yellow-300">2 doctors</span>, nutritionists, or healthcare practitioners will be selected to receive a FREE professional clinic website setup (Value: PKR 30,000+).
               </p>
             </div>
           </div>
