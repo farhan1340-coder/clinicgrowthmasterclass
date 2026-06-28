@@ -7,7 +7,7 @@ import { render } from 'react-email'
 import { TEMPLATES } from '@/lib/email-templates/registry'
 import { supabaseAdmin } from '@/integrations/supabase/client.server'
 
-const SITE_NAME = 'clinicgrowthmasterclass'
+const SITE_NAME = 'Clinic Growth Masterclass'
 const SENDER_DOMAIN = 'notify.zeroappleaday.site'
 const FROM_DOMAIN = 'zeroappleaday.site'
 const TEMPLATE_NAME = 'registration-confirmation'
