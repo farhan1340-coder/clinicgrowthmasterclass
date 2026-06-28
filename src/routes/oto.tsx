@@ -75,36 +75,97 @@ const PROOF_ITEMS = [
 
 type OtoSearch = { lead?: string };
 
-export const Route = createFileRoute("/oto")({
-  validateSearch: (search: Record<string, unknown>): OtoSearch => ({
-    lead: typeof search.lead === "string" ? search.lead : undefined,
-  }),
-  loader: async ({ location }) => {
-    const leadId = new URL(location.href).searchParams.get("lead");
-    if (!leadId) {
-      throw redirect({ to: "/thank-you" });
-    }
-    const state = await getOtoEligibility({ data: { leadId } });
-    if (!state.eligible) {
-      throw redirect({ to: "/thank-you" });
-    }
-    return { leadId: state.leadId };
-  },
-  head: () => ({
-    meta: [
-      { title: "One-Time Offer — 1-on-1 Personalized Strategy Session" },
-      {
-        name: "description",
-        content:
-          "Upgrade your Clinic Growth Masterclass order with a 1-on-1 personalized digital marketing strategy session for your clinic.",
-      },
-      { name: "robots", content: "noindex,nofollow" },
-    ],
-  }),
-  component: OtoPage,
-  errorComponent: OtoError,
-  notFoundComponent: OtoNotFound,
-});
+function VisualCard({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+  return (
+    <div className={`overflow-hidden rounded-[28px] border bg-card shadow-xl ${className}`}>
+      <img src={src} alt={alt} className="w-full h-auto" loading="lazy" />
+    </div>
+  );
+}
+
+function PrimaryAction({
+  onClick,
+  text,
+  subtext,
+  disabled,
+}: {
+  onClick: () => void;
+  text: string;
+  subtext?: string;
+  disabled?: boolean;
+}) {
+  return (
+    <button type="button" onClick={onClick} disabled={disabled} className="w-full">
+      <div className="btn-cta w-full px-6 py-4 text-center">
+        <div className="text-lg md:text-2xl">{text}</div>
+        {subtext ? (
+          <div className="mt-1 text-xs md:text-sm font-medium normal-case tracking-normal opacity-95">{subtext}</div>
+        ) : null}
+      </div>
+    </button>
+  );
+}
+
+function ContentSection({
+  title,
+  children,
+  dark = false,
+}: {
+  title: string;
+  children: React.ReactNode;
+  dark?: boolean;
+}) {
+  return (
+    <section className={`py-12 md:py-16 ${dark ? "bg-[oklch(0.16_0.05_272)] text-white" : "bg-secondary text-foreground"}`}>
+      <div className="mx-auto max-w-5xl px-4">
+        <h2 className="text-2xl md:text-4xl font-black tracking-tight text-center max-w-4xl mx-auto">{title}</h2>
+        <div className="mt-6">{children}</div>
+      </div>
+    </section>
+  );
+}
+
+function OtoError({ error, reset }: { error: Error; reset: () => void }) {
+  const router = useRouter();
+  return (
+    <div className="min-h-screen bg-secondary flex items-center justify-center px-4">
+      <div className="max-w-lg rounded-3xl border bg-card p-8 text-center shadow-xl">
+        <ShieldCheck className="mx-auto size-10 text-primary" />
+        <h1 className="mt-4 text-2xl font-black">Couldn’t Load This Offer</h1>
+        <p className="mt-3 text-muted-foreground">{error.message || "Please continue to your confirmation page."}</p>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+          <button
+            type="button"
+            className="btn-cta px-6 py-3"
+            onClick={async () => {
+              await router.invalidate();
+              reset();
+            }}
+          >
+            Try Again
+          </button>
+          <Link to="/thank-you" className="inline-flex items-center justify-center rounded-md border px-6 py-3 font-semibold">
+            Continue
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function OtoNotFound() {
+  return (
+    <div className="min-h-screen bg-secondary flex items-center justify-center px-4">
+      <div className="max-w-lg rounded-3xl border bg-card p-8 text-center shadow-xl">
+        <h1 className="text-2xl font-black">Offer Not Available</h1>
+        <p className="mt-3 text-muted-foreground">This page is no longer available for this order.</p>
+        <Link to="/thank-you" className="btn-cta inline-flex mt-6 px-6 py-3">
+          Continue To Thank You
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 function OtoPage() {
   const { leadId } = Route.useLoaderData();
@@ -320,94 +381,33 @@ function OtoPage() {
   );
 }
 
-function VisualCard({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
-  return (
-    <div className={`overflow-hidden rounded-[28px] border bg-card shadow-xl ${className}`}>
-      <img src={src} alt={alt} className="w-full h-auto" loading="lazy" />
-    </div>
-  );
-}
-
-function PrimaryAction({
-  onClick,
-  text,
-  subtext,
-  disabled,
-}: {
-  onClick: () => void;
-  text: string;
-  subtext?: string;
-  disabled?: boolean;
-}) {
-  return (
-    <button type="button" onClick={onClick} disabled={disabled} className="w-full">
-      <div className="btn-cta w-full px-6 py-4 text-center disabled:opacity-70">
-        <div className="text-lg md:text-2xl">{text}</div>
-        {subtext ? (
-          <div className="mt-1 text-xs md:text-sm font-medium normal-case tracking-normal opacity-95">{subtext}</div>
-        ) : null}
-      </div>
-    </button>
-  );
-}
-
-function ContentSection({
-  title,
-  children,
-  dark = false,
-}: {
-  title: string;
-  children: React.ReactNode;
-  dark?: boolean;
-}) {
-  return (
-    <section className={`py-12 md:py-16 ${dark ? "bg-[oklch(0.16_0.05_272)] text-white" : "bg-secondary text-foreground"}`}>
-      <div className="mx-auto max-w-5xl px-4">
-        <h2 className="text-2xl md:text-4xl font-black tracking-tight text-center max-w-4xl mx-auto">{title}</h2>
-        <div className="mt-6">{children}</div>
-      </div>
-    </section>
-  );
-}
-
-function OtoError({ error, reset }: { error: Error; reset: () => void }) {
-  const router = useRouter();
-  return (
-    <div className="min-h-screen bg-secondary flex items-center justify-center px-4">
-      <div className="max-w-lg rounded-3xl border bg-card p-8 text-center shadow-xl">
-        <ShieldCheck className="mx-auto size-10 text-primary" />
-        <h1 className="mt-4 text-2xl font-black">Couldn’t Load This Offer</h1>
-        <p className="mt-3 text-muted-foreground">{error.message || "Please continue to your confirmation page."}</p>
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <button
-            type="button"
-            className="btn-cta px-6 py-3"
-            onClick={async () => {
-              await router.invalidate();
-              reset();
-            }}
-          >
-            Try Again
-          </button>
-          <Link to="/thank-you" className="inline-flex items-center justify-center rounded-md border px-6 py-3 font-semibold">
-            Continue
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OtoNotFound() {
-  return (
-    <div className="min-h-screen bg-secondary flex items-center justify-center px-4">
-      <div className="max-w-lg rounded-3xl border bg-card p-8 text-center shadow-xl">
-        <h1 className="text-2xl font-black">Offer Not Available</h1>
-        <p className="mt-3 text-muted-foreground">This page is no longer available for this order.</p>
-        <Link to="/thank-you" className="btn-cta inline-flex mt-6 px-6 py-3">
-          Continue To Thank You
-        </Link>
-      </div>
-    </div>
-  );
-}
+export const Route = createFileRoute("/oto")({
+  validateSearch: (search: Record<string, unknown>): OtoSearch => ({
+    lead: typeof search.lead === "string" ? search.lead : undefined,
+  }),
+  loaderDeps: ({ search }) => ({ lead: search.lead }),
+  loader: async ({ deps }) => {
+    if (!deps.lead) {
+      throw redirect({ to: "/thank-you" });
+    }
+    const state = await getOtoEligibility({ data: { leadId: deps.lead } });
+    if (!state.eligible) {
+      throw redirect({ to: "/thank-you" });
+    }
+    return { leadId: state.leadId };
+  },
+  head: () => ({
+    meta: [
+      { title: "One-Time Offer — 1-on-1 Personalized Strategy Session" },
+      {
+        name: "description",
+        content:
+          "Upgrade your Clinic Growth Masterclass order with a 1-on-1 personalized digital marketing strategy session for your clinic.",
+      },
+      { name: "robots", content: "noindex,nofollow" },
+    ],
+  }),
+  component: OtoPage,
+  errorComponent: OtoError,
+  notFoundComponent: OtoNotFound,
+});

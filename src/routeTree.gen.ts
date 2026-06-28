@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as OtoRouteImport } from './routes/oto'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminLeads1340RouteImport } from './routes/admin.leads1340'
@@ -20,6 +21,11 @@ import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/em
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
   path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OtoRoute = OtoRouteImport.update({
+  id: '/oto',
+  path: '/oto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrderRoute = OrderRouteImport.update({
@@ -57,6 +63,7 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/order': typeof OrderRoute
+  '/oto': typeof OtoRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/order': typeof OrderRoute
+  '/oto': typeof OtoRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/order': typeof OrderRoute
+  '/oto': typeof OtoRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/order'
+    | '/oto'
     | '/thank-you'
     | '/admin/leads1340'
     | '/lovable/email/auth/preview'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/order'
+    | '/oto'
     | '/thank-you'
     | '/admin/leads1340'
     | '/lovable/email/auth/preview'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/order'
+    | '/oto'
     | '/thank-you'
     | '/admin/leads1340'
     | '/lovable/email/auth/preview'
@@ -115,6 +127,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   OrderRoute: typeof OrderRoute
+  OtoRoute: typeof OtoRoute
   ThankYouRoute: typeof ThankYouRoute
   AdminLeads1340Route: typeof AdminLeads1340Route
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/thank-you'
       fullPath: '/thank-you'
       preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oto': {
+      id: '/oto'
+      path: '/oto'
+      fullPath: '/oto'
+      preLoaderRoute: typeof OtoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/order': {
@@ -179,6 +199,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   OrderRoute: OrderRoute,
+  OtoRoute: OtoRoute,
   ThankYouRoute: ThankYouRoute,
   AdminLeads1340Route: AdminLeads1340Route,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
