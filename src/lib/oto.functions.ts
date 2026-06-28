@@ -44,16 +44,16 @@ function normalizeStatus(base: string, decision: "accepted" | "declined") {
   return `${cleaned} - OTO ${decision === "accepted" ? "Accepted" : "Declined"}`;
 }
 
-async function getLeadRow(leadId: string): Promise<LeadRow | null> {
+async function getLeadRow(leadId: string): Promise<(LeadRow & { oto_status?: string | null; oto_payment_submitted?: boolean | null }) | null> {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await (supabaseAdmin as any)
     .from("clinic_growth_leads")
-    .select("id, lead_status, total_amount, selected_order_bumps")
+    .select("id, lead_status, total_amount, selected_order_bumps, oto_status, oto_payment_submitted")
     .eq("id", leadId)
     .maybeSingle();
 
   if (error) throw error;
-  return (data ?? null) as LeadRow | null;
+  return (data ?? null) as any;
 }
 
 export const getOtoEligibility = createServerFn({ method: "GET" })
@@ -64,8 +64,10 @@ export const getOtoEligibility = createServerFn({ method: "GET" })
       return { eligible: false, accepted: false, declined: false };
     }
 
-    const accepted = hasStrategyBump(lead.selected_order_bumps);
-    const declined = hasDeclinedStatus(lead.lead_status);
+    const otoStatus = (lead as any).oto_status as string | null | undefined;
+    const otoSubmitted = Boolean((lead as any).oto_payment_submitted);
+    const accepted = hasStrategyBump(lead.selected_order_bumps) || otoSubmitted || otoStatus === "payment_submitted";
+    const declined = hasDeclinedStatus(lead.lead_status) || otoStatus === "declined";
 
     return {
       eligible: !accepted && !declined,
