@@ -49,6 +49,23 @@ function ThankYouPage() {
             </p>
           </section>
 
+          {otoSubmitted && (
+            <section className="rounded-2xl border-l-4 border-yellow-500 bg-yellow-50 p-5">
+              <div className="flex gap-3">
+                <CheckCircle2 className="size-6 text-yellow-700 shrink-0 mt-0.5" />
+                <div className="text-sm text-slate-800">
+                  <div className="font-bold mb-1">🎯 1-on-1 Session Payment Submitted</div>
+                  <p>
+                    Your PKR 3,999 payment for the 1-on-1 Personalized Strategy Session has been
+                    received and will be confirmed after verification. Our team will reach out on
+                    WhatsApp to schedule your private 90-minute session.
+                  </p>
+                </div>
+              </div>
+            </section>
+          )}
+
+
           {/* Masterclass details */}
           <section className="bg-card rounded-2xl border shadow-sm p-6">
             <div className="flex items-center gap-3">
