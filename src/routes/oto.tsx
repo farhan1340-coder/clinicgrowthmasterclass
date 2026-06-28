@@ -600,12 +600,147 @@ lastError: ${debug.lastError ?? "-"}`}
                 disabled={!!pending}
                 className="mt-5 text-sm text-white/70 underline underline-offset-4 hover:text-white disabled:opacity-60"
               >
-                {pending === "decline" ? "CONTINUING..." : "No thanks, I’ll continue with the masterclass only"}
+                {pending === "decline" ? "CONTINUING..." : "← No Thanks, I’ll Go With Clinic Growth Masterclass Only"}
               </button>
             </div>
             {error && <p className="mt-4 text-sm text-red-300">{error}</p>}
           </div>
         </section>
+
+        {/* ============= OTO PAYMENT SECTION ============= */}
+        <section id="oto-payment" className="py-12 md:py-16 bg-[oklch(0.16_0.05_272)] text-white scroll-mt-20">
+          <div className="mx-auto max-w-3xl px-4">
+            <div className="text-center">
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-yellow-300">Final Step</p>
+              <h2 className="mt-3 text-2xl md:text-4xl font-black tracking-tight">
+                Complete Your 1-on-1 Session Upgrade
+              </h2>
+              <p className="mt-4 text-sm md:text-base text-white/80 leading-relaxed max-w-2xl mx-auto">
+                You are one step away from getting your personalized 90-minute clinic growth strategy session.
+                Complete your payment of <span className="font-bold text-yellow-300">PKR 3,999</span> and upload the screenshot below to confirm your upgrade.
+              </p>
+              <div className="mt-6 inline-flex flex-col items-center rounded-2xl bg-yellow-300/10 border border-yellow-300/30 px-6 py-4">
+                <div className="text-xs uppercase tracking-widest text-yellow-300/90">One-Time Offer Price</div>
+                <div className="mt-1 text-3xl md:text-5xl font-black text-yellow-300">PKR 3,999</div>
+              </div>
+            </div>
+
+            {/* Payment account card */}
+            <div className="mt-8 rounded-2xl bg-white text-foreground p-5 md:p-6 shadow-2xl">
+              <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+                Easypaisa / JazzCash
+              </div>
+              <dl className="mt-4 space-y-3 text-sm md:text-base">
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="text-muted-foreground">Account Title</dt>
+                  <dd className="font-bold text-right">Farhan Ali Rasheed</dd>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="text-muted-foreground">Account Number</dt>
+                  <dd className="font-bold text-right tracking-wider">03135944817</dd>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <dt className="text-muted-foreground">Amount</dt>
+                  <dd className="font-bold text-right">PKR 3,999</dd>
+                </div>
+              </dl>
+              <button
+                type="button"
+                onClick={handleCopyAccount}
+                className="mt-4 inline-flex items-center gap-2 rounded-md border-2 border-primary px-4 py-2 text-sm font-bold text-primary hover:bg-primary hover:text-primary-foreground transition"
+              >
+                <Copy className="size-4" />
+                {copied ? "Number copied successfully" : "Copy Number"}
+              </button>
+
+              <div className="mt-6 rounded-xl bg-secondary/60 p-4 text-sm">
+                <div className="font-bold mb-2">Payment Instructions</div>
+                <ol className="list-decimal pl-5 space-y-1 text-foreground/80">
+                  <li>Send PKR 3,999 through Easypaisa or JazzCash.</li>
+                  <li>Take a screenshot of the successful payment.</li>
+                  <li>Upload the screenshot below.</li>
+                  <li>Submit to confirm your 1-on-1 strategy session upgrade.</li>
+                </ol>
+              </div>
+            </div>
+
+            {/* Confirmation form */}
+            <form onSubmit={handleOtoSubmit} className="mt-6 rounded-2xl bg-white text-foreground p-5 md:p-6 shadow-2xl space-y-4">
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Full Name *</label>
+                <input
+                  name="oto_full_name"
+                  type="text"
+                  required
+                  value={otoName}
+                  onChange={(e) => setOtoName(e.target.value)}
+                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Your full name"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">WhatsApp Number *</label>
+                <input
+                  name="oto_whatsapp"
+                  type="tel"
+                  required
+                  value={otoWhatsapp}
+                  onChange={(e) => setOtoWhatsapp(e.target.value)}
+                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="03XXXXXXXXX"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Transaction ID (Optional)</label>
+                <input
+                  name="oto_txn"
+                  type="text"
+                  value={otoTxn}
+                  onChange={(e) => setOtoTxn(e.target.value)}
+                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="From Easypaisa/JazzCash confirmation"
+                />
+              </div>
+              <div>
+                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Payment Screenshot *</label>
+                <label className="mt-1 flex cursor-pointer items-center gap-3 rounded-md border-2 border-dashed border-muted-foreground/40 px-4 py-4 text-sm hover:border-primary transition">
+                  <Upload className="size-5 text-muted-foreground" />
+                  <span className="text-foreground/80">
+                    {otoFile ? otoFile.name : "Tap to upload payment screenshot (JPG/PNG, max 8MB)"}
+                  </span>
+                  <input type="file" accept="image/*" onChange={handleOtoFile} className="hidden" />
+                </label>
+                {otoPreview && (
+                  <div className="mt-3 rounded-md border overflow-hidden">
+                    <img src={otoPreview} alt="Payment screenshot preview" className="max-h-64 w-full object-contain bg-muted" />
+                  </div>
+                )}
+                {!otoPreview && (
+                  <p className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+                    <ImageIcon className="size-3.5" /> Required to confirm your 1-on-1 upgrade.
+                  </p>
+                )}
+              </div>
+
+              {otoErr && <p className="text-sm font-medium text-destructive">{otoErr}</p>}
+
+              <button
+                type="submit"
+                disabled={pending === "submit"}
+                className="btn-cta w-full px-6 py-4 text-center disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                <div className="text-lg md:text-xl">
+                  {pending === "submit" ? "SUBMITTING…" : "CONFIRM MY 1-ON-1 SESSION UPGRADE →"}
+                </div>
+              </button>
+              <p className="text-center text-xs text-muted-foreground">
+                Your upgrade will be confirmed after payment verification.
+              </p>
+            </form>
+          </div>
+        </section>
+
+
 
         <ContentSection title="Frequently Asked Questions">
           <div className="space-y-3">
