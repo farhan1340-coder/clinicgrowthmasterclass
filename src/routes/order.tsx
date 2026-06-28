@@ -269,8 +269,9 @@ function OrderPage() {
     await new Promise((r) => setTimeout(r, 350));
 
     if (!savedLeadId || !savedOrder) {
-      console.warn("[FINAL CHECKOUT REDIRECT] missing saved order — falling back to /thank-you", { savedLeadId });
-      navigate({ to: "/thank-you", replace: true });
+      console.warn("[FINAL CHECKOUT REDIRECT] missing saved order — stopping redirect", { savedLeadId });
+      setUploadError("Payment proof uploaded, but we couldn't save your order details. Please submit again.");
+      setSubmitting(false);
       return;
     }
 
