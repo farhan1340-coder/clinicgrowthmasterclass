@@ -205,11 +205,18 @@ function dbg(...args: unknown[]) {
 function OtoPage() {
   const { leadId } = Route.useLoaderData();
   const navigate = useNavigate();
-  const [pending, setPending] = useState<"accept" | "decline" | null>(null);
+  const [pending, setPending] = useState<"decline" | "submit" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [checking, setChecking] = useState(true);
   const [debug, setDebug] = useState<EligibilityDebug>({ attempts: 0, source: "pending" });
   const submittedRef = useRef(false);
+  const [copied, setCopied] = useState(false);
+  const [otoName, setOtoName] = useState("");
+  const [otoWhatsapp, setOtoWhatsapp] = useState("");
+  const [otoTxn, setOtoTxn] = useState("");
+  const [otoFile, setOtoFile] = useState<File | null>(null);
+  const [otoPreview, setOtoPreview] = useState<string | null>(null);
+  const [otoErr, setOtoErr] = useState<string | null>(null);
 
   // Eligibility gate.
   // NEVER auto-redirect to /thank-you on timeout. Only redirect when the backend
