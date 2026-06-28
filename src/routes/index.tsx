@@ -7,6 +7,7 @@ import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
 import bonus4 from "@/assets/bonus-4-community.png.asset.json";
 import emanLogo from "@/assets/eman-medical-tower-logo.jpg.asset.json";
 import drManalReview from "@/assets/dr-manal-whatsapp-review.jpeg.asset.json";
+import drQuratReview from "@/assets/dr-qurat-whatsapp-review.jpeg.asset.json";
 import { useEffect, useState } from "react";
 import { fbqTrack } from "@/lib/fbpixel";
 import { Topbar } from "@/components/site/Topbar";
