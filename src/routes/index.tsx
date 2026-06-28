@@ -51,7 +51,9 @@ function LandingPage() {
       
       <Topbar />
       <Hero />
+      <ReviewCard />
       <SocialProofBar />
+
       <WhatIsItSection />
       <WebsiteGiveawaySection />
       <BonusesSection />
