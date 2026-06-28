@@ -389,26 +389,17 @@ function InlineLeadForm() {
 
 function ReviewCard() {
   return (
-    <div className="mt-6 rounded-lg bg-white/5 ring-1 ring-white/10 p-5 text-white/95">
-      <div className="flex items-start gap-4">
-        <img
-          src={emanLogo.url}
-          alt="Eman Medical Tower, Hafizabad — clinic logo"
-          className="size-14 sm:size-16 rounded-full object-contain bg-white p-1.5 ring-2 ring-yellow-400/70 shrink-0"
-        />
-        <div className="min-w-0">
-          <div className="flex gap-1 text-yellow-400">
-            {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-yellow-400" />)}
-          </div>
-          <p className="mt-2 italic text-sm sm:text-base leading-relaxed">
-            "Farhan's masterclass was very practical. As doctors, we are experts in our practice, but most of us have almost zero knowledge of digital marketing. The patient acquisition strategies shared were very helpful and easy to understand. Highly recommended for other doctors."
-          </p>
-          <div className="mt-3">
-            <p className="font-bold leading-tight">— Dr. Qurat Ul Ain</p>
-            <p className="text-xs sm:text-sm text-white/80 leading-snug">Gynecologist · MBBS, FCPS (Gyne)</p>
-            <p className="text-xs sm:text-sm text-white/80 leading-snug">CEO, Eman Medical Tower, Hafizabad</p>
-          </div>
-        </div>
+    <div className="mt-6 rounded-lg bg-white/5 ring-1 ring-white/10 p-3 sm:p-4 text-white/95">
+      <img
+        src={drQuratReview.url}
+        alt="WhatsApp review screenshot from Dr. Qurat Ul Ain about the Clinic Growth Masterclass"
+        className="w-full h-auto rounded-md ring-1 ring-white/10 shadow-md object-contain"
+        loading="lazy"
+      />
+      <div className="mt-3 px-1">
+        <p className="font-bold leading-tight">— Dr. Qurat Ul Ain</p>
+        <p className="text-xs sm:text-sm text-white/80 leading-snug">Gynecologist · MBBS, FCPS (Gyne)</p>
+        <p className="text-xs sm:text-sm text-white/80 leading-snug">CEO, Eman Medical Tower, Hafizabad</p>
       </div>
     </div>
   );
