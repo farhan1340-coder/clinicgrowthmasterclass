@@ -239,6 +239,7 @@ function OrderPage() {
     }
 
     let savedLeadId: string | null = null;
+    let savedOrder: { strategy_session_order_bump_selected: unknown } | null = null;
     try {
       const { upsertLead } = await import("@/lib/leads.functions");
       const saved = await upsertLead({
@@ -255,6 +256,7 @@ function OrderPage() {
         },
       });
       savedLeadId = saved.id;
+      savedOrder = saved;
     } catch (err) {
       console.error("Failed to save lead", err);
     }
@@ -266,27 +268,30 @@ function OrderPage() {
 
     await new Promise((r) => setTimeout(r, 350));
 
-    const strategySelected = selectedBumps.some((b) => b.id === "strategy");
-    const IS_DEV = (import.meta as any).env?.DEV === true;
-    if (IS_DEV) {
-      console.log("[Checkout] submission complete", {
-        savedLeadId,
-        strategy_session_order_bump_selected: strategySelected,
-        selectedBumps: selectedBumps.map((b) => b.id),
-        redirectTo: strategySelected ? "/thank-you" : savedLeadId ? `/oto?lead=${savedLeadId}` : "/thank-you",
-      });
-    }
-
-    if (!strategySelected && savedLeadId) {
-      navigate({ to: "/oto", search: { lead: savedLeadId } });
+    if (!savedLeadId || !savedOrder) {
+      console.warn("[FINAL CHECKOUT REDIRECT] missing saved order — falling back to /thank-you", { savedLeadId });
+      navigate({ to: "/thank-you", replace: true });
       return;
     }
 
-    if (!savedLeadId && IS_DEV) {
-      console.warn("[Checkout] no savedLeadId — falling back to /thank-you. OTO cannot run without a lead.");
+    const rawValue = savedOrder.strategy_session_order_bump_selected;
+    const strategySelected = rawValue === true;
+    const redirectTo = strategySelected ? "/thank-you" : `/oto?lead=${savedLeadId}`;
+
+    console.log("[FINAL CHECKOUT REDIRECT]", {
+      savedLeadId,
+      strategySelected,
+      rawValue,
+      valueType: typeof rawValue,
+      redirectTo,
+    });
+
+    if (strategySelected) {
+      navigate({ to: "/thank-you", replace: true });
+      return;
     }
 
-    navigate({ to: "/thank-you" });
+    navigate({ to: "/oto", search: { lead: savedLeadId }, replace: true });
   }
 
   return (
