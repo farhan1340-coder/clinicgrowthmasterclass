@@ -187,61 +187,99 @@ function writeDecision(leadId: string, decision: "accepted" | "declined") {
   }
 }
 
+type EligibilityDebug = {
+  attempts: number;
+  lastError?: string;
+  result?: { eligible: boolean; accepted: boolean; declined: boolean };
+  source: "pending" | "backend" | "local-decision" | "missing-lead" | "fallback-show";
+};
+
+const IS_DEV =
+  typeof import.meta !== "undefined" && (import.meta as any).env && (import.meta as any).env.DEV === true;
+
+function dbg(...args: unknown[]) {
+  if (IS_DEV) console.log("[OTO]", ...args);
+}
+
 function OtoPage() {
   const { leadId } = Route.useLoaderData();
   const navigate = useNavigate();
   const [pending, setPending] = useState<"accept" | "decline" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [checking, setChecking] = useState(true);
+  const [debug, setDebug] = useState<EligibilityDebug>({ attempts: 0, source: "pending" });
   const submittedRef = useRef(false);
 
-  // Gate: if decision already saved locally OR eligibility check says ineligible, skip OTO.
-  // Falls back to /thank-you if the eligibility call doesn't resolve within 4s.
+  // Eligibility gate.
+  // NEVER auto-redirect to /thank-you on timeout. Only redirect when the backend
+  // POSITIVELY confirms the strategy bump is already on the order, or that an
+  // OTO decision (accepted/declined) was already saved.
   useEffect(() => {
-    let done = false;
-    const goThankYou = () => {
-      if (done) return;
-      done = true;
-      navigate({ to: "/thank-you", replace: true });
-    };
+    let cancelled = false;
 
-    if (!leadId) {
-      goThankYou();
-      return;
-    }
+    async function run() {
+      dbg("eligibility start", { leadId });
 
-    if (readDecision(leadId)) {
-      goThankYou();
-      return;
-    }
+      if (!leadId) {
+        dbg("no leadId — sending to /thank-you (cannot show OTO without a lead)");
+        setDebug({ attempts: 0, source: "missing-lead" });
+        navigate({ to: "/thank-you", replace: true });
+        return;
+      }
 
-    const timeoutId = window.setTimeout(() => {
-      // Don't strand the user — proceed to thank-you on slow backend
-      goThankYou();
-    }, 4000);
+      const localPrior = readDecision(leadId);
+      if (localPrior) {
+        dbg("local prior decision found", localPrior, "— sending to /thank-you");
+        setDebug({ attempts: 0, source: "local-decision" });
+        navigate({ to: "/thank-you", replace: true });
+        return;
+      }
 
-    getOtoEligibility({ data: { leadId } })
-      .then((state) => {
-        if (done) return;
-        window.clearTimeout(timeoutId);
-        if (state.accepted) writeDecision(leadId, "accepted");
-        if (state.declined) writeDecision(leadId, "declined");
-        if (!state.eligible) {
-          goThankYou();
+      // Try backend up to 2 times. Never timeout-to-thank-you.
+      let attempt = 0;
+      let lastErr: unknown = null;
+      while (attempt < 2 && !cancelled) {
+        attempt++;
+        try {
+          const state = await getOtoEligibility({ data: { leadId } });
+          if (cancelled) return;
+          dbg("eligibility result", state, "attempt", attempt);
+          setDebug({ attempts: attempt, result: state, source: "backend" });
+
+          if (state.accepted) {
+            writeDecision(leadId, "accepted");
+            navigate({ to: "/thank-you", replace: true });
+            return;
+          }
+          if (state.declined) {
+            writeDecision(leadId, "declined");
+            navigate({ to: "/thank-you", replace: true });
+            return;
+          }
+          if (!state.eligible) {
+            navigate({ to: "/thank-you", replace: true });
+            return;
+          }
+          // eligible === true → show OTO
+          setChecking(false);
           return;
+        } catch (e) {
+          lastErr = e;
+          dbg("eligibility error", e, "attempt", attempt);
+          if (attempt < 2) await new Promise((r) => setTimeout(r, 800));
         }
-        setChecking(false);
-      })
-      .catch(() => {
-        if (done) return;
-        window.clearTimeout(timeoutId);
-        // Backend check failed — show the offer rather than stranding the buyer.
-        setChecking(false);
-      });
+      }
 
+      if (cancelled) return;
+      const msg = lastErr instanceof Error ? lastErr.message : String(lastErr ?? "unknown");
+      dbg("backend unavailable after retry — showing OTO safely (not redirecting)");
+      setDebug({ attempts: attempt, lastError: msg, source: "fallback-show" });
+      setChecking(false);
+    }
+
+    run();
     return () => {
-      done = true;
-      window.clearTimeout(timeoutId);
+      cancelled = true;
     };
   }, [leadId, navigate]);
 
@@ -251,11 +289,11 @@ function OtoPage() {
     setPending("accept");
     setError(null);
     writeDecision(leadId, "accepted");
+    dbg("accept clicked", { leadId });
     try {
       await acceptOtoOffer({ data: { leadId } });
     } catch (e) {
       console.error("OTO accept failed", e);
-      // Decision is already persisted locally — continue to thank-you so the user isn't stuck.
     }
     await navigate({ to: "/thank-you", replace: true });
   };
@@ -266,6 +304,7 @@ function OtoPage() {
     setPending("decline");
     setError(null);
     writeDecision(leadId, "declined");
+    dbg("decline clicked", { leadId });
     try {
       await declineOtoOffer({ data: { leadId } });
     } catch (e) {
@@ -279,15 +318,34 @@ function OtoPage() {
       <div className="min-h-screen bg-secondary flex items-center justify-center px-4">
         <div className="text-center">
           <div className="mx-auto size-10 rounded-full border-4 border-primary/30 border-t-primary animate-spin" />
-          <p className="mt-4 text-sm text-muted-foreground">Preparing your offer…</p>
+          <p className="mt-4 text-sm text-muted-foreground">Please wait while we prepare your bonus offer…</p>
+          {IS_DEV && (
+            <pre className="mt-4 mx-auto max-w-md text-left text-[11px] bg-black/80 text-green-200 p-3 rounded-md overflow-auto">
+{`leadId: ${leadId || "(none)"}
+attempts: ${debug.attempts}
+source: ${debug.source}
+lastError: ${debug.lastError ?? "-"}`}
+            </pre>
+          )}
         </div>
       </div>
     );
   }
 
+  const debugBanner = IS_DEV ? (
+    <div className="bg-black/90 text-green-200 text-[11px] font-mono px-4 py-2 text-center">
+      leadId: {leadId} · order bump selected: {String(debug.result?.accepted ?? false)} ·
+      OTO decision: {debug.result?.accepted ? "accepted" : debug.result?.declined ? "declined" : "none"} ·
+      eligibility: {debug.source}
+      {debug.lastError ? ` · err: ${debug.lastError}` : ""}
+    </div>
+  ) : null;
+
   return (
     <div className="min-h-screen flex flex-col bg-secondary">
       <Topbar />
+      {debugBanner}
+
       <main className="flex-1 overflow-x-hidden">
         <section className="hero-bg text-white border-b border-white/10">
           <div className="mx-auto max-w-5xl px-4 py-10 md:py-14 text-center">
