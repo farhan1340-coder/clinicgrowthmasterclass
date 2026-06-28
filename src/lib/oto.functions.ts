@@ -5,9 +5,6 @@ const leadIdSchema = z.object({ leadId: z.string().uuid() });
 
 const otoPaymentSchema = z.object({
   leadId: z.string().uuid(),
-  full_name: z.string().trim().min(1).max(120),
-  whatsapp: z.string().trim().min(3).max(40),
-  transaction_id: z.string().trim().max(120).optional().nullable(),
   screenshot_url: z.string().trim().min(1).max(1000),
 });
 
@@ -154,15 +151,12 @@ export const submitOtoPayment = createServerFn({ method: "POST" })
       .from("clinic_growth_leads")
       .update({
         selected_order_bumps: updatedBumps,
-        lead_status: `${baseStatus} - OTO Payment Submitted (Pending Verification)`,
+        lead_status: `${baseStatus} - OTO Taken — 1-on-1 Session Payment Submitted`,
         oto_accepted: true,
         oto_payment_submitted: true,
         oto_payment_amount: STRATEGY_BUMP.price,
         oto_payment_screenshot_url: data.screenshot_url,
-        oto_transaction_id: data.transaction_id || null,
         oto_status: "payment_submitted",
-        oto_full_name: data.full_name,
-        oto_whatsapp: data.whatsapp,
         oto_submitted_at: new Date().toISOString(),
       })
       .eq("id", lead.id);

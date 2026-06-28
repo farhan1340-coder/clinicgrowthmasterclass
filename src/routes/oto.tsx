@@ -211,9 +211,6 @@ function OtoPage() {
   const [debug, setDebug] = useState<EligibilityDebug>({ attempts: 0, source: "pending" });
   const submittedRef = useRef(false);
   const [copied, setCopied] = useState(false);
-  const [otoName, setOtoName] = useState("");
-  const [otoWhatsapp, setOtoWhatsapp] = useState("");
-  const [otoTxn, setOtoTxn] = useState("");
   const [otoFile, setOtoFile] = useState<File | null>(null);
   const [otoPreview, setOtoPreview] = useState<string | null>(null);
   const [otoErr, setOtoErr] = useState<string | null>(null);
@@ -297,7 +294,7 @@ function OtoPage() {
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       setTimeout(() => {
-        const input = el.querySelector<HTMLInputElement>("input[name='oto_full_name']");
+        const input = el.querySelector<HTMLInputElement>("input[type='file']");
         input?.focus({ preventScroll: true });
       }, 600);
     }
@@ -343,14 +340,11 @@ function OtoPage() {
       setOtoErr("Missing order reference. Please return to checkout.");
       return;
     }
-    if (otoName.trim().length < 1) return setOtoErr("Please enter your full name.");
-    if (otoWhatsapp.trim().length < 3) return setOtoErr("Please enter your WhatsApp number.");
     if (!otoFile) return setOtoErr("Please upload your payment screenshot.");
     setPending("submit");
     try {
       const ext = otoFile.name.split(".").pop()?.toLowerCase() || "jpg";
-      const safe = otoName.replace(/[^a-z0-9]/gi, "_").slice(0, 30);
-      const path = `oto-${Date.now()}-${safe}.${ext}`;
+      const path = `oto-${Date.now()}-${leadId}.${ext}`;
       const { error: upErr } = await supabase.storage
         .from("payment-screenshots")
         .upload(path, otoFile, { contentType: otoFile.type, upsert: false });
@@ -368,9 +362,6 @@ function OtoPage() {
       await submitOtoPayment({
         data: {
           leadId,
-          full_name: otoName.trim(),
-          whatsapp: otoWhatsapp.trim(),
-          transaction_id: otoTxn.trim() || undefined,
           screenshot_url: screenshotUrl,
         },
       });
@@ -667,41 +658,6 @@ lastError: ${debug.lastError ?? "-"}`}
             {/* Confirmation form */}
             <form onSubmit={handleOtoSubmit} className="mt-6 rounded-2xl bg-white text-foreground p-5 md:p-6 shadow-2xl space-y-4">
               <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Full Name *</label>
-                <input
-                  name="oto_full_name"
-                  type="text"
-                  required
-                  value={otoName}
-                  onChange={(e) => setOtoName(e.target.value)}
-                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Your full name"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">WhatsApp Number *</label>
-                <input
-                  name="oto_whatsapp"
-                  type="tel"
-                  required
-                  value={otoWhatsapp}
-                  onChange={(e) => setOtoWhatsapp(e.target.value)}
-                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="03XXXXXXXXX"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Transaction ID (Optional)</label>
-                <input
-                  name="oto_txn"
-                  type="text"
-                  value={otoTxn}
-                  onChange={(e) => setOtoTxn(e.target.value)}
-                  className="mt-1 w-full rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="From Easypaisa/JazzCash confirmation"
-                />
-              </div>
-              <div>
                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Payment Screenshot *</label>
                 <label className="mt-1 flex cursor-pointer items-center gap-3 rounded-md border-2 border-dashed border-muted-foreground/40 px-4 py-4 text-sm hover:border-primary transition">
                   <Upload className="size-5 text-muted-foreground" />
@@ -710,6 +666,9 @@ lastError: ${debug.lastError ?? "-"}`}
                   </span>
                   <input type="file" accept="image/*" onChange={handleOtoFile} className="hidden" />
                 </label>
+                <p className="mt-2 text-xs text-foreground/80">
+                  Upload your PKR 3,999 payment screenshot to confirm your 1-on-1 session upgrade.
+                </p>
                 {otoPreview && (
                   <div className="mt-3 rounded-md border overflow-hidden">
                     <img src={otoPreview} alt="Payment screenshot preview" className="max-h-64 w-full object-contain bg-muted" />
