@@ -5,9 +5,6 @@ const leadIdSchema = z.object({ leadId: z.string().uuid() });
 
 const otoPaymentSchema = z.object({
   leadId: z.string().uuid(),
-  full_name: z.string().trim().min(1).max(120),
-  whatsapp: z.string().trim().min(3).max(40),
-  transaction_id: z.string().trim().max(120).optional().nullable(),
   screenshot_url: z.string().trim().min(1).max(1000),
 });
 
