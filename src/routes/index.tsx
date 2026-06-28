@@ -443,7 +443,7 @@ function TopTestimonials() {
     <div className="mt-6 md:mt-8">
       <div className="text-center mb-5 md:mb-6">
         <h2 className="text-2xl md:text-3xl font-extrabold text-white">
-          What Our <span className="text-primary">Masterclass Attendees</span> Say
+          What Our <span className="text-yellow-400">Masterclass Attendees</span> Say
         </h2>
         <p className="mt-2 text-white/70 text-sm md:text-base">
           Real feedback from doctors and healthcare practitioners who attended the masterclass.
