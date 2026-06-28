@@ -51,7 +51,6 @@ function LandingPage() {
       
       <Topbar />
       <Hero />
-      <TopTestimonials />
       <SocialProofBar />
 
       <WhatIsItSection />
