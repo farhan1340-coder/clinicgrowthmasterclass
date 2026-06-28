@@ -340,14 +340,11 @@ function OtoPage() {
       setOtoErr("Missing order reference. Please return to checkout.");
       return;
     }
-    if (otoName.trim().length < 1) return setOtoErr("Please enter your full name.");
-    if (otoWhatsapp.trim().length < 3) return setOtoErr("Please enter your WhatsApp number.");
     if (!otoFile) return setOtoErr("Please upload your payment screenshot.");
     setPending("submit");
     try {
       const ext = otoFile.name.split(".").pop()?.toLowerCase() || "jpg";
-      const safe = otoName.replace(/[^a-z0-9]/gi, "_").slice(0, 30);
-      const path = `oto-${Date.now()}-${safe}.${ext}`;
+      const path = `oto-${Date.now()}-${leadId}.${ext}`;
       const { error: upErr } = await supabase.storage
         .from("payment-screenshots")
         .upload(path, otoFile, { contentType: otoFile.type, upsert: false });
@@ -365,9 +362,6 @@ function OtoPage() {
       await submitOtoPayment({
         data: {
           leadId,
-          full_name: otoName.trim(),
-          whatsapp: otoWhatsapp.trim(),
-          transaction_id: otoTxn.trim() || undefined,
           screenshot_url: screenshotUrl,
         },
       });
