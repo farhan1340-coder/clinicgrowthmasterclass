@@ -151,15 +151,12 @@ export const submitOtoPayment = createServerFn({ method: "POST" })
       .from("clinic_growth_leads")
       .update({
         selected_order_bumps: updatedBumps,
-        lead_status: `${baseStatus} - OTO Payment Submitted (Pending Verification)`,
+        lead_status: `${baseStatus} - OTO Taken — 1-on-1 Session Payment Submitted`,
         oto_accepted: true,
         oto_payment_submitted: true,
         oto_payment_amount: STRATEGY_BUMP.price,
         oto_payment_screenshot_url: data.screenshot_url,
-        oto_transaction_id: data.transaction_id || null,
         oto_status: "payment_submitted",
-        oto_full_name: data.full_name,
-        oto_whatsapp: data.whatsapp,
         oto_submitted_at: new Date().toISOString(),
       })
       .eq("id", lead.id);
