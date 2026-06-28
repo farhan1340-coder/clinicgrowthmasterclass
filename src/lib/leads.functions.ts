@@ -53,7 +53,7 @@ export const upsertLead = createServerFn({ method: "POST" })
   .handler(async ({ data }): Promise<SavedLeadResult> => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const { data: existing, error: selErr } = await supabaseAdmin
+    const { data: existing, error: selErr } = await (supabaseAdmin as any)
       .from("clinic_growth_leads")
       .select("id, lead_status, total_amount, payment_screenshot_url, selected_order_bumps, payment_method, strategy_session_order_bump_selected")
       .eq("email", data.email)
@@ -81,7 +81,7 @@ export const upsertLead = createServerFn({ method: "POST" })
           : data.payment_screenshot_url,
         created_at: nowIso,
       };
-      const { data: updated, error } = await supabaseAdmin
+      const { data: updated, error } = await (supabaseAdmin as any)
         .from("clinic_growth_leads")
         .update(payload)
         .eq("id", existing.id)
@@ -95,7 +95,7 @@ export const upsertLead = createServerFn({ method: "POST" })
       };
     }
 
-    const { data: ins, error: insErr } = await supabaseAdmin
+    const { data: ins, error: insErr } = await (supabaseAdmin as any)
       .from("clinic_growth_leads")
       .insert({
         full_name: data.full_name,
