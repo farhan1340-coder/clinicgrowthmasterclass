@@ -467,15 +467,14 @@ export const Route = createFileRoute("/oto")({
     lead: typeof search.lead === "string" ? search.lead : undefined,
   }),
   loaderDeps: ({ search }) => ({ lead: search.lead }),
-  loader: async ({ deps }) => {
+  // Loader stays cheap (no server call) so SSR/build prerender never blocks on the eligibility lookup.
+  // Real eligibility + decision check happens client-side with a timeout fallback in OtoPage.
+  loader: ({ deps }) => {
     if (!deps.lead) {
-      throw redirect({ to: "/thank-you" });
+      // No lead id — just go to thank-you on the client.
+      return { leadId: "" };
     }
-    const state = await getOtoEligibility({ data: { leadId: deps.lead } });
-    if (!state.eligible) {
-      throw redirect({ to: "/thank-you" });
-    }
-    return { leadId: state.leadId };
+    return { leadId: deps.lead };
   },
   head: () => ({
     meta: [
