@@ -20,6 +20,15 @@ function ThankYouPage() {
     "Assalam-o-Alaikum, I need help with my Clinic Growth Masterclass order.",
   )}`;
 
+  const otoSubmitted = (() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return Boolean(localStorage.getItem("oto_last_submitted"));
+    } catch {
+      return false;
+    }
+  })();
+
   return (
     <div className="min-h-screen flex flex-col">
       <Topbar />
