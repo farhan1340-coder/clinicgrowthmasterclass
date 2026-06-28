@@ -541,6 +541,9 @@ lastError: ${debug.lastError ?? "-"}`}
               text={"YES! ADD MY 1-ON-1 SESSION NOW →"}
               subtext="This one-time offer is available only on this page."
             />
+            <button type="button" onClick={handleDecline} disabled={!!pending} className="mt-4 block mx-auto text-xs md:text-sm text-foreground/60 underline underline-offset-4 hover:text-foreground disabled:opacity-60">
+              ← No Thanks, I’ll Go With Clinic Growth Masterclass Only
+            </button>
           </div>
         </ContentSection>
 
