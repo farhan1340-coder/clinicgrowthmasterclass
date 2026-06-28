@@ -169,8 +169,6 @@ function OtoNotFound() {
 function OtoPage() {
   const { leadId } = Route.useLoaderData();
   const navigate = useNavigate();
-  const accept = useServerFn(acceptOtoOffer);
-  const decline = useServerFn(declineOtoOffer);
   const [pending, setPending] = useState<"accept" | "decline" | null>(null);
   const [error, setError] = useState<string | null>(null);
 
