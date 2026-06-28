@@ -267,9 +267,23 @@ function OrderPage() {
     await new Promise((r) => setTimeout(r, 350));
 
     const strategySelected = selectedBumps.some((b) => b.id === "strategy");
+    const IS_DEV = (import.meta as any).env?.DEV === true;
+    if (IS_DEV) {
+      console.log("[Checkout] submission complete", {
+        savedLeadId,
+        strategy_session_order_bump_selected: strategySelected,
+        selectedBumps: selectedBumps.map((b) => b.id),
+        redirectTo: strategySelected ? "/thank-you" : savedLeadId ? `/oto?lead=${savedLeadId}` : "/thank-you",
+      });
+    }
+
     if (!strategySelected && savedLeadId) {
       navigate({ to: "/oto", search: { lead: savedLeadId } });
       return;
+    }
+
+    if (!savedLeadId && IS_DEV) {
+      console.warn("[Checkout] no savedLeadId — falling back to /thank-you. OTO cannot run without a lead.");
     }
 
     navigate({ to: "/thank-you" });
