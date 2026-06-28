@@ -56,16 +56,72 @@ function ScreenshotCell({ url }: { url: string | null }) {
   );
 }
 
+function TestEmailPanel({ onSent }: { onSent: () => void }) {
+  const sendFn = useServerFn(sendRegistrationEmail);
+  const [to, setTo] = useState("");
+  const [name, setName] = useState("");
+  const [busy, setBusy] = useState(false);
+  async function handle() {
+    if (!to.trim()) { toast.error("Email required"); return; }
+    setBusy(true);
+    try {
+      const res = await sendFn({ data: { to: to.trim(), name: name.trim() || undefined, force: true } });
+      if ((res as any)?.ok) toast.success("Test email queued");
+      else toast.error(`Failed: ${(res as any)?.reason ?? "unknown"}`);
+      onSent();
+    } catch (e: any) {
+      toast.error(e?.message ?? "Send failed");
+    } finally { setBusy(false); }
+  }
+  return (
+    <div className="border rounded-lg p-4 mb-6 bg-muted/30">
+      <div className="font-bold mb-2">Send test registration email</div>
+      <div className="flex flex-wrap gap-2 items-end">
+        <div className="flex-1 min-w-[220px]">
+          <label className="text-xs text-muted-foreground">Recipient email</label>
+          <Input value={to} onChange={(e) => setTo(e.target.value)} placeholder="you@example.com" />
+        </div>
+        <div className="flex-1 min-w-[180px]">
+          <label className="text-xs text-muted-foreground">Name (optional)</label>
+          <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Dr. Test" />
+        </div>
+        <Button onClick={handle} disabled={busy}>{busy ? "Sending…" : "Send Test"}</Button>
+      </div>
+    </div>
+  );
+}
+
+function ResendCell({ leadId, sent, onDone }: { leadId: string; sent: boolean; onDone: () => void }) {
+  const sendFn = useServerFn(sendRegistrationEmail);
+  const [busy, setBusy] = useState(false);
+  async function handle() {
+    setBusy(true);
+    try {
+      const res = await sendFn({ data: { leadId, force: true } });
+      if ((res as any)?.ok) toast.success("Email queued");
+      else toast.error(`Failed: ${(res as any)?.reason ?? "unknown"}`);
+      onDone();
+    } catch (e: any) { toast.error(e?.message ?? "Send failed"); }
+    finally { setBusy(false); }
+  }
+  return (
+    <Button size="sm" variant={sent ? "outline" : "default"} onClick={handle} disabled={busy}>
+      {busy ? "…" : sent ? "Resend" : "Send"}
+    </Button>
+  );
+}
+
 function AdminLeadsPage() {
   const fetchLeads = useServerFn(listAllLeads);
   const [leads, setLeads] = useState<Lead[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  function reload() {
     fetchLeads()
       .then((d) => setLeads(d as Lead[]))
       .catch((e) => setError(e?.message ?? "Failed to load leads"));
-  }, [fetchLeads]);
+  }
+  useEffect(() => { reload(); }, [fetchLeads]);
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -74,6 +130,8 @@ function AdminLeadsPage() {
         <p className="text-sm text-muted-foreground mb-6">
           Unlisted admin view. {leads ? `${leads.length} total leads.` : ""}
         </p>
+
+        <TestEmailPanel onSent={reload} />
 
         {error && <div className="text-destructive mb-4">{error}</div>}
         {!leads && !error && <div>Loading…</div>}
@@ -90,6 +148,7 @@ function AdminLeadsPage() {
                   <th className="p-3">Amount</th>
                   <th className="p-3">Payment</th>
                   <th className="p-3">Status</th>
+                  <th className="p-3">Email</th>
                   <th className="p-3">Screenshot</th>
                 </tr>
               </thead>
@@ -106,11 +165,26 @@ function AdminLeadsPage() {
                     <td className="p-3 whitespace-nowrap">Rs. {l.total_amount}</td>
                     <td className="p-3">{l.payment_method}</td>
                     <td className="p-3">{l.lead_status}</td>
+                    <td className="p-3">
+                      <div className="flex flex-col gap-1 min-w-[140px]">
+                        {l.registration_email_sent ? (
+                          <span className="text-xs text-emerald-700 font-semibold">
+                            ✅ Sent{l.registration_email_sent_at ? ` ${new Date(l.registration_email_sent_at).toLocaleString()}` : ""}
+                          </span>
+                        ) : (
+                          <span className="text-xs text-muted-foreground italic">Not sent</span>
+                        )}
+                        {l.registration_email_error && (
+                          <span className="text-xs text-destructive">{l.registration_email_error}</span>
+                        )}
+                        <ResendCell leadId={l.id} sent={!!l.registration_email_sent} onDone={reload} />
+                      </div>
+                    </td>
                     <td className="p-3"><ScreenshotCell url={l.payment_screenshot_url} /></td>
                   </tr>
                 ))}
                 {leads.length === 0 && (
-                  <tr><td colSpan={8} className="p-6 text-center text-muted-foreground">No leads yet.</td></tr>
+                  <tr><td colSpan={9} className="p-6 text-center text-muted-foreground">No leads yet.</td></tr>
                 )}
               </tbody>
             </table>
@@ -120,3 +194,4 @@ function AdminLeadsPage() {
     </div>
   );
 }
+
