@@ -85,7 +85,7 @@ function AnnouncementBar() {
             🎁 SPECIAL BONUS
           </span>
           <span className="text-white/95">
-            7 Doctors, Nutritionists &amp; Healthcare Practitioners Will Be Selected For A <span className="font-bold">FREE Professional Clinic Website Setup</span>
+            <span className="font-extrabold text-yellow-300">2 Doctors</span>, Nutritionists &amp; Healthcare Practitioners Will Be Selected For A <span className="font-bold">FREE Professional Clinic Website Setup</span>
           </span>
         </span>
         <a
@@ -123,10 +123,11 @@ function WebsiteGiveawaySection() {
               <Gift className="size-4" /> Special Bonus Opportunity
             </div>
             <h2 className="mt-5 text-3xl md:text-5xl font-black leading-tight">
-              7 Doctors Will Receive A <span className="text-yellow-300">FREE Professional Clinic Website</span> Setup
+              <span className="text-yellow-300">2 Doctors</span> Will Receive A <span className="text-yellow-300">FREE Professional Clinic Website</span> Setup
             </h2>
             <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed">
-              At the end of the Clinic Growth Masterclass, 7 doctors, nutritionists, or healthcare practitioners will be selected to receive a professionally designed clinic website — completely FREE.
+              At the end of the Clinic Growth Masterclass, only <span className="font-extrabold text-yellow-300">2 doctors</span>, nutritionists, or healthcare practitioners will be selected to receive a professionally designed clinic website — completely FREE.
+
             </p>
 
             <div className="mt-8 grid sm:grid-cols-2 gap-3">
@@ -145,7 +146,7 @@ function WebsiteGiveawaySection() {
             <div className="mt-6 rounded-2xl border border-yellow-400/60 bg-yellow-400/10 p-5 md:p-6">
               <p className="text-sm md:text-base text-white/95 leading-relaxed">
                 <span className="font-extrabold text-yellow-300">🎁 FREE Website Giveaway:</span>{" "}
-                At the end of this masterclass, 7 doctors, nutritionists, or healthcare practitioners will be selected to receive a FREE professional clinic website setup (Value: PKR 30,000+).
+                At the end of this masterclass, only <span className="font-extrabold text-yellow-300">2 doctors</span>, nutritionists, or healthcare practitioners will be selected to receive a FREE professional clinic website setup (Value: PKR 30,000+).
               </p>
             </div>
           </div>
