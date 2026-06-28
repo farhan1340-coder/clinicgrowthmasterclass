@@ -117,7 +117,7 @@ export const declineOtoOffer = createServerFn({ method: "POST" })
     if (hasStrategyBump(lead.selected_order_bumps)) {
       return { ok: true, reason: "already-accepted" as const };
     }
-    if (hasDeclinedStatus(lead.lead_status)) {
+    if (hasDeclinedStatus(lead.lead_status) || (lead as any).oto_status === "declined") {
       return { ok: true, reason: "already-declined" as const };
     }
 
@@ -125,9 +125,48 @@ export const declineOtoOffer = createServerFn({ method: "POST" })
       .from("clinic_growth_leads")
       .update({
         lead_status: normalizeStatus(lead.lead_status || "Pending Payment", "declined"),
+        oto_status: "declined",
       })
       .eq("id", lead.id);
 
     if (error) throw error;
     return { ok: true, reason: "declined" as const };
+  });
+
+export const submitOtoPayment = createServerFn({ method: "POST" })
+  .inputValidator((data) => otoPaymentSchema.parse(data))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const lead = await getLeadRow(data.leadId);
+    if (!lead) throw new Error("Lead not found");
+
+    const selected = parseBumps(lead.selected_order_bumps);
+    const updatedBumps = hasStrategyBump(lead.selected_order_bumps)
+      ? selected
+      : [...selected, STRATEGY_BUMP];
+
+    const baseStatus = (lead.lead_status || "Pending Payment")
+      .replace(/\s*[—-]\s*OTO Accepted/g, "")
+      .replace(/\s*[—-]\s*OTO Declined/g, "")
+      .trim();
+
+    const { error } = await (supabaseAdmin as any)
+      .from("clinic_growth_leads")
+      .update({
+        selected_order_bumps: updatedBumps,
+        lead_status: `${baseStatus} - OTO Payment Submitted (Pending Verification)`,
+        oto_accepted: true,
+        oto_payment_submitted: true,
+        oto_payment_amount: STRATEGY_BUMP.price,
+        oto_payment_screenshot_url: data.screenshot_url,
+        oto_transaction_id: data.transaction_id || null,
+        oto_status: "payment_submitted",
+        oto_full_name: data.full_name,
+        oto_whatsapp: data.whatsapp,
+        oto_submitted_at: new Date().toISOString(),
+      })
+      .eq("id", lead.id);
+
+    if (error) throw error;
+    return { ok: true as const };
   });
