@@ -85,9 +85,10 @@ export const upsertLead = createServerFn({ method: "POST" })
         .from("clinic_growth_leads")
         .update(payload)
         .eq("id", existing.id)
-        .select("id, strategy_session_order_bump_selected")
+        .select("id, strategy_session_order_bump_selected, lead_status, email, full_name, registration_email_sent")
         .single();
       if (error) throw error;
+      await maybeSendRegistrationEmail(updated);
       return {
         id: updated.id as string,
         updated: true,
@@ -108,13 +109,42 @@ export const upsertLead = createServerFn({ method: "POST" })
         lead_status: data.lead_status,
         payment_screenshot_url: data.payment_screenshot_url ?? null,
       })
-      .select("id, strategy_session_order_bump_selected")
+      .select("id, strategy_session_order_bump_selected, lead_status, email, full_name, registration_email_sent")
       .single();
     if (insErr) throw insErr;
+    await maybeSendRegistrationEmail(ins);
     return {
       id: ins.id as string,
       updated: false,
       strategy_session_order_bump_selected: ins.strategy_session_order_bump_selected === true,
     };
   });
+
+// Fire the registration confirmation email when a lead is in a paid-confirmed
+// state. Dedup is enforced via the `registration_email_sent` flag.
+async function maybeSendRegistrationEmail(row: {
+  id: string;
+  email: string;
+  full_name: string;
+  lead_status: string;
+  registration_email_sent?: boolean | null;
+}): Promise<void> {
+  try {
+    if (!row?.id || !row?.email || !row?.lead_status) return;
+    if (row.registration_email_sent === true) return;
+    if (!row.lead_status.startsWith("Pending Payment")) return;
+    const { sendRegistrationConfirmationEmail } = await import(
+      "@/lib/registration-email.server"
+    );
+    await sendRegistrationConfirmationEmail({
+      to: row.email,
+      name: row.full_name,
+      leadId: row.id,
+    });
+  } catch (err) {
+    // Never block the checkout response on email failures
+    console.error("[upsertLead] registration email failed", err);
+  }
+}
+
 
