@@ -391,15 +391,14 @@ function ReviewCard() {
   return (
     <div className="mt-6 rounded-lg bg-white/5 ring-1 ring-white/10 p-3 sm:p-4 text-white/95">
       <img
-        src={drQuratReview.url}
-        alt="WhatsApp review screenshot from Dr. Qurat Ul Ain about the Clinic Growth Masterclass"
+        src={drManalFatimahReview.url}
+        alt="WhatsApp review screenshot from Dr. Manal Fatimah about the Clinic Growth Masterclass"
         className="w-full h-auto rounded-md ring-1 ring-white/10 shadow-md object-contain"
         loading="lazy"
       />
       <div className="mt-3 px-1">
-        <p className="font-bold leading-tight">— Dr. Qurat Ul Ain</p>
-        <p className="text-xs sm:text-sm text-white/80 leading-snug">Gynecologist · MBBS, FCPS (Gyne)</p>
-        <p className="text-xs sm:text-sm text-white/80 leading-snug">CEO, Eman Medical Tower, Hafizabad</p>
+        <p className="font-bold leading-tight">— Dr. Manal Fatimah</p>
+        <p className="text-xs sm:text-sm text-white/80 leading-snug">Lahore, Pakistan</p>
       </div>
     </div>
   );
