@@ -344,6 +344,8 @@ lastError: ${debug.lastError ?? "-"}`}
   return (
     <div className="min-h-screen flex flex-col bg-secondary">
       <Topbar />
+      {debugBanner}
+
       <main className="flex-1 overflow-x-hidden">
         <section className="hero-bg text-white border-b border-white/10">
           <div className="mx-auto max-w-5xl px-4 py-10 md:py-14 text-center">
