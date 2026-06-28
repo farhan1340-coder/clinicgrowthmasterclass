@@ -291,19 +291,103 @@ function OtoPage() {
     };
   }, [leadId, navigate]);
 
-  const handleAccept = async () => {
-    if (submittedRef.current || pending) return;
-    submittedRef.current = true;
-    setPending("accept");
-    setError(null);
-    writeDecision(leadId, "accepted");
-    dbg("accept clicked", { leadId });
-    try {
-      await acceptOtoOffer({ data: { leadId } });
-    } catch (e) {
-      console.error("OTO accept failed", e);
+  const scrollToPayment = () => {
+    if (typeof document === "undefined") return;
+    const el = document.getElementById("oto-payment");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        const input = el.querySelector<HTMLInputElement>("input[name='oto_full_name']");
+        input?.focus({ preventScroll: true });
+      }, 600);
     }
-    await navigate({ to: "/thank-you", replace: true });
+  };
+
+  const handleCopyAccount = async () => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText("03135944817");
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  const handleOtoFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0] ?? null;
+    setOtoErr(null);
+    if (!f) {
+      setOtoFile(null);
+      setOtoPreview(null);
+      return;
+    }
+    if (!f.type.startsWith("image/")) {
+      setOtoErr("Please upload an image file (JPG or PNG).");
+      return;
+    }
+    if (f.size > 8 * 1024 * 1024) {
+      setOtoErr("Image must be smaller than 8MB.");
+      return;
+    }
+    setOtoFile(f);
+    setOtoPreview(URL.createObjectURL(f));
+  };
+
+  const handleOtoSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (pending || submittedRef.current) return;
+    setOtoErr(null);
+    if (!leadId) {
+      setOtoErr("Missing order reference. Please return to checkout.");
+      return;
+    }
+    if (otoName.trim().length < 1) return setOtoErr("Please enter your full name.");
+    if (otoWhatsapp.trim().length < 3) return setOtoErr("Please enter your WhatsApp number.");
+    if (!otoFile) return setOtoErr("Please upload your payment screenshot.");
+    setPending("submit");
+    try {
+      const ext = otoFile.name.split(".").pop()?.toLowerCase() || "jpg";
+      const safe = otoName.replace(/[^a-z0-9]/gi, "_").slice(0, 30);
+      const path = `oto-${Date.now()}-${safe}.${ext}`;
+      const { error: upErr } = await supabase.storage
+        .from("payment-screenshots")
+        .upload(path, otoFile, { contentType: otoFile.type, upsert: false });
+      if (upErr) throw upErr;
+
+      let screenshotUrl: string = path;
+      try {
+        const { createScreenshotSignedUrl } = await import("@/lib/payment-screenshot.functions");
+        const { url } = await createScreenshotSignedUrl({ data: { path } });
+        screenshotUrl = url;
+      } catch (err) {
+        console.error("OTO signed url failed", err);
+      }
+
+      await submitOtoPayment({
+        data: {
+          leadId,
+          full_name: otoName.trim(),
+          whatsapp: otoWhatsapp.trim(),
+          transaction_id: otoTxn.trim() || undefined,
+          screenshot_url: screenshotUrl,
+        },
+      });
+      submittedRef.current = true;
+      writeDecision(leadId, "accepted");
+      try {
+        localStorage.setItem(`oto_submitted_${leadId}`, "1");
+        localStorage.setItem("oto_last_submitted", leadId);
+      } catch {
+        /* ignore */
+      }
+      await navigate({ to: "/thank-you", replace: true });
+    } catch (err) {
+      console.error("OTO submit failed", err);
+      setOtoErr("Couldn't submit payment. Please try again.");
+      setPending(null);
+    }
   };
 
   const handleDecline = async () => {
@@ -313,6 +397,13 @@ function OtoPage() {
     setError(null);
     writeDecision(leadId, "declined");
     dbg("decline clicked", { leadId });
+    try {
+      await declineOtoOffer({ data: { leadId } });
+    } catch (e) {
+      console.error("OTO decline failed", e);
+    }
+    await navigate({ to: "/thank-you", replace: true });
+  };
     try {
       await declineOtoOffer({ data: { leadId } });
     } catch (e) {
