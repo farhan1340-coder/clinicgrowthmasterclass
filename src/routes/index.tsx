@@ -57,6 +57,7 @@ function LandingPage() {
       <BonusesSection />
       <HowItWorks />
       <TestimonialsWall />
+      <ProofGallery />
       <WhoFor />
       <TrainerSection />
       <GuaranteeSection />
