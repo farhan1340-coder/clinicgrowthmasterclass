@@ -1,6 +1,8 @@
 import payEasypaisa from "@/assets/proof/pay-easypaisa-1999.jpg.asset.json";
 import payMcb from "@/assets/proof/pay-mcb-1000.jpg.asset.json";
 import payAlbaraka from "@/assets/proof/pay-albaraka-999.jpg.asset.json";
+import payAlfa from "@/assets/proof/pay-alfa-999.jpg.asset.json";
+import payEasypaisa999 from "@/assets/proof/pay-easypaisa-999.jpg.asset.json";
 import textKhalid from "@/assets/proof/text-khalid.jpg.asset.json";
 import textDanish from "@/assets/proof/text-danish.jpg.asset.json";
 import textChavid from "@/assets/proof/text-chavid.jpg.asset.json";
@@ -8,6 +10,14 @@ import textAlii from "@/assets/proof/text-alii.jpg.asset.json";
 import textAhmadMunir from "@/assets/proof/text-ahmad-munir.jpg.asset.json";
 import textThankyou from "@/assets/proof/text-thankyou.jpg.asset.json";
 import textTanveer from "@/assets/proof/text-tanveer.jpg.asset.json";
+import textTanveerHr from "@/assets/proof/text-tanveer-hr.jpg.asset.json";
+import textAmazingWorthy from "@/assets/proof/text-amazing-worthy.jpg.asset.json";
+import textDrAmnah from "@/assets/proof/text-dr-amnah.jpg.asset.json";
+import textDrManalFull from "@/assets/proof/text-dr-manal-full.jpg.asset.json";
+import textDrManalCrop from "@/assets/proof/text-dr-manal-crop.jpg.asset.json";
+import textPatientJourney from "@/assets/proof/text-patient-journey.jpg.asset.json";
+import textSocialAds from "@/assets/proof/text-social-ads.jpg.asset.json";
+import textAbdulHaq from "@/assets/proof/text-abdul-haq.jpg.asset.json";
 
 type Proof = { url: string; kind: "text" | "payment"; alt: string };
 
@@ -20,10 +30,20 @@ const PROOFS: Proof[] = [
   { url: textChavid.url, kind: "text", alt: "WhatsApp feedback: Bohot zabardast session" },
   { url: payAlbaraka.url, kind: "payment", alt: "alBaraka Bank fund transfer proof PKR 999" },
   { url: textAlii.url, kind: "text", alt: "WhatsApp feedback from Ali: Amazing session, useful tips" },
+  { url: payAlfa.url, kind: "payment", alt: "Alfa Bank payment proof PKR 999" },
   { url: textAhmadMunir.url, kind: "text", alt: "WhatsApp feedback from Ahmad Munir: Session was amazing" },
+  { url: payEasypaisa999.url, kind: "payment", alt: "Easypaisa payment proof Rs. 999" },
   { url: textThankyou.url, kind: "text", alt: "Messenger feedback: Session was outstanding, worth thousands of rupees" },
   { url: textTanveer.url, kind: "text", alt: "WhatsApp feedback from Tanveer Ahmad: Way of teaching is excellent" },
-];
+  { url: textTanveerHr.url, kind: "text", alt: "WhatsApp feedback from Tanveer Ahmad: Bundle of knowledge, simple action steps" },
+  { url: textAmazingWorthy.url, kind: "text", alt: "WhatsApp feedback: Clinic Growth Masterclass truly amazing and worthy" },
+  { url: textDrAmnah.url, kind: "text", alt: "WhatsApp feedback from Dr. Amnah: Most valuable lesson was Google My Business strategy" },
+  { url: textDrManalFull.url, kind: "text", alt: "WhatsApp feedback from Dr. Manal: Personal profile building & audience targeting" },
+  { url: textDrManalCrop.url, kind: "text", alt: "WhatsApp feedback from Dr. Manal: Recommends masterclass to doctors & practitioners" },
+  { url: textPatientJourney.url, kind: "text", alt: "WhatsApp feedback: Patient-centric journey converting first-time visitors into loyal patients" },
+  { url: textSocialAds.url, kind: "text", alt: "WhatsApp feedback: Improved patient numbers via social media ads & clinical strategies" },
+  { url: textAbdulHaq.url, kind: "text", alt: "Facebook recommendation from Abdul Haq: Beneficial for medical practitioners & consultants" },
+]
 
 function ProofCard({ p }: { p: Proof }) {
   const badge = p.kind === "payment" ? "Payment Proof" : "Feedback";
