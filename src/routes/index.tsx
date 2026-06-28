@@ -746,21 +746,114 @@ function TrainerSection() {
 /* ---------------- GUARANTEE ---------------- */
 
 function GuaranteeSection() {
+  const accessPoints = [
+    "Google Business Profile strategies to help patients find your clinic",
+    "Doctor personal branding and trust-building content",
+    "Facebook and Instagram patient-acquisition strategies",
+    "Clinic offer framework to stand out from competitors",
+    "WhatsApp follow-up and booking system",
+    "Practical action steps designed for doctors and healthcare practitioners in Pakistan",
+  ];
+  const reassurance = [
+    "No complicated forms.",
+    "No awkward questioning.",
+    "No unnecessary back-and-forth.",
+    "You can keep the training resources and bonuses.",
+  ];
   return (
-    <section className="py-12 md:py-20 bg-hero-deep text-white">
-      <div className="mx-auto max-w-3xl px-4 text-center">
-        <div className="mx-auto size-24 rounded-full bg-yellow-400 text-hero-deep grid place-items-center shadow-lg">
-          <ShieldCheck className="size-12" />
-        </div>
-        <p className="mt-6 uppercase tracking-widest text-yellow-300 font-bold">Try It Risk Free</p>
-        <h2 className="mt-2 text-2xl md:text-5xl font-black">100% Money-Back Guarantee</h2>
-        <p className="mt-6 text-lg text-white/85">
-          If you attend the complete training, take notes, and implement the learnings — and still feel it
-          wasn't worth it or brought no change to your clinic — I'll return 100% of your money.
-        </p>
-        <p className="mt-3 text-yellow-300 font-bold">💯 No Questions Asked.</p>
-        <div className="mt-8 max-w-md mx-auto">
-          <CtaButton subtitle="Lock In Your Seat For Rs. 999">I'm In — Enroll Me Now</CtaButton>
+    <section className="py-12 md:py-20 bg-hero-deep">
+      <div className="mx-auto max-w-3xl px-4">
+        <div className="rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/10 bg-[#FFF8E7]">
+          {/* Headline box */}
+          <div
+            className="relative px-5 py-8 md:px-10 md:py-10 text-center text-white"
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, var(--cta-from), oklch(0.62 0.24 25))",
+            }}
+          >
+            <div className="mx-auto mb-4 size-16 md:size-20 rounded-full bg-white/15 ring-4 ring-white/30 grid place-items-center backdrop-blur-sm">
+              <ShieldCheck className="size-9 md:size-11" />
+            </div>
+            <p className="uppercase tracking-widest text-xs md:text-sm font-bold opacity-95">
+              7-Day Money-Back Guarantee
+            </p>
+            <h2 className="mt-2 text-2xl md:text-4xl font-black leading-tight">
+              The Best Money-Back Guarantee for Doctors Who Want More Patients
+            </h2>
+          </div>
+
+          {/* Body */}
+          <div className="px-5 py-8 md:px-10 md:py-12 text-foreground">
+            <div className="space-y-4 text-base md:text-lg leading-relaxed">
+              <p>Before enrolling in any training, you deserve to know exactly what you are getting.</p>
+              <p>And more importantly…</p>
+              <p className="font-bold">You deserve to know that your investment is protected.</p>
+              <p>
+                I want you to feel completely comfortable joining the Clinic Growth Masterclass.
+              </p>
+              <p>Even though the investment is only <span className="font-bold">PKR 999</span>.</p>
+              <p>
+                Because this is not another motivational webinar where you leave with notes but no clear
+                action plan.
+              </p>
+            </div>
+
+            {/* Access list */}
+            <h3 className="mt-10 text-xl md:text-2xl font-black">Here Is What You Will Get Access To:</h3>
+            <ul className="mt-5 space-y-3">
+              {accessPoints.map((p) => (
+                <li key={p} className="flex items-start gap-3">
+                  <CheckCircle2 className="size-6 text-emerald-600 shrink-0 mt-0.5" />
+                  <span className="text-base md:text-lg">{p}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Guarantee copy */}
+            <div className="mt-10 space-y-4 text-base md:text-lg leading-relaxed">
+              <p>Watch the training.</p>
+              <p>Apply the strategies.</p>
+              <p>Choose at least one action step for your clinic.</p>
+              <p className="font-bold">Then make up your own mind.</p>
+              <p>
+                If you genuinely feel that the masterclass did not give you practical, useful ideas to
+                help you attract more patients and grow your clinic…
+              </p>
+              <p>
+                Simply message us within <span className="font-bold">7 days</span> of joining and ask for
+                a refund.
+              </p>
+              <p className="font-bold text-emerald-700">We will return your PKR 999.</p>
+            </div>
+
+            {/* Reassurance box */}
+            <div className="mt-8 rounded-2xl border-2 border-dashed border-emerald-500/50 bg-emerald-50 p-5 md:p-6">
+              <ul className="space-y-2.5">
+                {reassurance.map((r) => (
+                  <li key={r} className="flex items-start gap-3">
+                    <CheckCircle2 className="size-5 text-emerald-600 shrink-0 mt-1" />
+                    <span className="font-semibold">{r}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="mt-8 text-center text-base md:text-lg italic text-muted-foreground">
+              That is how confident we are that this masterclass can help you build a stronger, more
+              independent patient-acquisition system.
+            </p>
+
+            {/* CTA */}
+            <div className="mt-8 max-w-md mx-auto">
+              <CtaButton subtitle="Only Rs. 999 — Live on Sunday, 12th July">
+                Join Clinic Growth Masterclass Risk-Free →
+              </CtaButton>
+              <p className="mt-3 text-center text-xs md:text-sm text-muted-foreground font-medium">
+                7-Day Money-Back Guarantee • Secure Payment • Instant Access
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
