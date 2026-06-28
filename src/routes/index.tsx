@@ -604,7 +604,12 @@ function TestimonialsWall() {
     <section className="py-12 md:py-20 bg-white">
       <div className="mx-auto max-w-6xl px-4">
         <p className="text-center font-bold uppercase text-sm text-primary">Excellent — based on dozens of reviews</p>
-        <h2 className="mt-2 text-center text-3xl md:text-5xl font-black">What Doctors Are Saying</h2>
+        <h2 className="mt-3 text-center text-3xl md:text-5xl font-black tracking-tight">
+          What Our <span className="text-primary">Masterclass Attendees</span> Say
+        </h2>
+        <p className="mt-3 text-center text-sm md:text-base text-muted-foreground max-w-2xl mx-auto">
+          Real feedback from doctors and healthcare practitioners who attended the masterclass.
+        </p>
         <div className="mt-12 grid md:grid-cols-3 gap-6">
           <div className="rounded-xl border bg-card p-3 shadow-sm flex items-center justify-center overflow-hidden">
             <img
