@@ -214,6 +214,9 @@ function Hero() {
               </CtaButton>
             </div>
 
+            <TopTestimonials />
+
+
 
             <div className="mt-5 md:mt-8 rounded-2xl overflow-hidden bg-white/5 ring-1 ring-white/10 p-2 md:p-3 shadow-2xl">
               <img
