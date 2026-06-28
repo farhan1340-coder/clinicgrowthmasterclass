@@ -32,6 +32,9 @@ export type Database = {
           oto_whatsapp: string | null
           payment_method: string
           payment_screenshot_url: string | null
+          registration_email_error: string | null
+          registration_email_sent: boolean
+          registration_email_sent_at: string | null
           selected_order_bumps: Json
           specialty: string | null
           strategy_session_order_bump_selected: boolean
@@ -55,6 +58,9 @@ export type Database = {
           oto_whatsapp?: string | null
           payment_method: string
           payment_screenshot_url?: string | null
+          registration_email_error?: string | null
+          registration_email_sent?: boolean
+          registration_email_sent_at?: string | null
           selected_order_bumps?: Json
           specialty?: string | null
           strategy_session_order_bump_selected?: boolean
@@ -78,6 +84,9 @@ export type Database = {
           oto_whatsapp?: string | null
           payment_method?: string
           payment_screenshot_url?: string | null
+          registration_email_error?: string | null
+          registration_email_sent?: boolean
+          registration_email_sent_at?: string | null
           selected_order_bumps?: Json
           specialty?: string | null
           strategy_session_order_bump_selected?: boolean
