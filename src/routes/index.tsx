@@ -6,6 +6,7 @@ import bonus2 from "@/assets/bonus-2-worksheet.png.asset.json";
 import bonus3 from "@/assets/bonus-3-whatsapp.png.asset.json";
 import bonus4 from "@/assets/bonus-4-community.png.asset.json";
 import emanLogo from "@/assets/eman-medical-tower-logo.jpg.asset.json";
+import drManalReview from "@/assets/dr-manal-whatsapp-review.jpeg.asset.json";
 import { useEffect, useState } from "react";
 import { fbqTrack } from "@/lib/fbpixel";
 import { Topbar } from "@/components/site/Topbar";
@@ -614,7 +615,15 @@ function TestimonialsWall() {
         <p className="text-center font-bold uppercase text-sm text-primary">Excellent — based on dozens of reviews</p>
         <h2 className="mt-2 text-center text-3xl md:text-5xl font-black">What Doctors Are Saying</h2>
         <div className="mt-12 grid md:grid-cols-3 gap-6">
-          {reviews.map((r) => (
+          <div className="rounded-xl border bg-card p-3 shadow-sm flex items-center justify-center overflow-hidden">
+            <img
+              src={drManalReview.url}
+              alt="WhatsApp review screenshot from Dr. Manal about the Clinic Growth Masterclass"
+              className="w-full h-auto rounded-lg ring-1 ring-border shadow-md object-contain"
+              loading="lazy"
+            />
+          </div>
+          {reviews.slice(1).map((r) => (
             <div key={r.name} className="rounded-xl border bg-card p-6 shadow-sm">
               <div className="flex gap-0.5 text-yellow-500">
                 {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="size-4 fill-yellow-500" />)}
