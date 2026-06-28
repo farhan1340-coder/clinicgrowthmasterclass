@@ -746,14 +746,33 @@ function TrainerSection() {
 /* ---------------- GUARANTEE ---------------- */
 
 function GuaranteeSection() {
-  const accessPoints = [
-    "Google Business Profile strategies to help patients find your clinic",
-    "Doctor personal branding and trust-building content",
-    "Facebook and Instagram patient-acquisition strategies",
-    "Clinic offer framework to stand out from competitors",
-    "WhatsApp follow-up and booking system",
-    "Practical action steps designed for doctors and healthcare practitioners in Pakistan",
+  const accessPoints: { title: string; desc: string }[] = [
+    {
+      title: "Module 1: Local Patient Domination System",
+      desc: "Position your clinic as the obvious choice in your city using Google Business Profile, local visibility strategies, and patient trust signals.",
+    },
+    {
+      title: "Module 2: Doctor Personal Brand Blueprint",
+      desc: "Learn how doctors and healthcare practitioners can build trust online, stand out from competitors, and become the first choice for patients.",
+    },
+    {
+      title: "Module 3: 2-Hour Content Creation System",
+      desc: "Create weeks of educational content in a single sitting using patient FAQs, content frameworks, and AI-assisted workflows.",
+    },
+    {
+      title: "Module 4: Patient Acquisition Through Digital Marketing",
+      desc: "Learn the simple strategy to reach local patients consistently using Meta Ads and digital marketing, without wasting money on random tactics.",
+    },
+    {
+      title: "Module 5: Irresistible Clinic Offer Framework",
+      desc: "Create offers patients actually respond to instead of promoting generic consultations and services.",
+    },
+    {
+      title: "Module 6: Patient Acquisition Machine",
+      desc: "Build a complete patient-acquisition system that turns strangers into inquiries, inquiries into appointments, and appointments into long-term patients.",
+    },
   ];
+
   const reassurance = [
     "No complicated forms.",
     "No awkward questioning.",
