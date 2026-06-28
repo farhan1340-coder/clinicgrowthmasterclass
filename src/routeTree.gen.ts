@@ -21,6 +21,7 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as ApiPublicHooksAbandonedCheckoutRouteImport } from './routes/api/public/hooks/abandoned-checkout'
 
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
@@ -85,6 +86,12 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicHooksAbandonedCheckoutRoute =
+  ApiPublicHooksAbandonedCheckoutRouteImport.update({
+    id: '/api/public/hooks/abandoned-checkout',
+    path: '/api/public/hooks/abandoned-checkout',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/admin/leads1340': typeof AdminLeads1340Route
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/abandoned-checkout': typeof ApiPublicHooksAbandonedCheckoutRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -108,6 +116,7 @@ export interface FileRoutesByTo {
   '/admin/leads1340': typeof AdminLeads1340Route
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/abandoned-checkout': typeof ApiPublicHooksAbandonedCheckoutRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -123,6 +132,7 @@ export interface FileRoutesById {
   '/admin/leads1340': typeof AdminLeads1340Route
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/hooks/abandoned-checkout': typeof ApiPublicHooksAbandonedCheckoutRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/admin/leads1340'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/abandoned-checkout'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/admin/leads1340'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/abandoned-checkout'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -167,6 +179,7 @@ export interface FileRouteTypes {
     | '/admin/leads1340'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
+    | '/api/public/hooks/abandoned-checkout'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -182,6 +195,7 @@ export interface RootRouteChildren {
   AdminLeads1340Route: typeof AdminLeads1340Route
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicHooksAbandonedCheckoutRoute: typeof ApiPublicHooksAbandonedCheckoutRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -275,6 +289,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/abandoned-checkout': {
+      id: '/api/public/hooks/abandoned-checkout'
+      path: '/api/public/hooks/abandoned-checkout'
+      fullPath: '/api/public/hooks/abandoned-checkout'
+      preLoaderRoute: typeof ApiPublicHooksAbandonedCheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -286,6 +307,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminLeads1340Route: AdminLeads1340Route,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicHooksAbandonedCheckoutRoute: ApiPublicHooksAbandonedCheckoutRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
