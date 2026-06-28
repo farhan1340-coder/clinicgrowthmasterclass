@@ -89,6 +89,7 @@ export const upsertLead = createServerFn({ method: "POST" })
         .single();
       if (error) throw error;
       await maybeSendRegistrationEmail(updated);
+      await maybeStopAbandonedSequence(updated);
       return {
         id: updated.id as string,
         updated: true,
@@ -113,12 +114,47 @@ export const upsertLead = createServerFn({ method: "POST" })
       .single();
     if (insErr) throw insErr;
     await maybeSendRegistrationEmail(ins);
+    await maybeScheduleAbandonedSequence(ins);
     return {
       id: ins.id as string,
       updated: false,
       strategy_session_order_bump_selected: ins.strategy_session_order_bump_selected === true,
     };
   });
+
+async function maybeScheduleAbandonedSequence(row: {
+  id: string; email: string; full_name: string; lead_status: string;
+}): Promise<void> {
+  try {
+    if (!row?.id || !row?.email || !row?.lead_status) return;
+    // Only schedule for fresh opt-ins that haven't paid yet.
+    if (!row.lead_status.startsWith("Opted In")) return;
+    const { scheduleAbandonedCheckoutSequence } = await import("@/lib/abandoned-checkout.server");
+    await scheduleAbandonedCheckoutSequence({
+      leadId: row.id,
+      email: row.email,
+      name: row.full_name,
+    });
+  } catch (err) {
+    console.error("[upsertLead] schedule abandoned-checkout failed", err);
+  }
+}
+
+async function maybeStopAbandonedSequence(row: {
+  id: string; lead_status: string;
+}): Promise<void> {
+  try {
+    if (!row?.id || !row?.lead_status) return;
+    const { isPaidLikeStatus, cancelRemainingAbandonedReminders } = await import(
+      "@/lib/abandoned-checkout.server"
+    );
+    if (!isPaidLikeStatus(row.lead_status)) return;
+    await cancelRemainingAbandonedReminders(row.id, "lead_paid");
+  } catch (err) {
+    console.error("[upsertLead] cancel abandoned-checkout failed", err);
+  }
+}
+
 
 // Fire the registration confirmation email when a lead is in a paid-confirmed
 // state. Dedup is enforced via the `registration_email_sent` flag.
