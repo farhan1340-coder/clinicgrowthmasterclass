@@ -8,6 +8,7 @@ import bonus4 from "@/assets/bonus-4-community.png.asset.json";
 import emanLogo from "@/assets/eman-medical-tower-logo.jpg.asset.json";
 import drManalReview from "@/assets/dr-manal-whatsapp-review.jpeg.asset.json";
 import drManalFatimahReview from "@/assets/dr-manal-fatimah-review.jpeg.asset.json";
+import drJasimReview from "@/assets/dr-jasim-mumtaz-review.jpeg.asset.json";
 import { useEffect, useState } from "react";
 import { fbqTrack } from "@/lib/fbpixel";
 import { Topbar } from "@/components/site/Topbar";
@@ -398,20 +399,35 @@ function InlineLeadForm() {
 
 function ReviewCard() {
   return (
-    <div className="mt-6 rounded-lg bg-white/5 ring-1 ring-white/10 p-3 sm:p-4 text-white/95">
-      <img
-        src={drManalFatimahReview.url}
-        alt="WhatsApp review screenshot from Dr. Manal Fatimah about the Clinic Growth Masterclass"
-        className="w-full h-auto rounded-md ring-1 ring-white/10 shadow-md object-contain"
-        loading="lazy"
-      />
-      <div className="mt-3 px-1">
-        <p className="font-bold leading-tight">— Dr. Manal Fatimah</p>
-        <p className="text-xs sm:text-sm text-white/80 leading-snug">Lahore, Pakistan</p>
+    <>
+      <div className="mt-6 rounded-lg bg-white/5 ring-1 ring-white/10 p-3 sm:p-4 text-white/95">
+        <img
+          src={drManalFatimahReview.url}
+          alt="WhatsApp review screenshot from Dr. Manal Fatimah about the Clinic Growth Masterclass"
+          className="w-full h-auto rounded-md ring-1 ring-white/10 shadow-md object-contain"
+          loading="lazy"
+        />
+        <div className="mt-3 px-1">
+          <p className="font-bold leading-tight">— Dr. Manal Fatimah</p>
+          <p className="text-xs sm:text-sm text-white/80 leading-snug">Lahore, Pakistan</p>
+        </div>
       </div>
-    </div>
+      <div className="mt-5 rounded-lg bg-white/5 ring-1 ring-white/10 p-3 sm:p-4 text-white/95">
+        <img
+          src={drJasimReview.url}
+          alt="WhatsApp review screenshot from Dr. Jasim Mumtaz about the Clinic Growth Masterclass"
+          className="w-full h-auto rounded-md ring-1 ring-white/10 shadow-md object-contain"
+          loading="lazy"
+        />
+        <div className="mt-3 px-1">
+          <p className="font-bold leading-tight">— Dr. Jasim Mumtaz</p>
+          <p className="text-xs sm:text-sm text-white/80 leading-snug">Peshawar</p>
+        </div>
+      </div>
+    </>
   );
 }
+
 
 /* ---------------- SOCIAL PROOF BAR ---------------- */
 
