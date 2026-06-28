@@ -294,7 +294,7 @@ function OtoPage() {
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       setTimeout(() => {
-        const input = el.querySelector<HTMLInputElement>("input[name='oto_full_name']");
+        const input = el.querySelector<HTMLInputElement>("input[type='file']");
         input?.focus({ preventScroll: true });
       }, 600);
     }
