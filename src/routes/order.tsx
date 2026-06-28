@@ -238,9 +238,10 @@ function OrderPage() {
       return;
     }
 
+    let savedLeadId: string | null = null;
     try {
       const { upsertLead } = await import("@/lib/leads.functions");
-      await upsertLead({
+      const saved = await upsertLead({
         data: {
           full_name: leadFullName,
           email: leadEmail,
@@ -253,10 +254,10 @@ function OrderPage() {
           payment_screenshot_url: screenshotPath,
         },
       });
+      savedLeadId = saved.id;
     } catch (err) {
       console.error("Failed to save lead", err);
     }
-
 
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
@@ -264,6 +265,12 @@ function OrderPage() {
     }
 
     await new Promise((r) => setTimeout(r, 350));
+
+    const strategySelected = selectedBumps.some((b) => b.id === "strategy");
+    if (!strategySelected && savedLeadId) {
+      navigate({ to: "/oto", search: { lead: savedLeadId } });
+      return;
+    }
 
     navigate({ to: "/thank-you" });
   }

@@ -60,7 +60,7 @@ export const upsertLead = createServerFn({ method: "POST" })
 
     if (existing?.id) {
       // Preserve stronger payment data if a checkout was already completed
-      const preservePayment = existing.lead_status === "Pending Payment" && data.lead_status === "Opted In - Checkout Not Completed";
+      const preservePayment = existing.lead_status.startsWith("Pending Payment") && data.lead_status === "Opted In - Checkout Not Completed";
       const payload = {
         full_name: data.full_name,
         email: data.email,
