@@ -176,7 +176,7 @@ function OtoPage() {
     setPending("accept");
     setError(null);
     try {
-      await accept({ data: { leadId } });
+      await acceptOtoOffer({ data: { leadId } });
       await navigate({ to: "/thank-you" });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not add the offer right now.");
@@ -188,7 +188,7 @@ function OtoPage() {
     setPending("decline");
     setError(null);
     try {
-      await decline({ data: { leadId } });
+      await declineOtoOffer({ data: { leadId } });
       await navigate({ to: "/thank-you" });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not continue right now.");
