@@ -15,6 +15,7 @@ import { fbqTrack } from "@/lib/fbpixel";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { CtaButton } from "@/components/site/CtaButton";
+import { ProofGallery } from "@/components/site/ProofGallery";
 import {
   Star, ShieldCheck, CheckCircle2, PlayCircle, Lock, BadgeCheck, Volume2,
   Stethoscope, Users, TrendingUp, Calendar, Gift, Play, ChevronDown,
@@ -56,6 +57,7 @@ function LandingPage() {
       <BonusesSection />
       <HowItWorks />
       <TestimonialsWall />
+      <ProofGallery />
       <WhoFor />
       <TrainerSection />
       <GuaranteeSection />
