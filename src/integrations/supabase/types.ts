@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      abandoned_checkout_email_queue: {
+        Row: {
+          created_at: string
+          email: string
+          error_message: string | null
+          id: string
+          lead_id: string
+          name: string | null
+          scheduled_for: string
+          sent_at: string | null
+          sequence_number: number
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          error_message?: string | null
+          id?: string
+          lead_id: string
+          name?: string | null
+          scheduled_for: string
+          sent_at?: string | null
+          sequence_number: number
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          error_message?: string | null
+          id?: string
+          lead_id?: string
+          name?: string | null
+          scheduled_for?: string
+          sent_at?: string | null
+          sequence_number?: number
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "abandoned_checkout_email_queue_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "clinic_growth_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clinic_growth_leads: {
         Row: {
           created_at: string
