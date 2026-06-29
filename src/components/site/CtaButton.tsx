@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
+
 
 export function CtaButton({
   children,
@@ -29,7 +31,10 @@ export function CtaButton({
   return (
     <a href={`#${targetId}`} onClick={handleClick} className="block w-full">
       <div className="btn-cta w-full px-6 py-4 text-center">
-        <div className="text-xl md:text-2xl">{children}</div>
+        <div className="text-xl md:text-2xl inline-flex items-center justify-center gap-2">
+          <span>{children}</span>
+          <ArrowRight className="btn-cta-arrow size-5 md:size-6" aria-hidden="true" />
+        </div>
         {subtitle && (
           <div className="text-xs md:text-sm font-medium normal-case tracking-normal opacity-95 mt-1">
             {subtitle}
