@@ -261,11 +261,6 @@ function OrderPage() {
       console.error("Failed to save lead", err);
     }
 
-    if (!purchaseFiredRef.current) {
-      purchaseFiredRef.current = true;
-      fbqTrack("Purchase", { value: 999, currency: "PKR" });
-    }
-
     await new Promise((r) => setTimeout(r, 350));
 
     if (!savedLeadId || !savedOrder) {
@@ -274,6 +269,17 @@ function OrderPage() {
       setSubmitting(false);
       return;
     }
+
+    if (!purchaseFiredRef.current) {
+      purchaseFiredRef.current = true;
+      fbqTrack("Purchase", {
+        value: 999,
+        currency: "PKR",
+        content_name: "Clinic Growth Masterclass",
+      });
+      console.log("Meta Pixel Purchase fired after payment screenshot submit");
+    }
+
 
     const rawValue = savedOrder.strategy_session_order_bump_selected;
     const strategySelected = rawValue === true;
