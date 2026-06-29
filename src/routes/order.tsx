@@ -300,9 +300,10 @@ function OrderPage() {
     });
 
     if (strategySelected) {
-      navigate({ to: "/thank-you", search: { lead: savedLeadId }, replace: true });
+      navigate({ to: "/thank-you", replace: true });
       return;
     }
+
 
     navigate({ to: "/oto", search: { lead: savedLeadId }, replace: true });
   }
