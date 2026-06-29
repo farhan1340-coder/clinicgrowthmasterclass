@@ -68,6 +68,16 @@ export type Database = {
           full_name: string
           id: string
           lead_status: string
+          onboarding_biggest_frustration: string | null
+          onboarding_completed: boolean
+          onboarding_completed_at: string | null
+          onboarding_decision_reasons: Json | null
+          onboarding_done_for_you_interest: string | null
+          onboarding_implementation_help: Json | null
+          onboarding_other_help: string | null
+          onboarding_primary_goals: Json | null
+          onboarding_skepticism: string | null
+          onboarding_tried_before: Json | null
           oto_accepted: boolean
           oto_full_name: string | null
           oto_payment_amount: number | null
@@ -94,6 +104,16 @@ export type Database = {
           full_name: string
           id?: string
           lead_status?: string
+          onboarding_biggest_frustration?: string | null
+          onboarding_completed?: boolean
+          onboarding_completed_at?: string | null
+          onboarding_decision_reasons?: Json | null
+          onboarding_done_for_you_interest?: string | null
+          onboarding_implementation_help?: Json | null
+          onboarding_other_help?: string | null
+          onboarding_primary_goals?: Json | null
+          onboarding_skepticism?: string | null
+          onboarding_tried_before?: Json | null
           oto_accepted?: boolean
           oto_full_name?: string | null
           oto_payment_amount?: number | null
@@ -120,6 +140,16 @@ export type Database = {
           full_name?: string
           id?: string
           lead_status?: string
+          onboarding_biggest_frustration?: string | null
+          onboarding_completed?: boolean
+          onboarding_completed_at?: string | null
+          onboarding_decision_reasons?: Json | null
+          onboarding_done_for_you_interest?: string | null
+          onboarding_implementation_help?: Json | null
+          onboarding_other_help?: string | null
+          onboarding_primary_goals?: Json | null
+          onboarding_skepticism?: string | null
+          onboarding_tried_before?: Json | null
           oto_accepted?: boolean
           oto_full_name?: string | null
           oto_payment_amount?: number | null
