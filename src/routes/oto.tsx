@@ -475,11 +475,14 @@ lastError: ${debug.lastError ?? "-"}`}
         <ContentSection title="In Your 90-Minute Session, We Will Help You:" dark>
           <div className="grid gap-3 md:grid-cols-2">
             {BENEFITS.map((item) => (
-              <div key={item} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-4 text-left">
+              <div
+                key={item}
+                className="flex items-start gap-3 rounded-xl border border-white/15 bg-[oklch(0.22_0.06_272)] px-4 py-4 text-left"
+              >
                 <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-yellow-300/20 text-yellow-300">
                   <CheckCircle2 className="size-4" />
                 </span>
-                <p className="text-sm md:text-base text-white/88">{item}</p>
+                <p className="min-w-0 break-words text-sm md:text-base text-white/90">{item}</p>
               </div>
             ))}
           </div>
