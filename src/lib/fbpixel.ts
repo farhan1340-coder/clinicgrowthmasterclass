@@ -13,8 +13,11 @@ export function fbqTrack(event: string, params?: Record<string, unknown>) {
   try {
     if (typeof window.fbq === "function") {
       window.fbq("track", event, params);
+      console.log(`[Meta Pixel] ${event} fired`, params ?? {});
+    } else {
+      console.warn(`[Meta Pixel] fbq not available — ${event} not fired`);
     }
   } catch (e) {
-    console.warn("fbq track failed", e);
+    console.warn("[Meta Pixel] track failed", e);
   }
 }
