@@ -517,7 +517,10 @@ function OrderPage() {
               </div>
 
               <button type="submit" disabled={submitting} className="btn-cta w-full mt-5 px-6 py-4 text-base md:text-lg">
-                {submitting ? "SUBMITTING..." : "SUBMIT & GET ACCESS"}
+                <span className="inline-flex items-center justify-center gap-2">
+                  <span>{submitting ? "SUBMITTING..." : "SUBMIT & GET ACCESS"}</span>
+                  <ArrowRight className="btn-cta-arrow size-5" aria-hidden="true" />
+                </span>
                 <div className="text-xs font-medium normal-case tracking-normal opacity-95">
                   Submit your details and screenshot to receive masterclass access.
                 </div>

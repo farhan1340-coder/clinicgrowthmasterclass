@@ -109,6 +109,8 @@
   }
   .btn-cta:hover { transform: translateY(-1px); filter: brightness(1.05); }
   .btn-cta:active { transform: translateY(0); }
+  .btn-cta-arrow { display: inline-block; transition: transform .15s ease; flex-shrink: 0; }
+  .btn-cta:hover .btn-cta-arrow { transform: translateX(4px); }
 
   .marquee {
     display: flex;

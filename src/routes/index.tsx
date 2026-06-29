@@ -18,7 +18,7 @@ import { CtaButton } from "@/components/site/CtaButton";
 import { ProofGallery } from "@/components/site/ProofGallery";
 import {
   Star, ShieldCheck, CheckCircle2, PlayCircle, Lock, BadgeCheck, Volume2,
-  Stethoscope, Users, TrendingUp, Calendar, Gift, Play, ChevronDown,
+  Stethoscope, Users, TrendingUp, Calendar, Gift, Play, ChevronDown, ArrowRight,
 } from "lucide-react";
 import farhanInstructor from "@/assets/farhan-instructor.jpeg.asset.json";
 import doctorBeforeAfter from "@/assets/doctor-before-after.png.asset.json";
@@ -385,7 +385,10 @@ function InlineLeadForm() {
         disabled={submitting}
         className="btn-cta w-full px-4 py-4 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
       >
-        {submitting ? "SAVING..." : "GO TO STEP #2"}
+        <span className="inline-flex items-center justify-center gap-2">
+          <span>{submitting ? "SAVING..." : "GO TO STEP #2"}</span>
+          <ArrowRight className="btn-cta-arrow size-5" aria-hidden="true" />
+        </span>
         <div className="text-xs font-medium normal-case tracking-normal opacity-95">
           Reserve Your Spot Now
         </div>
