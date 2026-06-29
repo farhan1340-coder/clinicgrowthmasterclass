@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
-import { CheckCircle2, Calendar, Users, MessageCircle, ShieldCheck, Gift } from "lucide-react";
+import { CheckCircle2, Calendar, Users, MessageCircle, ShieldCheck, Gift, ArrowRight } from "lucide-react";
 import { getThankYouEntitlements } from "@/lib/thankyou.functions";
 
 export const Route = createFileRoute("/thank-you")({
@@ -103,9 +103,10 @@ function ThankYouPage() {
                 href="https://docs.google.com/document/d/1hoBs3fP65ta11gwvugQ_MrRMBUBVxPDiJT9AZizdgYE/edit?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-cta inline-flex w-full md:w-auto mt-5 px-6 py-4 text-base md:text-lg justify-center"
+                className="btn-cta inline-flex items-center gap-2 w-full md:w-auto mt-5 px-6 py-4 text-base md:text-lg justify-center"
               >
-                Access My AI Content Prompt Vault
+                <span>Access My AI Content Prompt Vault</span>
+                <ArrowRight className="btn-cta-arrow size-5" aria-hidden="true" />
               </a>
             </section>
           )}
@@ -137,9 +138,10 @@ function ThankYouPage() {
               href={waCommunity}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-cta inline-flex w-full md:w-auto mt-5 px-6 py-4 text-base md:text-lg justify-center"
+              className="btn-cta inline-flex items-center gap-2 w-full md:w-auto mt-5 px-6 py-4 text-base md:text-lg justify-center"
             >
-              Join WhatsApp Community
+              <span>Join WhatsApp Community</span>
+              <ArrowRight className="btn-cta-arrow size-5" aria-hidden="true" />
             </a>
             <p className="mt-3 text-sm text-muted-foreground">
               In this community, you will receive the Zoom link, reminders, important

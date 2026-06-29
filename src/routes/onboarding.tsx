@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { submitOnboarding } from "@/lib/onboarding.functions";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2, ArrowRight } from "lucide-react";
 
 type Search = { lead?: string };
 
@@ -364,7 +364,10 @@ function OnboardingPage() {
                     <Loader2 className="size-5 animate-spin" /> Saving…
                   </>
                 ) : (
-                  "Submit & Access My Masterclass"
+                  <>
+                    <span>Submit & Access My Masterclass</span>
+                    <ArrowRight className="btn-cta-arrow size-5" aria-hidden="true" />
+                  </>
                 )}
               </button>
               <p className="text-center text-xs text-muted-foreground">

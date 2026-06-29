@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2, ChevronRight, CircleCheckBig, Copy, Lock, ShieldCheck, Upload, ImageIcon } from "lucide-react";
+import { CheckCircle2, ChevronRight, CircleCheckBig, Copy, Lock, ShieldCheck, Upload, ImageIcon, ArrowRight } from "lucide-react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { getOtoEligibility, declineOtoOffer, submitOtoPayment } from "@/lib/oto.functions";
@@ -97,7 +97,10 @@ function PrimaryAction({
   return (
     <button type="button" onClick={onClick} disabled={disabled} className="w-full">
       <div className="btn-cta w-full px-6 py-4 text-center">
-        <div className="text-lg md:text-2xl">{text}</div>
+        <div className="text-lg md:text-2xl inline-flex items-center justify-center gap-2">
+          <span>{text}</span>
+          <ArrowRight className="btn-cta-arrow size-5 md:size-6" aria-hidden="true" />
+        </div>
         {subtext ? (
           <div className="mt-1 text-xs md:text-sm font-medium normal-case tracking-normal opacity-95">{subtext}</div>
         ) : null}
@@ -693,8 +696,9 @@ lastError: ${debug.lastError ?? "-"}`}
                 disabled={pending === "submit"}
                 className="btn-cta w-full px-6 py-4 text-center disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <div className="text-lg md:text-xl">
-                  {pending === "submit" ? "SUBMITTING…" : "CONFIRM MY 1-ON-1 SESSION UPGRADE →"}
+                <div className="text-lg md:text-xl inline-flex items-center justify-center gap-2">
+                  <span>{pending === "submit" ? "SUBMITTING…" : "CONFIRM MY 1-ON-1 SESSION UPGRADE"}</span>
+                  <ArrowRight className="btn-cta-arrow size-5 md:size-6" aria-hidden="true" />
                 </div>
               </button>
               <p className="text-center text-xs text-muted-foreground">
