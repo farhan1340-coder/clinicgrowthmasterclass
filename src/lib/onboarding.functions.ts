@@ -10,6 +10,7 @@ type OnboardingInput = {
   implementation_help: string[];
   done_for_you_interest: string;
   other_help?: string;
+  city?: string;
 };
 
 function asStrArray(v: unknown, max = 20): string[] {
@@ -30,6 +31,7 @@ function validate(data: unknown): OnboardingInput {
   const skepticism = String(d.skepticism ?? "").trim().slice(0, 2000);
   const done_for_you_interest = String(d.done_for_you_interest ?? "").trim().slice(0, 200);
   const other_help = String(d.other_help ?? "").trim().slice(0, 2000);
+  const city = String(d.city ?? "").trim().slice(0, 200);
   if (!skepticism) throw new Error("Skepticism is required");
   if (!done_for_you_interest) throw new Error("Please choose an option");
   return {
@@ -42,6 +44,7 @@ function validate(data: unknown): OnboardingInput {
     implementation_help: asStrArray(d.implementation_help),
     done_for_you_interest,
     other_help: other_help || undefined,
+    city: city || undefined,
   };
 }
 
@@ -49,21 +52,51 @@ export const submitOnboarding = createServerFn({ method: "POST" })
   .inputValidator(validate)
   .handler(async ({ data }): Promise<{ ok: true }> => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await (supabaseAdmin as any)
+
+    // Look up the buyer to snapshot identity fields onto the response row.
+    const { data: lead, error: leadErr } = await (supabaseAdmin as any)
+      .from("clinic_growth_leads")
+      .select("id, email, whatsapp, full_name, specialty")
+      .eq("id", data.leadId)
+      .maybeSingle();
+    if (leadErr) throw leadErr;
+    if (!lead) throw new Error("Order not found");
+
+    // Upsert into the dedicated onboarding responses table (one row per buyer).
+    const { error: insErr } = await (supabaseAdmin as any)
+      .from("clinic_growth_onboarding_responses")
+      .upsert(
+        {
+          lead_id: lead.id,
+          email: lead.email,
+          whatsapp: lead.whatsapp,
+          full_name: lead.full_name,
+          specialty: lead.specialty,
+          city: data.city ?? null,
+          primary_goals: data.primary_goals,
+          tried_before: data.tried_before,
+          biggest_frustration: data.biggest_frustration || null,
+          decision_reasons: data.decision_reasons,
+          skepticism: data.skepticism,
+          implementation_help: data.implementation_help,
+          done_for_you_interest: data.done_for_you_interest,
+          other_help: data.other_help ?? null,
+        },
+        { onConflict: "lead_id" },
+      );
+    if (insErr) throw insErr;
+
+    // Keep the existing completion flag on the buyer record so downstream
+    // flows (thank-you, admin status) continue to work — but do NOT write
+    // any answer content back to clinic_growth_leads.
+    const { error: updErr } = await (supabaseAdmin as any)
       .from("clinic_growth_leads")
       .update({
         onboarding_completed: true,
         onboarding_completed_at: new Date().toISOString(),
-        onboarding_primary_goals: data.primary_goals,
-        onboarding_tried_before: data.tried_before,
-        onboarding_biggest_frustration: data.biggest_frustration,
-        onboarding_decision_reasons: data.decision_reasons,
-        onboarding_skepticism: data.skepticism,
-        onboarding_implementation_help: data.implementation_help,
-        onboarding_done_for_you_interest: data.done_for_you_interest,
-        onboarding_other_help: data.other_help ?? null,
       })
-      .eq("id", data.leadId);
-    if (error) throw error;
+      .eq("id", lead.id);
+    if (updErr) throw updErr;
+
     return { ok: true };
   });
