@@ -298,7 +298,7 @@ function OrderPage() {
       redirectTo: "/thank-you",
     });
 
-    navigate({ to: "/thank-you", replace: true });
+    navigate({ to: "/onboarding", search: { lead: savedLeadId }, replace: true });
 
   }
 
