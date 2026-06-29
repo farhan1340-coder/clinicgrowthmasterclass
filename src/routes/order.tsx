@@ -289,23 +289,17 @@ function OrderPage() {
 
     const rawValue = savedOrder.strategy_session_order_bump_selected;
     const strategySelected = rawValue === true;
-    const redirectTo = strategySelected ? "/thank-you" : `/oto?lead=${savedLeadId}`;
 
     console.log("[FINAL CHECKOUT REDIRECT]", {
       savedLeadId,
       strategySelected,
       rawValue,
       valueType: typeof rawValue,
-      redirectTo,
+      redirectTo: "/thank-you",
     });
 
-    if (strategySelected) {
-      navigate({ to: "/thank-you", replace: true });
-      return;
-    }
+    navigate({ to: "/thank-you", replace: true });
 
-
-    navigate({ to: "/oto", search: { lead: savedLeadId }, replace: true });
   }
 
 
