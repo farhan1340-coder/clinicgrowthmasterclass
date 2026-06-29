@@ -15,6 +15,7 @@ import { Route as OrderRouteImport } from './routes/order'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as AdminOnboarding1340RouteImport } from './routes/admin.onboarding1340'
 import { Route as AdminLeads1340RouteImport } from './routes/admin.leads1340'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -52,6 +53,11 @@ const IndexRoute = IndexRouteImport.update({
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminOnboarding1340Route = AdminOnboarding1340RouteImport.update({
+  id: '/admin/onboarding1340',
+  path: '/admin/onboarding1340',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminLeads1340Route = AdminLeads1340RouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/oto': typeof OtoRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
+  '/admin/onboarding1340': typeof AdminOnboarding1340Route
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/abandoned-checkout': typeof ApiPublicHooksAbandonedCheckoutRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/oto': typeof OtoRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
+  '/admin/onboarding1340': typeof AdminOnboarding1340Route
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/abandoned-checkout': typeof ApiPublicHooksAbandonedCheckoutRoute
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/oto': typeof OtoRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
+  '/admin/onboarding1340': typeof AdminOnboarding1340Route
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/hooks/abandoned-checkout': typeof ApiPublicHooksAbandonedCheckoutRoute
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/oto'
     | '/thank-you'
     | '/admin/leads1340'
+    | '/admin/onboarding1340'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
     | '/api/public/hooks/abandoned-checkout'
@@ -173,6 +183,7 @@ export interface FileRouteTypes {
     | '/oto'
     | '/thank-you'
     | '/admin/leads1340'
+    | '/admin/onboarding1340'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
     | '/api/public/hooks/abandoned-checkout'
@@ -189,6 +200,7 @@ export interface FileRouteTypes {
     | '/oto'
     | '/thank-you'
     | '/admin/leads1340'
+    | '/admin/onboarding1340'
     | '/email/unsubscribe'
     | '/lovable/email/suppression'
     | '/api/public/hooks/abandoned-checkout'
@@ -206,6 +218,7 @@ export interface RootRouteChildren {
   OtoRoute: typeof OtoRoute
   ThankYouRoute: typeof ThankYouRoute
   AdminLeads1340Route: typeof AdminLeads1340Route
+  AdminOnboarding1340Route: typeof AdminOnboarding1340Route
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicHooksAbandonedCheckoutRoute: typeof ApiPublicHooksAbandonedCheckoutRoute
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       path: '/email/unsubscribe'
       fullPath: '/email/unsubscribe'
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/onboarding1340': {
+      id: '/admin/onboarding1340'
+      path: '/admin/onboarding1340'
+      fullPath: '/admin/onboarding1340'
+      preLoaderRoute: typeof AdminOnboarding1340RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/leads1340': {
@@ -326,6 +346,7 @@ const rootRouteChildren: RootRouteChildren = {
   OtoRoute: OtoRoute,
   ThankYouRoute: ThankYouRoute,
   AdminLeads1340Route: AdminLeads1340Route,
+  AdminOnboarding1340Route: AdminOnboarding1340Route,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicHooksAbandonedCheckoutRoute: ApiPublicHooksAbandonedCheckoutRoute,

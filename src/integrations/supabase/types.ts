@@ -172,6 +172,74 @@ export type Database = {
         }
         Relationships: []
       }
+      clinic_growth_onboarding_responses: {
+        Row: {
+          biggest_frustration: string | null
+          city: string | null
+          created_at: string
+          decision_reasons: Json
+          done_for_you_interest: string | null
+          email: string
+          full_name: string | null
+          id: string
+          implementation_help: Json
+          lead_id: string
+          other_help: string | null
+          primary_goals: Json
+          skepticism: string | null
+          specialty: string | null
+          tried_before: Json
+          updated_at: string
+          whatsapp: string
+        }
+        Insert: {
+          biggest_frustration?: string | null
+          city?: string | null
+          created_at?: string
+          decision_reasons?: Json
+          done_for_you_interest?: string | null
+          email: string
+          full_name?: string | null
+          id?: string
+          implementation_help?: Json
+          lead_id: string
+          other_help?: string | null
+          primary_goals?: Json
+          skepticism?: string | null
+          specialty?: string | null
+          tried_before?: Json
+          updated_at?: string
+          whatsapp: string
+        }
+        Update: {
+          biggest_frustration?: string | null
+          city?: string | null
+          created_at?: string
+          decision_reasons?: Json
+          done_for_you_interest?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          implementation_help?: Json
+          lead_id?: string
+          other_help?: string | null
+          primary_goals?: Json
+          skepticism?: string | null
+          specialty?: string | null
+          tried_before?: Json
+          updated_at?: string
+          whatsapp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinic_growth_onboarding_responses_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: true
+            referencedRelation: "clinic_growth_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_send_log: {
         Row: {
           created_at: string
