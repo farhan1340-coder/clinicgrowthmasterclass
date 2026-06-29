@@ -281,6 +281,12 @@ function OrderPage() {
     }
 
 
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("cgm_last_lead", savedLeadId);
+      }
+    } catch {}
+
     const rawValue = savedOrder.strategy_session_order_bump_selected;
     const strategySelected = rawValue === true;
     const redirectTo = strategySelected ? "/thank-you" : `/oto?lead=${savedLeadId}`;
@@ -298,8 +304,10 @@ function OrderPage() {
       return;
     }
 
+
     navigate({ to: "/oto", search: { lead: savedLeadId }, replace: true });
   }
+
 
   return (
     <div className="min-h-screen flex flex-col">

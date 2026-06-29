@@ -370,6 +370,8 @@ function OtoPage() {
       try {
         localStorage.setItem(`oto_submitted_${leadId}`, "1");
         localStorage.setItem("oto_last_submitted", leadId);
+        localStorage.setItem("cgm_last_lead", leadId);
+
       } catch {
         /* ignore */
       }

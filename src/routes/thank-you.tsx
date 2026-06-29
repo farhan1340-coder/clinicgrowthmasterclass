@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
-import { CheckCircle2, Calendar, Users, MessageCircle, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Calendar, Users, MessageCircle, ShieldCheck, Gift } from "lucide-react";
+import { getThankYouEntitlements } from "@/lib/thankyou.functions";
 
 export const Route = createFileRoute("/thank-you")({
   head: () => ({
@@ -20,14 +22,29 @@ function ThankYouPage() {
     "Assalam-o-Alaikum, I need help with my Clinic Growth Masterclass order.",
   )}`;
 
-  const otoSubmitted = (() => {
-    if (typeof window === "undefined") return false;
+  const [otoSubmitted, setOtoSubmitted] = useState(false);
+  const [promptVaultUnlocked, setPromptVaultUnlocked] = useState(false);
+
+  useEffect(() => {
     try {
-      return Boolean(localStorage.getItem("oto_last_submitted"));
-    } catch {
-      return false;
-    }
-  })();
+      setOtoSubmitted(Boolean(localStorage.getItem("oto_last_submitted")));
+    } catch {}
+
+    let leadId: string | null = null;
+    try {
+      const url = new URL(window.location.href);
+      leadId = url.searchParams.get("lead") || localStorage.getItem("cgm_last_lead");
+    } catch {}
+    if (!leadId) return;
+
+    getThankYouEntitlements({ data: { leadId } })
+      .then((res) => {
+        if (res?.promptVault) setPromptVaultUnlocked(true);
+      })
+      .catch(() => {
+        /* silently ignore — no bonus shown */
+      });
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -65,6 +82,33 @@ function ThankYouPage() {
             </section>
           )}
 
+          {/* Prompt Vault bonus — only when purchased */}
+          {promptVaultUnlocked && (
+            <section className="bg-card rounded-2xl border-2 border-emerald-200 shadow-sm p-6 md:p-8 text-center">
+              <div className="flex items-center justify-center gap-3">
+                <div className="size-10 rounded-full bg-emerald-100 grid place-items-center">
+                  <Gift className="size-5 text-emerald-600" />
+                </div>
+                <h2 className="text-lg md:text-xl font-extrabold">🎁 Your Bonus Is Ready</h2>
+              </div>
+              <p className="mt-3 font-semibold text-slate-900">
+                You have unlocked the AI Content Prompt Vault for Doctors &amp; Healthcare Practitioners.
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Use these ready-made prompts to create Facebook and Instagram video ads, Reels,
+                patient education posts, captions, WhatsApp follow-ups, and 7-day / 30-day content
+                plans in minutes.
+              </p>
+              <a
+                href="https://docs.google.com/document/d/1hoBs3fP65ta11gwvugQ_MrRMBUBVxPDiJT9AZizdgYE/edit?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-cta inline-flex w-full md:w-auto mt-5 px-6 py-4 text-base md:text-lg justify-center"
+              >
+                Access My AI Content Prompt Vault
+              </a>
+            </section>
+          )}
 
           {/* Masterclass details */}
           <section className="bg-card rounded-2xl border shadow-sm p-6">
