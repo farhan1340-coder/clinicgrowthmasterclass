@@ -229,9 +229,11 @@ function OtoPage() {
       dbg("eligibility start", { leadId });
 
       if (!leadId) {
-        dbg("no leadId — sending to /thank-you (cannot show OTO without a lead)");
+        // No lead in URL — OTO is not a public entry point.
+        // Send strangers back to the sales page instead of leaking them to /thank-you.
+        dbg("no leadId — redirecting to / (OTO is gated)");
         setDebug({ attempts: 0, source: "missing-lead" });
-        navigate({ to: "/thank-you", replace: true });
+        navigate({ to: "/", replace: true });
         return;
       }
 
