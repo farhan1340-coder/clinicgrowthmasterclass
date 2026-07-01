@@ -599,22 +599,59 @@ function PatientAcquisitionPage() {
         </ul>
       </section>
 
-      {/* SIMPLE MATH */}
-      <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="rounded-3xl bg-white/5 border border-white/10 p-6 md:p-10">
-          <h2 className="text-2xl md:text-4xl font-black text-center">The Simple Math</h2>
-          <p className="mt-4 text-white/85 text-center max-w-3xl mx-auto leading-relaxed">
-            If <span className="font-bold text-white">100 people</span> buy your introductory offer,
-            and even <span className="font-bold text-white">15–20 upgrade</span> to your high-ticket
-            service worth PKR 10,000, that can generate{" "}
-            <span className="font-black text-yellow-300">PKR 150,000 – 200,000</span> in revenue.
-          </p>
-          <p className="mt-4 text-white/70 text-center max-w-2xl mx-auto">
-            The low-ticket offer helps fund your advertising, so you are{" "}
-            <span className="font-bold text-white">not constantly paying for ads out of your own pocket.</span>
-          </p>
+      {/* AGENCY VS PAM — you're not buying facebook ads */}
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-20">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-black">
+            You're Not Buying Facebook Ads.{" "}
+            <span className="text-yellow-300">
+              You're Buying A Complete Patient Acquisition System.
+            </span>
+          </h2>
+        </div>
+
+        <div className="mt-10 grid md:grid-cols-2 gap-5">
+          {/* Traditional agency */}
+          <div className="rounded-3xl bg-gradient-to-br from-red-500/10 to-slate-900/10 border border-red-400/30 p-6 md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-red-500/20 border border-red-400/40 text-red-100 px-3 py-1 text-xs font-black uppercase tracking-widest">
+              Traditional Marketing Agency
+            </div>
+            <ul className="mt-5 space-y-3">
+              {["Runs ads", "Sends reports", "Stops there"].map((x) => (
+                <li key={x} className="flex items-start gap-3 rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 font-semibold text-white/90">
+                  <X className="size-5 text-red-400 shrink-0 mt-0.5" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* PAM */}
+          <div className="rounded-3xl bg-gradient-to-br from-emerald-500/15 to-yellow-400/10 border-2 border-yellow-300/40 p-6 md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-yellow-400/20 border border-yellow-300/40 text-yellow-100 px-3 py-1 text-xs font-black uppercase tracking-widest">
+              The Patient Acquisition Machine™
+            </div>
+            <ul className="mt-5 space-y-3">
+              {[
+                "Creates your Affordable First Visit offer",
+                "Builds your patient sales page",
+                "Sets up & runs Meta Ads",
+                "Optimizes your Google Business Profile",
+                "Builds WhatsApp automation",
+                "Creates the full follow-up system",
+                "Helps generate Google reviews",
+                "Helps patients upgrade to Premium Treatment Plans",
+              ].map((x) => (
+                <li key={x} className="flex items-start gap-3 rounded-xl bg-white/[0.06] border border-emerald-300/20 px-4 py-3 font-semibold text-white">
+                  <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
+
 
       {/* GUARANTEE */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#0b1530] via-[#0a1024] to-[#070b1c] py-16 md:py-24">
