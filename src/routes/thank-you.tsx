@@ -23,7 +23,7 @@ function ThankYouPage() {
     "Assalam-o-Alaikum, I need help with my Clinic Growth Masterclass order.",
   )}`;
 
-  const [otoSubmitted, setOtoSubmitted] = useState(false);
+  
   const [promptVaultUnlocked, setPromptVaultUnlocked] = useState(false);
   const [gateChecked, setGateChecked] = useState(false);
 
@@ -42,9 +42,6 @@ function ThankYouPage() {
     }
     setGateChecked(true);
 
-    try {
-      setOtoSubmitted(Boolean(localStorage.getItem("oto_last_submitted")));
-    } catch {}
 
     getThankYouEntitlements({ data: { leadId } })
       .then((res) => {
@@ -84,21 +81,6 @@ function ThankYouPage() {
             </p>
           </section>
 
-          {otoSubmitted && (
-            <section className="rounded-2xl border-l-4 border-yellow-500 bg-yellow-50 p-5">
-              <div className="flex gap-3">
-                <CheckCircle2 className="size-6 text-yellow-700 shrink-0 mt-0.5" />
-                <div className="text-sm text-slate-800">
-                  <div className="font-bold mb-1">🎯 1-on-1 Session Payment Submitted</div>
-                  <p>
-                    Your PKR 3,999 payment for the 1-on-1 Personalized Strategy Session has been
-                    received and will be confirmed after verification. Our team will reach out on
-                    WhatsApp to schedule your private 90-minute session.
-                  </p>
-                </div>
-              </div>
-            </section>
-          )}
 
           {/* Prompt Vault bonus — only when purchased */}
           {promptVaultUnlocked && (

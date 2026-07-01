@@ -26,8 +26,7 @@ export const getThankYouEntitlements = createServerFn({ method: "POST" })
     // Only consider paid-like statuses (payment screenshot submitted).
     const paidLike =
       status.startsWith("Pending Payment") ||
-      status.startsWith("Paid") ||
-      status.startsWith("OTO Taken");
+      status.startsWith("Paid");
     if (!paidLike) return { promptVault: false };
 
     const bumps = Array.isArray(row.selected_order_bumps) ? row.selected_order_bumps : [];
