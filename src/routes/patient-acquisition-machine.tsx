@@ -295,25 +295,22 @@ function PatientAcquisitionPage() {
             </h2>
           </div>
 
-          <div className="mt-8 grid md:grid-cols-2 gap-8 items-start">
-            <PlaceholderImage label="Offer stack graphic — box/mockup showing all inclusions" className="md:sticky md:top-6" />
-            <ul className="space-y-3">
-              {OFFER_STACK.map((s) => (
-                <li
-                  key={s.title}
-                  className="flex items-start justify-between gap-3 rounded-xl bg-white/5 border border-white/10 px-4 py-3"
-                >
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
-                    <span className="font-semibold">{s.title}</span>
-                  </div>
-                  <span className="text-sm text-white/60 whitespace-nowrap">
-                    PKR {s.value.toLocaleString()}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
+            {OFFER_STACK.map((s) => (
+              <li
+                key={s.title}
+                className="flex items-start justify-between gap-3 rounded-xl bg-white/[0.06] backdrop-blur-sm border border-white/10 px-4 py-3 shadow-lg shadow-black/20"
+              >
+                <div className="flex items-start gap-3 min-w-0">
+                  <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <span className="font-semibold text-sm md:text-base break-words">{s.title}</span>
+                </div>
+                <span className="text-xs md:text-sm text-white/60 whitespace-nowrap shrink-0">
+                  PKR {s.value.toLocaleString()}
+                </span>
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-8 grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto text-center">
             <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
