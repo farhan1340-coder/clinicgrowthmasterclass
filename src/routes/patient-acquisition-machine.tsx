@@ -8,7 +8,7 @@ import {
   X,
   ArrowRight,
   Stethoscope,
-  Sparkles,
+  Stethoscope,
 } from "lucide-react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
