@@ -344,11 +344,11 @@ function PatientAcquisitionPage() {
             </p>
             <ul className="grid sm:grid-cols-2 gap-2">
               {[
-                "A low-ticket offer that attracts patients",
-                "A high-converting sales page",
-                "A proper patient acquisition funnel",
-                "Automated WhatsApp/email follow-up",
-                "A complete Patient Acquisition Machine™",
+                "An Affordable First Visit Offer that attracts patients",
+                "A high-converting patient sales page",
+                "A complete patient acquisition journey",
+                "Automated WhatsApp / email follow-up",
+                "A Premium Treatment Plan patients upgrade to",
               ].map((x) => (
                 <li key={x} className="flex items-start gap-2">
                   <X className="size-5 text-red-400 shrink-0 mt-0.5" />
