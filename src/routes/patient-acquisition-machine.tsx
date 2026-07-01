@@ -20,6 +20,8 @@ import offerStackAsset from "@/assets/pam/offer-stack.png.asset.json";
 import systemDiagramAsset from "@/assets/pam/system-diagram.png.asset.json";
 import gbpAsset from "@/assets/pam/gbp.png.asset.json";
 import guaranteeAsset from "@/assets/pam/guarantee.png.asset.json";
+import heroStackAsset from "@/assets/pam/hero-stack.png.asset.json";
+import farhanFounderAsset from "@/assets/pam/farhan-founder.jpeg.asset.json";
 
 export const Route = createFileRoute("/patient-acquisition-machine")({
   head: () => ({
