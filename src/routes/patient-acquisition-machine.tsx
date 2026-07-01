@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
+import { OfferCountdown, useOfferExpired } from "@/components/site/OfferCountdown";
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
@@ -83,6 +84,7 @@ const PRICE_LABEL = "PKR 25,000";
 
 function PatientAcquisitionPage() {
   const [open, setOpen] = useState(false);
+  const expired = useOfferExpired();
   const pixelPageViewFired = useRef(false);
 
   useEffect(() => {
@@ -92,6 +94,10 @@ function PatientAcquisitionPage() {
   }, []);
 
   function openOrder() {
+    if (expired) {
+      window.open("https://wa.me/923135944817?text=Hi%20Farhan%2C%20I%27m%20interested%20in%20the%20Patient%20Acquisition%20Machine%20offer.", "_blank");
+      return;
+    }
     setOpen(true);
     fbqTrack("InitiateCheckout", {
       value: PRICE,
@@ -99,6 +105,8 @@ function PatientAcquisitionPage() {
       content_name: "Patient Acquisition Machine",
     });
   }
+
+  const ctaLabel = expired ? "Offer Closed — Message Farhan" : "Claim My Specialty Slot Now";
 
   return (
     <div className="min-h-screen bg-[oklch(0.14_0.04_265)] text-white">
@@ -145,18 +153,24 @@ function PatientAcquisitionPage() {
                 <span className="text-xs md:text-sm text-white/70 font-semibold">today</span>
               </div>
 
+              {/* Countdown */}
+              <div className="mt-6 flex justify-center lg:justify-start">
+                <OfferCountdown variant="hero" />
+              </div>
+
               <div className="mt-6">
                 <button
                   onClick={openOrder}
-                  className="btn-cta inline-flex items-center gap-2 px-7 py-4 text-base md:text-lg rounded-xl shadow-2xl shadow-yellow-500/20"
+                  disabled={expired}
+                  className="btn-cta inline-flex items-center gap-2 px-7 py-4 text-base md:text-lg rounded-xl shadow-2xl shadow-yellow-500/20 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Claim My Specialty Slot Now
+                  {ctaLabel}
                   <ArrowRight className="btn-cta-arrow size-5" />
                 </button>
               </div>
 
-              <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold">
-                ⚠ Only ONE practitioner from each specialty will be accepted.
+              <div className="mt-5 inline-flex items-start gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold text-left">
+                <span>⚠ Only ONE practitioner from each specialty will be accepted. Deadline: Friday 11:59 PM.</span>
               </div>
 
               {/* Founder card — MOBILE ONLY */}
@@ -378,11 +392,15 @@ function PatientAcquisitionPage() {
           <div className="mt-8 text-center">
             <button
               onClick={openOrder}
-              className="btn-cta inline-flex items-center gap-2 px-6 py-4 text-base md:text-lg rounded-xl"
+              disabled={expired}
+              className="btn-cta inline-flex items-center gap-2 px-6 py-4 text-base md:text-lg rounded-xl disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              Claim My Specialty Slot Now
+              {ctaLabel}
               <ArrowRight className="btn-cta-arrow size-5" />
             </button>
+            <p className="mt-3 text-xs text-white/70">
+              Only ONE practitioner from each specialty will be accepted. Deadline: Friday 11:59 PM.
+            </p>
           </div>
         </div>
       </section>
@@ -488,35 +506,50 @@ function PatientAcquisitionPage() {
           Ready To Claim Your Specialty <span className="text-yellow-300">Before Someone Else Does?</span>
         </h2>
         <p className="mt-4 text-white/85">
-          Only ONE practitioner accepted per specialty. Once claimed, this offer closes for that
-          category.
+          This special testimonial-based offer ends Friday at 11:59 PM, or earlier if your specialty
+          slot is taken.
         </p>
+        <div className="mt-8 flex justify-center">
+          <OfferCountdown variant="final" />
+        </div>
         <div className="mt-6">
           <button
             onClick={openOrder}
-            className="btn-cta inline-flex items-center gap-2 px-8 py-4 text-lg md:text-xl rounded-xl"
+            disabled={expired}
+            className="btn-cta inline-flex items-center gap-2 px-8 py-4 text-lg md:text-xl rounded-xl disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Claim My Specialty Slot Now
+            {ctaLabel}
             <ArrowRight className="btn-cta-arrow size-5" />
           </button>
         </div>
         <div className="mt-4 text-white/60 text-sm inline-flex items-center gap-2 justify-center">
           <Lock className="size-4" /> Secure order · PKR 25,000 (Reg. PKR 75,000)
         </div>
+        <p className="mt-3 text-xs text-white/60 max-w-xl mx-auto">
+          Only ONE practitioner from each specialty will be accepted. Deadline: Friday 11:59 PM.
+        </p>
       </section>
 
       <Footer />
 
       {/* STICKY MOBILE CTA */}
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[oklch(0.14_0.05_265)]/95 backdrop-blur border-t border-white/10 p-3 pb-[calc(env(safe-area-inset-bottom,0)+0.75rem)]">
+        <div className="mb-2 flex items-center justify-between gap-2 text-[11px]">
+          <span className="font-bold text-red-200">
+            {expired ? "⛔ Offer Closed" : "⚠ Ends Friday 11:59 PM — Claim Your Slot"}
+          </span>
+          {!expired && <OfferCountdown variant="compact" />}
+        </div>
         <button
           onClick={openOrder}
-          className="btn-cta w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-black"
+          disabled={expired}
+          className="btn-cta w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-black disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          Claim My Specialty Slot – PKR 25,000
+          {expired ? "Offer Closed — Message Farhan" : "Claim My Specialty Slot – PKR 25,000"}
           <ArrowRight className="btn-cta-arrow size-5" />
         </button>
       </div>
+
 
       {open && <OrderModal onClose={() => setOpen(false)} />}
     </div>
@@ -685,6 +718,10 @@ function OrderModal({ onClose }: { onClose: () => void }) {
                 Fill in your details, send payment, upload the screenshot, and our team will verify
                 and contact you on WhatsApp.
               </p>
+              <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs md:text-sm font-semibold text-red-700">
+                ⚠ This special PKR 25,000 offer expires Friday at 11:59 PM (Pakistan Time). Only ONE
+                practitioner from each specialty will be accepted.
+              </div>
             </div>
 
             {/* Payment details */}
