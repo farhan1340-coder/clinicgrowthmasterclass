@@ -340,30 +340,39 @@ function PatientAcquisitionPage() {
       </section>
 
       {/* GBP */}
-      <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-2xl md:text-4xl font-black">
-              Rank In The <span className="text-yellow-300">Google Top 3</span> Locally
-            </h2>
-            <p className="mt-4 text-white/85 leading-relaxed">
-              We set up and optimize your Google Business Profile correctly, then keep working on it
-              for the next <span className="font-bold">30–50 days</span> with local SEO strategies
-              to maximize your chances of ranking in the <span className="font-bold">Top 3 results</span>{" "}
-              in your local area/city.
-            </p>
-            <ul className="mt-4 space-y-2 text-white/80">
-              {["Best Dentist Near Me", "Gynecologist in Lahore", "Nutritionist in Islamabad"].map(
-                (x) => (
-                  <li key={x} className="flex items-center gap-2">
-                    <CheckCircle2 className="size-4 text-emerald-400" /> "{x}"
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-          <PlaceholderImage label="Google Business Profile visual — clinic in Map Pack / Top 3" />
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-20">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-black">
+            Dominate Your Local Area With <span className="text-yellow-300">Google Business Profile</span>
+          </h2>
+          <p className="mt-4 text-white/85 leading-relaxed">
+            We set up and optimize your Google Business Profile, then keep working on it for the
+            next <span className="font-bold">30–50 days</span> with local SEO — maximizing your
+            chances of ranking in the <span className="font-bold">Top 3 Map results</span> in your city.
+          </p>
         </div>
+
+        <div className="mt-10 rounded-3xl overflow-hidden bg-white/[0.04] border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]">
+          <img
+            src={gbpAsset.url}
+            alt="Dominate your local area with Google Business Profile — top 3 rankings, more calls, more appointments, more patients"
+            loading="lazy"
+            className="w-full h-auto block"
+          />
+        </div>
+
+        <ul className="mt-8 grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-white/85">
+          {["Best Dentist Near Me", "Gynecologist in Lahore", "Nutritionist in Islamabad"].map(
+            (x) => (
+              <li
+                key={x}
+                className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm"
+              >
+                <CheckCircle2 className="size-4 text-emerald-400 shrink-0" /> "{x}"
+              </li>
+            ),
+          )}
+        </ul>
       </section>
 
       {/* SIMPLE MATH */}
