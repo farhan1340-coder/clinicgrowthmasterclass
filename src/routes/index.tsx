@@ -210,7 +210,7 @@ function Hero() {
 
             <div className="mt-4 md:mt-6">
               <MasterclassCountdown variant="dark" className="mb-3 md:mb-4" />
-              <CtaButton subtitle="Get instant access to the live masterclass">
+              <CtaButton subtitle="Get instant access to the live masterclass for only 199 PKR">
                 YES! I Want My Patient-Getting System
               </CtaButton>
             </div>
