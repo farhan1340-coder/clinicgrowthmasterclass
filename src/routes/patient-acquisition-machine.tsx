@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
+import { OfferCountdown, useOfferExpired } from "@/components/site/OfferCountdown";
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
