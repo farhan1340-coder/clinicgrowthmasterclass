@@ -158,7 +158,7 @@ function PatientAcquisitionPage() {
             </div>
             <div className="rounded-2xl bg-gradient-to-br from-emerald-500/20 to-yellow-400/20 border-2 border-yellow-300/50 p-6 text-center">
               <div className="text-sm uppercase tracking-widest text-yellow-200">Today's Special Price</div>
-              <div className="mt-2 text-3xl md:text-4xl font-black text-yellow-300">PKR 23,500</div>
+              <div className="mt-2 text-3xl md:text-4xl font-black text-yellow-300">PKR 25,000</div>
             </div>
           </div>
         </div>
@@ -415,7 +415,7 @@ function PatientAcquisitionPage() {
           </button>
         </div>
         <div className="mt-4 text-white/60 text-sm inline-flex items-center gap-2 justify-center">
-          <Lock className="size-4" /> Secure order · PKR 23,500 (Reg. PKR 75,000)
+          <Lock className="size-4" /> Secure order · PKR 25,000 (Reg. PKR 75,000)
         </div>
       </section>
 
@@ -427,7 +427,7 @@ function PatientAcquisitionPage() {
           onClick={openOrder}
           className="btn-cta w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-black"
         >
-          Claim My Specialty Slot – PKR 23,500
+          Claim My Specialty Slot – PKR 25,000
           <ArrowRight className="btn-cta-arrow size-5" />
         </button>
       </div>
@@ -590,7 +590,7 @@ function OrderModal({ onClose }: { onClose: () => void }) {
           <form onSubmit={handleSubmit} className="p-5 md:p-7 space-y-5">
             <div>
               <div className="text-xs uppercase tracking-widest text-yellow-600 font-black">
-                Special Offer — PKR 23,500
+                Special Offer — PKR 25,000
               </div>
               <h3 className="mt-1 text-xl md:text-2xl font-black">
                 Claim Your Patient Acquisition Machine™ Slot
@@ -622,10 +622,10 @@ function OrderModal({ onClose }: { onClose: () => void }) {
                 <dt className="text-slate-600">Method</dt>
                 <dd className="col-span-2 font-semibold">{paymentInfo.label}</dd>
                 <dt className="text-slate-600">Amount</dt>
-                <dd className="col-span-2 font-black text-emerald-600">PKR 23,500</dd>
+                <dd className="col-span-2 font-black text-emerald-600">PKR 25,000</dd>
               </dl>
               <ol className="mt-3 text-xs text-slate-700 space-y-1 list-decimal list-inside">
-                <li>Send payment of PKR 23,500 to the account above.</li>
+                <li>Send payment of PKR 25,000 to the account above.</li>
                 <li>Take a screenshot of the successful payment.</li>
                 <li>Upload the screenshot below.</li>
                 <li>Submit your order.</li>
