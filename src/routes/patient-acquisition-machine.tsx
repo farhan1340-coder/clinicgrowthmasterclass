@@ -18,7 +18,7 @@ import { submitPatientAcquisitionOrder } from "@/lib/patient-acquisition.functio
 import offerStackAsset from "@/assets/pam/offer-stack.png.asset.json";
 import systemDiagramAsset from "@/assets/pam/system-diagram.png.asset.json";
 import gbpAsset from "@/assets/pam/gbp.png.asset.json";
-import guaranteeAsset from "@/assets/pam/guarantee.png.asset.json";
+import guaranteeAsset from "@/assets/pam/guarantee-transparent.png.asset.json";
 import heroStackAsset from "@/assets/pam/hero-stack.png.asset.json";
 import farhanFounderAsset from "@/assets/pam/farhan-founder.jpeg.asset.json";
 
