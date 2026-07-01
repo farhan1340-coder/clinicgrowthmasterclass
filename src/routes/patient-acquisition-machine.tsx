@@ -828,3 +828,36 @@ function Field({
     </div>
   );
 }
+
+function FounderCard() {
+  return (
+    <div className="relative rounded-2xl border border-white/15 bg-white/[0.06] backdrop-blur-xl p-4 md:p-5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] text-left">
+      <div className="flex items-center gap-4">
+        <div className="relative shrink-0">
+          <div className="absolute -inset-0.5 rounded-full bg-gradient-to-br from-emerald-400 via-sky-400 to-blue-500 opacity-80 blur-[2px]" aria-hidden="true" />
+          <img
+            src={farhanFounderAsset.url}
+            alt="Farhan Ali — Founder, Zero Apple A Day"
+            className="relative size-16 md:size-20 rounded-full object-cover ring-2 ring-white/30"
+            loading="lazy"
+          />
+        </div>
+        <div className="min-w-0">
+          <div className="text-white font-black text-base md:text-lg leading-tight">Farhan Ali</div>
+          <div className="text-white/80 text-xs md:text-sm font-semibold">
+            Founder · <span className="text-emerald-300">Zero Apple A Day</span>
+          </div>
+          <div className="text-white/70 text-[11px] md:text-xs mt-0.5">Healthcare Growth Strategist</div>
+          <div className="mt-1 text-yellow-300 text-sm tracking-wider" aria-label="5 star rating">★★★★★</div>
+        </div>
+      </div>
+      <p className="mt-3 text-white/85 text-[12px] md:text-[13px] leading-relaxed">
+        Helping Doctors Build Predictable Patient Acquisition Systems.
+      </p>
+      <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3 py-1 text-[11px] md:text-[12px] font-semibold text-white/90">
+        <ShieldCheck className="size-3.5 text-emerald-300" />
+        Trusted by Healthcare Practitioners Across Pakistan
+      </div>
+    </div>
+  );
+}
