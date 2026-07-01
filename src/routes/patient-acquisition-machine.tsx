@@ -232,25 +232,54 @@ function PatientAcquisitionPage() {
               <span className="font-semibold">awareness → purchase → follow-up → high-ticket conversion.</span>
             </p>
           </div>
+
+          {/* System diagram — how the machine works */}
+          <div className="mt-10 rounded-2xl bg-white/[0.03] border border-white/10 p-3 md:p-5 shadow-2xl shadow-black/40">
+            <img
+              src={systemDiagramAsset.url}
+              alt="Patient Acquisition Machine system diagram — Low-ticket offer → Sales page → Meta ads → Buyers → WhatsApp & Email follow-up → High-ticket patients → Reinvest → Repeat & scale"
+              loading="lazy"
+              className="w-full h-auto rounded-xl block"
+            />
+          </div>
         </div>
       </section>
 
       {/* WHAT IS PAM */}
-      <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <h2 className="text-2xl md:text-4xl font-black text-center">
-          What Is The <span className="text-yellow-300">Patient Acquisition Machine™</span>?
-        </h2>
-        <div className="mt-8 grid md:grid-cols-2 gap-8 items-center">
-          <PlaceholderImage label="System diagram — Low-ticket offer → sales page → ads → buyers → follow-up → high-ticket patients" />
-          <div className="space-y-3 text-white/85">
-            <p>This is <span className="font-bold text-white">not just Facebook Ads.</span></p>
-            <p>This is <span className="font-bold text-white">not just a website.</span></p>
-            <p>This is <span className="font-bold text-white">not just Google Business Profile.</span></p>
-            <p className="text-lg font-semibold text-white">
-              This is a complete patient-generating system that works together to consistently bring
-              patients into your clinic.
-            </p>
-          </div>
+      <section className="max-w-5xl mx-auto px-4 md:px-6 py-14 md:py-20">
+        <div className="text-center">
+          <h2 className="text-2xl md:text-4xl font-black">
+            What Exactly Is The <span className="text-yellow-300">Patient Acquisition Machine™</span>?
+          </h2>
+          <p className="mt-4 text-white/85 max-w-2xl mx-auto leading-relaxed">
+            It's a complete, done-for-you growth system — not just ads, not just a website, not just
+            SEO. Every piece is built and connected for you so patients flow in consistently.
+          </p>
+        </div>
+
+        {/* Offer stack centerpiece image */}
+        <div className="mt-10 rounded-3xl bg-white/[0.04] border border-white/10 p-3 md:p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]">
+          <img
+            src={offerStackAsset.url}
+            alt="Patient Acquisition Machine™ complete offer stack — done-for-you implementation"
+            loading="lazy"
+            className="w-full h-auto rounded-2xl block"
+          />
+        </div>
+
+        <div className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto text-white/85">
+          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
+            <span className="font-bold text-white">Not</span> just Facebook Ads.
+          </p>
+          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
+            <span className="font-bold text-white">Not</span> just a website.
+          </p>
+          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
+            <span className="font-bold text-white">Not</span> just Google Business Profile.
+          </p>
+          <p className="rounded-xl bg-yellow-400/10 border border-yellow-300/30 p-4 text-white">
+            A <span className="font-bold">complete patient-generating system</span> that works together.
+          </p>
         </div>
       </section>
 
