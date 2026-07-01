@@ -108,33 +108,80 @@ function PatientAcquisitionPage() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[oklch(0.18_0.06_265)] to-[oklch(0.12_0.05_265)]">
         <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(circle_at_20%_10%,oklch(0.55_0.2_260),transparent_50%),radial-gradient(circle_at_80%_30%,oklch(0.55_0.18_20),transparent_50%)]" />
-        <div className="relative max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-20 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-yellow-400/15 border border-yellow-400/40 text-yellow-300 px-3 py-1 text-xs font-bold uppercase tracking-wider">
-            <Sparkles className="size-3.5" /> Special Testimonial Offer
-          </div>
-          <h1 className="mt-5 text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
-            An Irresistible Offer for Doctors, Dentists, Nutritionists & Healthcare Practitioners{" "}
-            <span className="text-yellow-300">You Simply Can't Refuse</span>
-          </h1>
-          <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
-            I'll personally help you build your complete{" "}
-            <span className="font-bold text-white">Patient Acquisition Machine™</span> for only{" "}
-            <span className="font-black text-yellow-300">PKR 25,000 today</span> instead of PKR
-            75,000 — backed by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
-          </p>
+        <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-20">
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-14 items-center">
+            {/* LEFT — copy */}
+            <div className="text-center lg:text-left order-1 lg:order-1">
+              <div className="inline-flex items-center gap-2 rounded-full bg-emerald-400/15 border border-emerald-300/40 text-emerald-200 px-3 py-1 text-[11px] md:text-xs font-bold uppercase tracking-wider">
+                🎓 Exclusive Offer for Clinic Growth Masterclass Participants
+              </div>
 
-          <div className="mt-7 flex flex-wrap gap-3 justify-center">
-            <button
-              onClick={openOrder}
-              className="btn-cta inline-flex items-center gap-2 px-7 py-4 text-base md:text-lg rounded-xl shadow-2xl shadow-yellow-500/20"
-            >
-              Claim My Specialty Slot Now
-              <ArrowRight className="btn-cta-arrow size-5" />
-            </button>
-          </div>
+              <h1 className="mt-4 text-3xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight">
+                An Irresistible Offer for Doctors, Dentists, Nutritionists & Healthcare Practitioners{" "}
+                <span className="text-yellow-300">You Simply Can't Refuse</span>
+              </h1>
 
-          <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold">
-            ⚠ Only ONE practitioner from each specialty will be accepted.
+              <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                I'll personally help you build your complete{" "}
+                <span className="font-bold text-white">Patient Acquisition Machine™</span> — backed
+                by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
+              </p>
+
+              {/* Product stack — MOBILE ONLY (between subheadline and CTA) */}
+              <div className="lg:hidden mt-8 relative">
+                <div className="absolute inset-x-8 -bottom-4 h-10 rounded-full bg-black/50 blur-2xl" aria-hidden="true" />
+                <img
+                  src={heroStackAsset.url}
+                  alt="Patient Acquisition Machine™ complete product stack"
+                  className="relative w-full h-auto rounded-2xl block pam-float"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+              </div>
+
+              {/* Price */}
+              <div className="mt-7 flex items-baseline gap-3 justify-center lg:justify-start">
+                <span className="text-xl md:text-2xl font-bold text-white/50 line-through">PKR 75,000</span>
+                <span className="text-4xl md:text-5xl font-black text-yellow-300">PKR 25,000</span>
+                <span className="text-xs md:text-sm text-white/70 font-semibold">today</span>
+              </div>
+
+              <div className="mt-6">
+                <button
+                  onClick={openOrder}
+                  className="btn-cta inline-flex items-center gap-2 px-7 py-4 text-base md:text-lg rounded-xl shadow-2xl shadow-yellow-500/20"
+                >
+                  Claim My Specialty Slot Now
+                  <ArrowRight className="btn-cta-arrow size-5" />
+                </button>
+              </div>
+
+              <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold">
+                ⚠ Only ONE practitioner from each specialty will be accepted.
+              </div>
+
+              {/* Founder card — MOBILE ONLY */}
+              <div className="lg:hidden mt-8">
+                <FounderCard />
+              </div>
+            </div>
+
+            {/* RIGHT — product stack + founder card (desktop) */}
+            <div className="hidden lg:block relative order-2">
+              <div className="relative">
+                <div className="absolute inset-x-10 -bottom-6 h-16 rounded-full bg-black/60 blur-3xl" aria-hidden="true" />
+                <img
+                  src={heroStackAsset.url}
+                  alt="Patient Acquisition Machine™ complete product stack — done-for-you implementation"
+                  className="relative w-full h-auto rounded-3xl block pam-float"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+              </div>
+              <div className="relative -mt-4 xl:-mt-6 mx-auto max-w-md">
+                <FounderCard />
+              </div>
+            </div>
           </div>
         </div>
       </section>
