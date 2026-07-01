@@ -81,7 +81,7 @@ export function OfferPopup() {
           </button>
           <div className="flex-1 text-[12px] leading-tight font-semibold">
             <div>Live Masterclass: 12 July, 5–8 PM PKT</div>
-            <div className="text-yellow-300">Rs. 999 Today</div>
+            <div className="text-yellow-300"><span className="line-through opacity-70 mr-1">Rs. 999</span>Rs. 199 Today</div>
           </div>
           <button
             onClick={goToOrder}
@@ -113,25 +113,25 @@ export function OfferPopup() {
 
             <div className="bg-gradient-to-r from-blue-600 to-violet-600 text-white px-6 py-5 text-center">
               <h2 className="text-xl md:text-2xl font-black leading-tight">
-                Enjoy PKR 999 A Little Longer
+                Special PKR 199 Offer
               </h2>
             </div>
 
             <div className="px-6 py-5 space-y-3 text-center">
               <p className="text-sm md:text-base text-slate-700 leading-relaxed">
-                After hearing from many doctors and healthcare practitioners, we've decided to keep
-                our <span className="font-semibold">Clinic Growth Masterclass</span> at PKR 999 for a
-                little longer.
+                After hearing from many doctors and healthcare practitioners, we've dropped
+                the <span className="font-semibold">Clinic Growth Masterclass</span> to just PKR 199
+                for a limited time.
               </p>
               <p className="text-sm text-slate-600">
-                Price will adjust to <span className="font-bold">PKR 3,999</span> after the deadline due to the rising costs of managing a high number of students..
+                Price will adjust to <span className="font-bold">PKR 999</span> after the deadline due to the rising costs of managing a high number of students..
               </p>
 
               <div className="mt-2 rounded-xl border-2 border-emerald-200 bg-emerald-50 p-4">
-                <div className="text-3xl md:text-4xl font-black text-emerald-600">PKR 999</div>
-                <div className="mt-1 text-base text-slate-500 line-through">PKR 3,999</div>
+                <div className="text-3xl md:text-4xl font-black text-emerald-600">PKR 199</div>
+                <div className="mt-1 text-base text-slate-500 line-through">Original: PKR 999</div>
                 <div className="mt-2 text-sm font-bold text-orange-600">
-                  Early-bird Rs. 999 offer ends: {DEADLINE_LABEL}
+                  Early-bird Rs. 199 offer ends: {DEADLINE_LABEL}
                 </div>
                 <div className="mt-1 text-xs text-slate-600">
                   Live Masterclass: Sunday, 12th July 2026, 5:00 PM – 8:00 PM PKT
