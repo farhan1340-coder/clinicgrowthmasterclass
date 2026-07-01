@@ -718,6 +718,10 @@ function OrderModal({ onClose }: { onClose: () => void }) {
                 Fill in your details, send payment, upload the screenshot, and our team will verify
                 and contact you on WhatsApp.
               </p>
+              <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs md:text-sm font-semibold text-red-700">
+                ⚠ This special PKR 25,000 offer expires Friday at 11:59 PM (Pakistan Time). Only ONE
+                practitioner from each specialty will be accepted.
+              </div>
             </div>
 
             {/* Payment details */}
