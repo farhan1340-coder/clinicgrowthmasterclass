@@ -106,41 +106,33 @@ function PatientAcquisitionPage() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[oklch(0.18_0.06_265)] to-[oklch(0.12_0.05_265)]">
         <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(circle_at_20%_10%,oklch(0.55_0.2_260),transparent_50%),radial-gradient(circle_at_80%_30%,oklch(0.55_0.18_20),transparent_50%)]" />
-        <div className="relative max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-yellow-400/15 border border-yellow-400/40 text-yellow-300 px-3 py-1 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="size-3.5" /> Special Testimonial Offer
-              </div>
-              <h1 className="mt-4 text-3xl md:text-5xl font-black leading-tight">
-                An Irresistible Offer for Doctors, Dentists, Nutritionists & Healthcare Practitioners{" "}
-                <span className="text-yellow-300">You Simply Can't Refuse</span>
-              </h1>
-              <p className="mt-4 text-base md:text-lg text-white/85 leading-relaxed">
-                I'll personally help you build your complete{" "}
-                <span className="font-bold text-white">Patient Acquisition Machine™</span> for only{" "}
-                <span className="font-black text-yellow-300">PKR 25,000 today</span> instead of PKR
-                75,000 — backed by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
-              </p>
+        <div className="relative max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-20 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-yellow-400/15 border border-yellow-400/40 text-yellow-300 px-3 py-1 text-xs font-bold uppercase tracking-wider">
+            <Sparkles className="size-3.5" /> Special Testimonial Offer
+          </div>
+          <h1 className="mt-5 text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+            An Irresistible Offer for Doctors, Dentists, Nutritionists & Healthcare Practitioners{" "}
+            <span className="text-yellow-300">You Simply Can't Refuse</span>
+          </h1>
+          <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
+            I'll personally help you build your complete{" "}
+            <span className="font-bold text-white">Patient Acquisition Machine™</span> for only{" "}
+            <span className="font-black text-yellow-300">PKR 25,000 today</span> instead of PKR
+            75,000 — backed by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
+          </p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                <button
-                  onClick={openOrder}
-                  className="btn-cta inline-flex items-center gap-2 px-6 py-4 text-base md:text-lg rounded-xl"
-                >
-                  Claim My Specialty Slot Now
-                  <ArrowRight className="btn-cta-arrow size-5" />
-                </button>
-              </div>
+          <div className="mt-7 flex flex-wrap gap-3 justify-center">
+            <button
+              onClick={openOrder}
+              className="btn-cta inline-flex items-center gap-2 px-7 py-4 text-base md:text-lg rounded-xl shadow-2xl shadow-yellow-500/20"
+            >
+              Claim My Specialty Slot Now
+              <ArrowRight className="btn-cta-arrow size-5" />
+            </button>
+          </div>
 
-              <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold">
-                ⚠ Only ONE practitioner from each specialty will be accepted.
-              </div>
-            </div>
-
-            <div>
-              <PlaceholderImage label="Hero image — Dr. Farhan Ali / Patient Acquisition Machine branded visual" />
-            </div>
+          <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold">
+            ⚠ Only ONE practitioner from each specialty will be accepted.
           </div>
         </div>
       </section>
