@@ -441,36 +441,45 @@ function PatientAcquisitionPage() {
       </section>
 
       {/* GUARANTEE */}
-      <section className="max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="rounded-3xl bg-gradient-to-br from-emerald-500/15 to-yellow-400/10 border-2 border-emerald-400/40 p-6 md:p-12 text-center">
-          <img
-            src={guaranteeAsset.url}
-            alt="Iron-Clad 100% Money-Back Guarantee — Zero Risk, No Questions Asked, 100% Refund Promise"
-            loading="lazy"
-            className="mx-auto w-56 md:w-72 h-auto drop-shadow-[0_25px_35px_rgba(0,0,0,0.5)]"
-          />
-          <h2 className="mt-6 text-2xl md:text-4xl font-black text-emerald-300 inline-flex items-center gap-2 justify-center">
-            <ShieldCheck className="size-8" /> Iron-Clad 100% Money-Back Guarantee
-          </h2>
-          <p className="mt-4 text-white/85 max-w-2xl mx-auto leading-relaxed">
-            If you don't get results, or you are genuinely not satisfied with our work, we will
-            refund <span className="font-bold text-white">100% of your investment.</span>
-          </p>
-          <ul className="mt-4 grid sm:grid-cols-2 gap-2 max-w-lg mx-auto text-left">
-            {[
-              "No awkward conversations",
-              "No lengthy forms",
-              "No hidden conditions",
-              "No chasing us",
-            ].map((x) => (
-              <li key={x} className="flex items-center gap-2 text-white/85">
-                <CheckCircle2 className="size-4 text-emerald-400" /> {x}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 font-semibold">Just send a message and get your money back.</p>
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#0b1530] via-[#0a1024] to-[#070b1c] py-16 md:py-24">
+        <div className="pointer-events-none absolute inset-0 opacity-60"
+             style={{ background: "radial-gradient(600px 400px at 50% 30%, rgba(234,179,8,0.18), transparent 70%)" }} />
+        <div className="relative max-w-4xl mx-auto px-4 md:px-6">
+          <div className="rounded-3xl bg-white/[0.03] backdrop-blur-sm border border-white/10 p-6 md:p-12 text-center shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]">
+            <div className="relative mx-auto w-40 sm:w-56 md:w-72">
+              <div className="pointer-events-none absolute inset-0 -z-10 blur-3xl opacity-70"
+                   style={{ background: "radial-gradient(circle, rgba(250,204,21,0.55), transparent 65%)" }} />
+              <img
+                src={guaranteeAsset.url}
+                alt="Iron-Clad 100% Money-Back Guarantee — Zero Risk, No Questions Asked, 100% Refund Promise"
+                loading="lazy"
+                className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.55)]"
+              />
+            </div>
+            <h2 className="mt-6 text-2xl md:text-4xl font-black text-emerald-300 inline-flex items-center gap-2 justify-center">
+              <ShieldCheck className="size-8" /> Iron-Clad 100% Money-Back Guarantee
+            </h2>
+            <p className="mt-4 text-white/85 max-w-2xl mx-auto leading-relaxed">
+              If you don't get results, or you are genuinely not satisfied with our work, we will
+              refund <span className="font-bold text-white">100% of your investment.</span>
+            </p>
+            <ul className="mt-4 grid sm:grid-cols-2 gap-2 max-w-lg mx-auto text-left">
+              {[
+                "No awkward conversations",
+                "No lengthy forms",
+                "No hidden conditions",
+                "No chasing us",
+              ].map((x) => (
+                <li key={x} className="flex items-center gap-2 text-white/85">
+                  <CheckCircle2 className="size-4 text-emerald-400" /> {x}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 font-semibold text-white">Just send a message and get your money back.</p>
+          </div>
         </div>
       </section>
+
 
 
       {/* FINAL CTA */}
