@@ -482,31 +482,51 @@ function PatientAcquisitionPage() {
       </section>
 
 
-      {/* OFFER STACK */}
+      {/* OFFER STACK — done-for-you */}
       <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="rounded-3xl bg-gradient-to-br from-yellow-500/10 to-emerald-500/10 border-2 border-yellow-300/40 p-6 md:p-10">
           <div className="text-center">
             <div className="inline-block rounded-full bg-yellow-400/20 border border-yellow-300/40 px-4 py-1 text-xs font-black uppercase tracking-widest text-yellow-200">
-              Complete Offer Stack
+              Complete Done-For-You Stack
             </div>
             <h2 className="mt-3 text-2xl md:text-4xl font-black">
-              Everything Included In Your Patient Acquisition Machine™
+              Everything We Build & Implement For You
             </h2>
+            <p className="mt-3 text-white/80 max-w-2xl mx-auto text-sm md:text-base">
+              These are not digital courses or PDFs. Every item below is a{" "}
+              <span className="font-bold text-yellow-200">done-for-you implementation service</span> —
+              our team builds and connects it into your clinic.
+            </p>
           </div>
 
-          <ul className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
+          {/* Offer stack centerpiece image */}
+          <div className="mt-8 rounded-2xl bg-white/[0.04] border border-white/10 p-3 md:p-4 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]">
+            <img
+              src={offerStackAsset.url}
+              alt="The Patient Acquisition Machine™ complete done-for-you stack"
+              loading="lazy"
+              className="w-full h-auto rounded-xl block"
+            />
+          </div>
+
+          <ul className="mt-8 grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
             {OFFER_STACK.map((s) => (
               <li
                 key={s.title}
-                className="flex items-start justify-between gap-3 rounded-xl bg-white/[0.06] backdrop-blur-sm border border-white/10 px-4 py-3 shadow-lg shadow-black/20"
+                className="relative rounded-xl bg-white/[0.06] backdrop-blur-sm border border-white/10 pl-4 pr-4 pt-7 pb-3 shadow-lg shadow-black/20"
               >
-                <div className="flex items-start gap-3 min-w-0">
-                  <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="font-semibold text-sm md:text-base break-words">{s.title}</span>
-                </div>
-                <span className="text-xs md:text-sm text-white/60 whitespace-nowrap shrink-0">
-                  PKR {s.value.toLocaleString()}
+                <span className="absolute -top-2 left-3 rounded-md bg-gradient-to-r from-yellow-400 to-emerald-400 text-slate-900 text-[10px] md:text-xs font-black uppercase tracking-widest px-2 py-0.5 shadow">
+                  Done-For-You
                 </span>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span className="font-semibold text-sm md:text-base break-words">{s.title}</span>
+                  </div>
+                  <span className="text-xs md:text-sm text-white/60 whitespace-nowrap shrink-0">
+                    PKR {s.value.toLocaleString()}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
@@ -541,6 +561,7 @@ function PatientAcquisitionPage() {
           </div>
         </div>
       </section>
+
 
       {/* GBP */}
       <section className="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-20">
