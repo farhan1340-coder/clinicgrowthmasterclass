@@ -379,43 +379,108 @@ function PatientAcquisitionPage() {
         </div>
       </section>
 
-      {/* WHAT IS PAM */}
+      {/* PREDICTABLE PATIENT JOURNEY */}
       <section className="max-w-5xl mx-auto px-4 md:px-6 py-14 md:py-20">
         <div className="text-center">
-          <h2 className="text-2xl md:text-4xl font-black">
-            What Exactly Is The <span className="text-yellow-300">Patient Acquisition Machine™</span>?
+          <div className="inline-block rounded-full bg-yellow-400/20 border border-yellow-300/40 px-4 py-1 text-xs font-black uppercase tracking-widest text-yellow-200">
+            Your Predictable Patient Journey
+          </div>
+          <h2 className="mt-3 text-2xl md:text-4xl font-black">
+            Here's Exactly How <span className="text-yellow-300">Patients Flow Into Your Clinic</span>
           </h2>
           <p className="mt-4 text-white/85 max-w-2xl mx-auto leading-relaxed">
-            It's a complete, done-for-you growth system — not just ads, not just a website, not just
-            SEO. Every piece is built and connected for you so patients flow in consistently.
+            Every piece below is built and connected for you — so patients arrive consistently
+            instead of relying on luck or referrals.
           </p>
         </div>
 
-        {/* Offer stack centerpiece image */}
+        {/* Diagram image */}
         <div className="mt-10 rounded-3xl bg-white/[0.04] border border-white/10 p-3 md:p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]">
           <img
-            src={offerStackAsset.url}
-            alt="Patient Acquisition Machine™ complete offer stack — done-for-you implementation"
+            src={systemDiagramAsset.url}
+            alt="The Patient Acquisition Machine™ — offer, sales page, Meta ads, WhatsApp follow-up, premium treatments, Google reviews, Google Maps ranking, repeat"
             loading="lazy"
             className="w-full h-auto rounded-2xl block"
           />
         </div>
 
-        <div className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto text-white/85">
-          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
-            <span className="font-bold text-white">Not</span> just Facebook Ads.
-          </p>
-          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
-            <span className="font-bold text-white">Not</span> just a website.
-          </p>
-          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
-            <span className="font-bold text-white">Not</span> just Google Business Profile.
-          </p>
-          <p className="rounded-xl bg-yellow-400/10 border border-yellow-300/30 p-4 text-white">
-            A <span className="font-bold">complete patient-generating system</span> that works together.
+        {/* Step-by-step in plain English */}
+        <ol className="mt-10 space-y-3 max-w-3xl mx-auto">
+          {[
+            { n: 1, t: "Create an irresistible first visit offer.", d: "This gives patients a simple, low-risk reason to visit your clinic." },
+            { n: 2, t: "Run Meta Ads.", d: "We attract people who are actively looking for your services." },
+            { n: 3, t: "Patients land on a high-converting sales page.", d: "Instead of simply calling your clinic, they understand your expertise, build trust and book appointments." },
+            { n: 4, t: "Patients purchase your Affordable First Visit.", d: "" },
+            { n: 5, t: "Automated WhatsApp and email follow-up.", d: "Keeps educating and reminding patients." },
+            { n: 6, t: "Many patients upgrade to your Premium Treatment Plan.", d: "Implants, braces, laser, weight loss, IVF, hair restoration, and more." },
+            { n: 7, t: "Happy patients leave Google Reviews.", d: "" },
+            { n: 8, t: "Your Google Business Profile becomes stronger.", d: "" },
+            { n: 9, t: "More people discover your clinic organically.", d: "Then the whole journey repeats." },
+          ].map((s) => (
+            <li key={s.n} className="rounded-2xl bg-white/[0.05] border border-white/10 p-4 md:p-5 flex gap-4 items-start">
+              <div className="shrink-0 size-10 rounded-full bg-yellow-400/20 border border-yellow-300/40 text-yellow-200 grid place-items-center font-black">
+                {s.n}
+              </div>
+              <div>
+                <div className="font-bold text-white">Step {s.n} — {s.t}</div>
+                {s.d && <div className="mt-1 text-white/80 text-sm md:text-base">{s.d}</div>}
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        {/* Reveal the branded name */}
+        <div className="mt-10 rounded-3xl bg-gradient-to-br from-yellow-500/15 to-emerald-500/10 border-2 border-yellow-300/40 p-6 md:p-8 text-center">
+          <div className="text-xs uppercase tracking-widest text-yellow-200 font-black">
+            This complete journey is what I call
+          </div>
+          <h3 className="mt-2 text-2xl md:text-4xl font-black text-yellow-300">
+            The Patient Acquisition Machine™
+          </h3>
+          <p className="mt-3 text-white/85 max-w-2xl mx-auto leading-relaxed">
+            It continuously brings patients into your clinic instead of relying on luck or referrals —
+            not just ads, not just a website, not just SEO. A complete patient-generating system that
+            works together.
           </p>
         </div>
       </section>
+
+      {/* WHAT HAPPENS IN NUMBERS */}
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-black">
+            This Is How Clinics <span className="text-yellow-300">Scale Predictably</span>
+          </h2>
+          <p className="mt-3 text-white/80">What Happens In Numbers — a simple illustration.</p>
+        </div>
+
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { n: "100", t: "People see your Meta Ad" },
+            { n: "40", t: "Visit your sales page" },
+            { n: "20", t: "Book your Affordable First Visit" },
+            { n: "15", t: "Attend the appointment" },
+            { n: "5", t: "Purchase your Premium Treatment Plan" },
+            { n: "5 × 40,000 PKR", t: "= PKR 200,000 in premium revenue", highlight: true },
+          ].map((c) => (
+            <div
+              key={c.t}
+              className={`rounded-2xl p-6 border ${c.highlight ? "bg-gradient-to-br from-yellow-500/20 to-emerald-500/10 border-yellow-300/50" : "bg-white/5 border-white/10"}`}
+            >
+              <div className={`text-3xl md:text-4xl font-black ${c.highlight ? "text-yellow-300" : "text-white"}`}>
+                {c.n}
+              </div>
+              <div className="mt-2 text-white/85 text-sm md:text-base font-semibold">{c.t}</div>
+            </div>
+          ))}
+        </div>
+
+        <p className="mt-6 text-center text-xs md:text-sm text-white/60 max-w-2xl mx-auto italic">
+          Illustration only. These numbers are not guaranteed results — every clinic, city, and
+          specialty performs differently.
+        </p>
+      </section>
+
 
       {/* OFFER STACK */}
       <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
