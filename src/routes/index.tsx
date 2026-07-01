@@ -312,26 +312,35 @@ function InlineLeadForm() {
         }
 
         setSubmitting(true);
+
+        // Fire pixel immediately so it isn't blocked by the network round trip.
         try {
-          const { upsertLead } = await import("@/lib/leads.functions");
-          await upsertLead({
-            data: {
-              full_name: fullName,
-              email: emailNorm,
-              whatsapp: wa,
-              specialty: spec,
-              lead_status: "Opted In - Checkout Not Completed",
-            },
-          });
           fbqTrack("Lead", {
             content_name: "Clinic Growth Masterclass — Step 1 Opt-In",
             value: 0,
             currency: "PKR",
           });
-        } catch (err) {
-          console.error("Failed to save lead", err);
-          // Don't block the funnel — still send them to checkout
-        }
+        } catch {}
+
+        // Save lead in the background — do NOT block navigation on the server function.
+        // Checkout receives all fields via URL search params, so the DB row is not
+        // required to render the next page. If the request fails we log and move on.
+        void (async () => {
+          try {
+            const { upsertLead } = await import("@/lib/leads.functions");
+            await upsertLead({
+              data: {
+                full_name: fullName,
+                email: emailNorm,
+                whatsapp: wa,
+                specialty: spec,
+                lead_status: "Opted In - Checkout Not Completed",
+              },
+            });
+          } catch (err) {
+            console.error("Background lead upsert failed", err);
+          }
+        })();
 
         const params = new URLSearchParams();
         params.set("full_name", fullName);
@@ -339,6 +348,7 @@ function InlineLeadForm() {
         params.set("whatsapp", wa);
         params.set("specialty", spec);
         navigate({ to: "/order", search: Object.fromEntries(params) });
+
       }}
     >
       <input
