@@ -59,15 +59,15 @@ const SPECIALTIES = [
 ];
 
 const OFFER_STACK = [
-  { title: "Low-Ticket Irresistible Offer Creation", value: 8000 },
-  { title: "High-Ticket Premium Service Creation", value: 8000 },
-  { title: "High-Converting Sales Page", value: 10000 },
-  { title: "Order Bumps Setup", value: 4000 },
+  { title: "Affordable First Visit Offer Creation (e.g. Dental Cleaning, Skin Consultation)", value: 8000 },
+  { title: "Premium Treatment Plan Creation (e.g. Implants, Braces, Laser, Weight Loss)", value: 8000 },
+  { title: "High-Converting Patient Sales Page", value: 10000 },
+  { title: "Bonus Add-Ons Setup at Checkout", value: 4000 },
   { title: "WhatsApp & Email Follow-Up Automation", value: 7000 },
   { title: "Meta Ads Setup, Run & Management", value: 12000 },
   { title: "Google Business Profile Setup & Optimization", value: 6000 },
   { title: "30–50 Days Google Business Profile Local SEO Work", value: 10000 },
-  { title: "Patient Journey / Awareness Bridge", value: 5000 },
+  { title: "Complete Patient Awareness Journey", value: 5000 },
   { title: "Lead Tracking & Conversion System", value: 5000 },
 ];
 
@@ -129,9 +129,10 @@ function PatientAcquisitionPage() {
               </h1>
 
               <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                I'll personally help you build your complete{" "}
-                <span className="font-bold text-white">Patient Acquisition Machine™</span> — backed
-                by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
+                I'll personally build your complete{" "}
+                <span className="font-bold text-white">Predictable Patient Journey</span> — the
+                same system I call <span className="font-bold text-white">The Patient Acquisition Machine™</span> —
+                backed by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
               </p>
 
               {/* Product stack — MOBILE ONLY (between subheadline and CTA) */}
@@ -199,12 +200,84 @@ function PatientAcquisitionPage() {
         </div>
       </section>
 
+      {/* WHY DOCTORS LOSE MONEY ON ADS — comparison */}
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-20">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-black">
+            Why Most Doctors <span className="text-red-300">Lose Money</span> Running Facebook Ads
+          </h2>
+          <p className="mt-4 text-white/85 leading-relaxed">
+            Facebook Ads are <span className="font-bold">not</span> the problem. Running Facebook Ads
+            without a complete Patient Acquisition System <span className="font-bold text-yellow-300">is</span>.
+          </p>
+        </div>
+
+        <div className="mt-10 grid md:grid-cols-2 gap-5">
+          {/* LEFT — what most doctors do */}
+          <div className="rounded-3xl bg-gradient-to-br from-red-500/10 to-red-900/10 border border-red-400/30 p-6 md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-red-500/20 border border-red-400/40 text-red-100 px-3 py-1 text-xs font-black uppercase tracking-widest">
+              ❌ What Most Doctors Do
+            </div>
+            <ol className="mt-5 space-y-2">
+              {[
+                "Run Facebook Ads",
+                "Hope patients book",
+                "Very few appointments",
+                "Stop ads",
+                "Blame Facebook",
+              ].map((step, i, arr) => (
+                <li key={step}>
+                  <div className="rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 font-semibold text-white/90">
+                    {step}
+                  </div>
+                  {i < arr.length - 1 && (
+                    <div className="flex justify-center text-red-300/70 py-1">↓</div>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* RIGHT — what we build */}
+          <div className="rounded-3xl bg-gradient-to-br from-emerald-500/10 to-yellow-400/10 border border-emerald-300/30 p-6 md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 border border-emerald-300/40 text-emerald-100 px-3 py-1 text-xs font-black uppercase tracking-widest">
+              ✅ What We Build For You
+            </div>
+            <ol className="mt-5 space-y-2">
+              {[
+                "Create an irresistible first visit offer",
+                "Run Meta Ads",
+                "Patients visit your sales page",
+                "Patients book",
+                "Automatic WhatsApp follow-up",
+                "Patients buy premium treatments",
+                "Google Reviews increase",
+                "Google Maps ranking improves",
+                "More patients",
+                "Repeat",
+              ].map((step, i, arr) => (
+                <li key={step}>
+                  <div className="rounded-xl bg-white/[0.05] border border-emerald-300/20 px-4 py-3 font-semibold text-white">
+                    {step}
+                  </div>
+                  {i < arr.length - 1 && (
+                    <div className="flex justify-center text-emerald-300/70 py-1">↓</div>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+
+
       {/* WHY */}
       <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="rounded-3xl bg-white/5 border border-white/10 p-6 md:p-10">
           <h2 className="text-2xl md:text-4xl font-black text-center">Why I'm Doing This</h2>
           <p className="mt-4 text-white/85 text-center max-w-3xl mx-auto leading-relaxed">
-            Normally, implementing your complete Patient Acquisition Machine™ costs{" "}
+            Normally, implementing your complete Patient Acquisition Machine™ (the full journey) costs{" "}
             <span className="font-bold">PKR 75,000</span>. But right now, I'm collecting real
             success stories and video testimonials from different healthcare specialties across
             Pakistan — so I'm offering it at{" "}
@@ -272,11 +345,11 @@ function PatientAcquisitionPage() {
             </p>
             <ul className="grid sm:grid-cols-2 gap-2">
               {[
-                "A low-ticket offer that attracts patients",
-                "A high-converting sales page",
-                "A proper patient acquisition funnel",
-                "Automated WhatsApp/email follow-up",
-                "A complete Patient Acquisition Machine™",
+                "An Affordable First Visit Offer that attracts patients",
+                "A high-converting patient sales page",
+                "A complete patient acquisition journey",
+                "Automated WhatsApp / email follow-up",
+                "A Premium Treatment Plan patients upgrade to",
               ].map((x) => (
                 <li key={x} className="flex items-start gap-2">
                   <X className="size-5 text-red-400 shrink-0 mt-0.5" />
@@ -289,7 +362,7 @@ function PatientAcquisitionPage() {
               That is not a system. That is gambling.
             </p>
             <p>
-              A proper Patient Acquisition Machine™ removes the element of hoping and praying by
+              A proper Patient Acquisition Machine™ (the complete journey above) removes the element of hoping and praying by
               giving patients a complete journey from{" "}
               <span className="font-semibold">awareness → purchase → follow-up → high-ticket conversion.</span>
             </p>
@@ -307,69 +380,154 @@ function PatientAcquisitionPage() {
         </div>
       </section>
 
-      {/* WHAT IS PAM */}
+      {/* PREDICTABLE PATIENT JOURNEY */}
       <section className="max-w-5xl mx-auto px-4 md:px-6 py-14 md:py-20">
         <div className="text-center">
-          <h2 className="text-2xl md:text-4xl font-black">
-            What Exactly Is The <span className="text-yellow-300">Patient Acquisition Machine™</span>?
+          <div className="inline-block rounded-full bg-yellow-400/20 border border-yellow-300/40 px-4 py-1 text-xs font-black uppercase tracking-widest text-yellow-200">
+            Your Predictable Patient Journey
+          </div>
+          <h2 className="mt-3 text-2xl md:text-4xl font-black">
+            Here's Exactly How <span className="text-yellow-300">Patients Flow Into Your Clinic</span>
           </h2>
           <p className="mt-4 text-white/85 max-w-2xl mx-auto leading-relaxed">
-            It's a complete, done-for-you growth system — not just ads, not just a website, not just
-            SEO. Every piece is built and connected for you so patients flow in consistently.
+            Every piece below is built and connected for you — so patients arrive consistently
+            instead of relying on luck or referrals.
           </p>
         </div>
 
-        {/* Offer stack centerpiece image */}
+        {/* Diagram image */}
         <div className="mt-10 rounded-3xl bg-white/[0.04] border border-white/10 p-3 md:p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]">
           <img
-            src={offerStackAsset.url}
-            alt="Patient Acquisition Machine™ complete offer stack — done-for-you implementation"
+            src={systemDiagramAsset.url}
+            alt="The Patient Acquisition Machine™ — offer, sales page, Meta ads, WhatsApp follow-up, premium treatments, Google reviews, Google Maps ranking, repeat"
             loading="lazy"
             className="w-full h-auto rounded-2xl block"
           />
         </div>
 
-        <div className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto text-white/85">
-          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
-            <span className="font-bold text-white">Not</span> just Facebook Ads.
-          </p>
-          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
-            <span className="font-bold text-white">Not</span> just a website.
-          </p>
-          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
-            <span className="font-bold text-white">Not</span> just Google Business Profile.
-          </p>
-          <p className="rounded-xl bg-yellow-400/10 border border-yellow-300/30 p-4 text-white">
-            A <span className="font-bold">complete patient-generating system</span> that works together.
+        {/* Step-by-step in plain English */}
+        <ol className="mt-10 space-y-3 max-w-3xl mx-auto">
+          {[
+            { n: 1, t: "Create an irresistible first visit offer.", d: "This gives patients a simple, low-risk reason to visit your clinic." },
+            { n: 2, t: "Run Meta Ads.", d: "We attract people who are actively looking for your services." },
+            { n: 3, t: "Patients land on a high-converting sales page.", d: "Instead of simply calling your clinic, they understand your expertise, build trust and book appointments." },
+            { n: 4, t: "Patients purchase your Affordable First Visit.", d: "" },
+            { n: 5, t: "Automated WhatsApp and email follow-up.", d: "Keeps educating and reminding patients." },
+            { n: 6, t: "Many patients upgrade to your Premium Treatment Plan.", d: "Implants, braces, laser, weight loss, IVF, hair restoration, and more." },
+            { n: 7, t: "Happy patients leave Google Reviews.", d: "" },
+            { n: 8, t: "Your Google Business Profile becomes stronger.", d: "" },
+            { n: 9, t: "More people discover your clinic organically.", d: "Then the whole journey repeats." },
+          ].map((s) => (
+            <li key={s.n} className="rounded-2xl bg-white/[0.05] border border-white/10 p-4 md:p-5 flex gap-4 items-start">
+              <div className="shrink-0 size-10 rounded-full bg-yellow-400/20 border border-yellow-300/40 text-yellow-200 grid place-items-center font-black">
+                {s.n}
+              </div>
+              <div>
+                <div className="font-bold text-white">Step {s.n} — {s.t}</div>
+                {s.d && <div className="mt-1 text-white/80 text-sm md:text-base">{s.d}</div>}
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        {/* Reveal the branded name */}
+        <div className="mt-10 rounded-3xl bg-gradient-to-br from-yellow-500/15 to-emerald-500/10 border-2 border-yellow-300/40 p-6 md:p-8 text-center">
+          <div className="text-xs uppercase tracking-widest text-yellow-200 font-black">
+            This complete journey is what I call
+          </div>
+          <h3 className="mt-2 text-2xl md:text-4xl font-black text-yellow-300">
+            The Patient Acquisition Machine™
+          </h3>
+          <p className="mt-3 text-white/85 max-w-2xl mx-auto leading-relaxed">
+            It continuously brings patients into your clinic instead of relying on luck or referrals —
+            not just ads, not just a website, not just SEO. A complete patient-generating system that
+            works together.
           </p>
         </div>
       </section>
 
-      {/* OFFER STACK */}
+      {/* WHAT HAPPENS IN NUMBERS */}
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-16">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-black">
+            This Is How Clinics <span className="text-yellow-300">Scale Predictably</span>
+          </h2>
+          <p className="mt-3 text-white/80">What Happens In Numbers — a simple illustration.</p>
+        </div>
+
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { n: "100", t: "People see your Meta Ad" },
+            { n: "40", t: "Visit your sales page" },
+            { n: "20", t: "Book your Affordable First Visit" },
+            { n: "15", t: "Attend the appointment" },
+            { n: "5", t: "Purchase your Premium Treatment Plan" },
+            { n: "5 × 40,000 PKR", t: "= PKR 200,000 in premium revenue", highlight: true },
+          ].map((c) => (
+            <div
+              key={c.t}
+              className={`rounded-2xl p-6 border ${c.highlight ? "bg-gradient-to-br from-yellow-500/20 to-emerald-500/10 border-yellow-300/50" : "bg-white/5 border-white/10"}`}
+            >
+              <div className={`text-3xl md:text-4xl font-black ${c.highlight ? "text-yellow-300" : "text-white"}`}>
+                {c.n}
+              </div>
+              <div className="mt-2 text-white/85 text-sm md:text-base font-semibold">{c.t}</div>
+            </div>
+          ))}
+        </div>
+
+        <p className="mt-6 text-center text-xs md:text-sm text-white/60 max-w-2xl mx-auto italic">
+          Illustration only. These numbers are not guaranteed results — every clinic, city, and
+          specialty performs differently.
+        </p>
+      </section>
+
+
+      {/* OFFER STACK — done-for-you */}
       <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="rounded-3xl bg-gradient-to-br from-yellow-500/10 to-emerald-500/10 border-2 border-yellow-300/40 p-6 md:p-10">
           <div className="text-center">
             <div className="inline-block rounded-full bg-yellow-400/20 border border-yellow-300/40 px-4 py-1 text-xs font-black uppercase tracking-widest text-yellow-200">
-              Complete Offer Stack
+              Complete Done-For-You Stack
             </div>
             <h2 className="mt-3 text-2xl md:text-4xl font-black">
-              Everything Included In Your Patient Acquisition Machine™
+              Everything We Build & Implement For You
             </h2>
+            <p className="mt-3 text-white/80 max-w-2xl mx-auto text-sm md:text-base">
+              These are not digital courses or PDFs. Every item below is a{" "}
+              <span className="font-bold text-yellow-200">done-for-you implementation service</span> —
+              our team builds and connects it into your clinic.
+            </p>
           </div>
 
-          <ul className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
+          {/* Offer stack centerpiece image */}
+          <div className="mt-8 rounded-2xl bg-white/[0.04] border border-white/10 p-3 md:p-4 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)]">
+            <img
+              src={offerStackAsset.url}
+              alt="The Patient Acquisition Machine™ complete done-for-you stack"
+              loading="lazy"
+              className="w-full h-auto rounded-xl block"
+            />
+          </div>
+
+          <ul className="mt-8 grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
             {OFFER_STACK.map((s) => (
               <li
                 key={s.title}
-                className="flex items-start justify-between gap-3 rounded-xl bg-white/[0.06] backdrop-blur-sm border border-white/10 px-4 py-3 shadow-lg shadow-black/20"
+                className="relative rounded-xl bg-white/[0.06] backdrop-blur-sm border border-white/10 pl-4 pr-4 pt-7 pb-3 shadow-lg shadow-black/20"
               >
-                <div className="flex items-start gap-3 min-w-0">
-                  <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="font-semibold text-sm md:text-base break-words">{s.title}</span>
-                </div>
-                <span className="text-xs md:text-sm text-white/60 whitespace-nowrap shrink-0">
-                  PKR {s.value.toLocaleString()}
+                <span className="absolute -top-2 left-3 rounded-md bg-gradient-to-r from-yellow-400 to-emerald-400 text-slate-900 text-[10px] md:text-xs font-black uppercase tracking-widest px-2 py-0.5 shadow">
+                  Done-For-You
                 </span>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <span className="font-semibold text-sm md:text-base break-words">{s.title}</span>
+                  </div>
+                  <span className="text-xs md:text-sm text-white/60 whitespace-nowrap shrink-0">
+                    PKR {s.value.toLocaleString()}
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
@@ -404,6 +562,7 @@ function PatientAcquisitionPage() {
           </div>
         </div>
       </section>
+
 
       {/* GBP */}
       <section className="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-20">
@@ -441,22 +600,59 @@ function PatientAcquisitionPage() {
         </ul>
       </section>
 
-      {/* SIMPLE MATH */}
-      <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="rounded-3xl bg-white/5 border border-white/10 p-6 md:p-10">
-          <h2 className="text-2xl md:text-4xl font-black text-center">The Simple Math</h2>
-          <p className="mt-4 text-white/85 text-center max-w-3xl mx-auto leading-relaxed">
-            If <span className="font-bold text-white">100 people</span> buy your introductory offer,
-            and even <span className="font-bold text-white">15–20 upgrade</span> to your high-ticket
-            service worth PKR 10,000, that can generate{" "}
-            <span className="font-black text-yellow-300">PKR 150,000 – 200,000</span> in revenue.
-          </p>
-          <p className="mt-4 text-white/70 text-center max-w-2xl mx-auto">
-            The low-ticket offer helps fund your advertising, so you are{" "}
-            <span className="font-bold text-white">not constantly paying for ads out of your own pocket.</span>
-          </p>
+      {/* AGENCY VS PAM — you're not buying facebook ads */}
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-20">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-black">
+            You're Not Buying Facebook Ads.{" "}
+            <span className="text-yellow-300">
+              You're Buying A Complete Patient Acquisition System.
+            </span>
+          </h2>
+        </div>
+
+        <div className="mt-10 grid md:grid-cols-2 gap-5">
+          {/* Traditional agency */}
+          <div className="rounded-3xl bg-gradient-to-br from-red-500/10 to-slate-900/10 border border-red-400/30 p-6 md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-red-500/20 border border-red-400/40 text-red-100 px-3 py-1 text-xs font-black uppercase tracking-widest">
+              Traditional Marketing Agency
+            </div>
+            <ul className="mt-5 space-y-3">
+              {["Runs ads", "Sends reports", "Stops there"].map((x) => (
+                <li key={x} className="flex items-start gap-3 rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 font-semibold text-white/90">
+                  <X className="size-5 text-red-400 shrink-0 mt-0.5" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* PAM */}
+          <div className="rounded-3xl bg-gradient-to-br from-emerald-500/15 to-yellow-400/10 border-2 border-yellow-300/40 p-6 md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-yellow-400/20 border border-yellow-300/40 text-yellow-100 px-3 py-1 text-xs font-black uppercase tracking-widest">
+              The Patient Acquisition Machine™
+            </div>
+            <ul className="mt-5 space-y-3">
+              {[
+                "Creates your Affordable First Visit offer",
+                "Builds your patient sales page",
+                "Sets up & runs Meta Ads",
+                "Optimizes your Google Business Profile",
+                "Builds WhatsApp automation",
+                "Creates the full follow-up system",
+                "Helps generate Google reviews",
+                "Helps patients upgrade to Premium Treatment Plans",
+              ].map((x) => (
+                <li key={x} className="flex items-start gap-3 rounded-xl bg-white/[0.06] border border-emerald-300/20 px-4 py-3 font-semibold text-white">
+                  <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
+
 
       {/* GUARANTEE */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#0b1530] via-[#0a1024] to-[#070b1c] py-16 md:py-24">
