@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
@@ -17,6 +17,7 @@ export const Route = createFileRoute("/thank-you")({
 });
 
 function ThankYouPage() {
+  const navigate = useNavigate();
   const waCommunity = "https://chat.whatsapp.com/D5RErdi4ZnhJGNOOEK37c6";
   const waSupport = `https://wa.me/923135944817?text=${encodeURIComponent(
     "Assalam-o-Alaikum, I need help with my Clinic Growth Masterclass order.",
@@ -24,18 +25,26 @@ function ThankYouPage() {
 
   const [otoSubmitted, setOtoSubmitted] = useState(false);
   const [promptVaultUnlocked, setPromptVaultUnlocked] = useState(false);
+  const [gateChecked, setGateChecked] = useState(false);
 
   useEffect(() => {
-    try {
-      setOtoSubmitted(Boolean(localStorage.getItem("oto_last_submitted")));
-    } catch {}
-
+    // GATE: only real buyers (with a lead id from checkout) may see this page.
+    // Anyone hitting /thank-you directly is bounced to the sales page.
     let leadId: string | null = null;
     try {
       const url = new URL(window.location.href);
       leadId = url.searchParams.get("lead") || localStorage.getItem("cgm_last_lead");
     } catch {}
-    if (!leadId) return;
+
+    if (!leadId) {
+      navigate({ to: "/", replace: true });
+      return;
+    }
+    setGateChecked(true);
+
+    try {
+      setOtoSubmitted(Boolean(localStorage.getItem("oto_last_submitted")));
+    } catch {}
 
     getThankYouEntitlements({ data: { leadId } })
       .then((res) => {
@@ -44,7 +53,16 @@ function ThankYouPage() {
       .catch(() => {
         /* silently ignore — no bonus shown */
       });
-  }, []);
+  }, [navigate]);
+
+  if (!gateChecked) {
+    return (
+      <div className="min-h-screen grid place-items-center bg-secondary">
+        <div className="text-sm text-muted-foreground">Loading…</div>
+      </div>
+    );
+  }
+
 
   return (
     <div className="min-h-screen flex flex-col">

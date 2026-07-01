@@ -261,7 +261,7 @@ function OrderPage() {
       console.error("Failed to save lead", err);
     }
 
-    await new Promise((r) => setTimeout(r, 350));
+    // (Removed a 350ms artificial delay that made "Go to Next Page" feel sluggish.)
 
     if (!savedLeadId || !savedOrder) {
       console.warn("[FINAL CHECKOUT REDIRECT] missing saved order — stopping redirect", { savedLeadId });
