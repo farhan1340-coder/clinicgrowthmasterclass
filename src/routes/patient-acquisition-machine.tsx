@@ -277,7 +277,7 @@ function PatientAcquisitionPage() {
         <div className="rounded-3xl bg-white/5 border border-white/10 p-6 md:p-10">
           <h2 className="text-2xl md:text-4xl font-black text-center">Why I'm Doing This</h2>
           <p className="mt-4 text-white/85 text-center max-w-3xl mx-auto leading-relaxed">
-            Normally, implementing your complete Patient Acquisition Machine™ costs{" "}
+            Normally, implementing your complete Patient Acquisition Machine™ (the full journey) costs{" "}
             <span className="font-bold">PKR 75,000</span>. But right now, I'm collecting real
             success stories and video testimonials from different healthcare specialties across
             Pakistan — so I'm offering it at{" "}
@@ -362,7 +362,7 @@ function PatientAcquisitionPage() {
               That is not a system. That is gambling.
             </p>
             <p>
-              A proper Patient Acquisition Machine™ removes the element of hoping and praying by
+              A proper Patient Acquisition Machine™ (the complete journey above) removes the element of hoping and praying by
               giving patients a complete journey from{" "}
               <span className="font-semibold">awareness → purchase → follow-up → high-ticket conversion.</span>
             </p>
