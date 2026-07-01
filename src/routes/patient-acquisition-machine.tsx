@@ -129,9 +129,10 @@ function PatientAcquisitionPage() {
               </h1>
 
               <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                I'll personally help you build your complete{" "}
-                <span className="font-bold text-white">Patient Acquisition Machine™</span> — backed
-                by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
+                I'll personally build your complete{" "}
+                <span className="font-bold text-white">Predictable Patient Journey</span> — the
+                same system I call <span className="font-bold text-white">The Patient Acquisition Machine™</span> —
+                backed by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
               </p>
 
               {/* Product stack — MOBILE ONLY (between subheadline and CTA) */}
