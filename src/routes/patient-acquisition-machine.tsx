@@ -5,7 +5,6 @@ import {
   CheckCircle2,
   Lock,
   Upload,
-  ImageIcon,
   X,
   ArrowRight,
   Stethoscope,
@@ -17,6 +16,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { submitPatientAcquisitionOrder } from "@/lib/patient-acquisition.functions";
+import offerStackAsset from "@/assets/pam/offer-stack.png.asset.json";
+import systemDiagramAsset from "@/assets/pam/system-diagram.png.asset.json";
+import gbpAsset from "@/assets/pam/gbp.png.asset.json";
+import guaranteeAsset from "@/assets/pam/guarantee.png.asset.json";
 
 export const Route = createFileRoute("/patient-acquisition-machine")({
   head: () => ({
@@ -25,14 +28,15 @@ export const Route = createFileRoute("/patient-acquisition-machine")({
       {
         name: "description",
         content:
-          "Get your complete Patient Acquisition Machine™ built for you for only PKR 23,500 today (regularly PKR 75,000). Only ONE practitioner per specialty accepted.",
+          "Get your complete Patient Acquisition Machine™ built for you for only PKR 25,000 today (regularly PKR 75,000). Only ONE practitioner per specialty accepted.",
       },
-      { property: "og:title", content: "Patient Acquisition Machine™ — PKR 23,500 Special Offer" },
+      { property: "og:title", content: "Patient Acquisition Machine™ — PKR 25,000 Special Offer" },
       {
         property: "og:description",
         content:
           "Complete done-for-you patient acquisition system for doctors, dentists, nutritionists & healthcare practitioners in Pakistan.",
       },
+      { property: "og:image", content: offerStackAsset.url },
     ],
   }),
   component: PatientAcquisitionPage,
@@ -71,22 +75,10 @@ const PAYMENT_ACCOUNTS = {
 } as const;
 type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
-const PRICE = 23500;
+const PRICE = 25000;
 const REGULAR_PRICE = 75000;
+const PRICE_LABEL = "PKR 25,000";
 
-function PlaceholderImage({ label, className = "" }: { label: string; className?: string }) {
-  return (
-    <div
-      className={`w-full rounded-2xl border-2 border-dashed border-white/25 bg-white/5 grid place-items-center text-center p-8 min-h-[220px] ${className}`}
-    >
-      <div className="space-y-2">
-        <ImageIcon className="mx-auto size-8 opacity-60" />
-        <div className="text-xs uppercase tracking-widest opacity-70">Image placeholder</div>
-        <div className="text-sm font-semibold opacity-90 max-w-xs">{label}</div>
-      </div>
-    </div>
-  );
-}
 
 function PatientAcquisitionPage() {
   const [open, setOpen] = useState(false);
@@ -114,41 +106,33 @@ function PatientAcquisitionPage() {
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[oklch(0.18_0.06_265)] to-[oklch(0.12_0.05_265)]">
         <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(circle_at_20%_10%,oklch(0.55_0.2_260),transparent_50%),radial-gradient(circle_at_80%_30%,oklch(0.55_0.18_20),transparent_50%)]" />
-        <div className="relative max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-16">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-yellow-400/15 border border-yellow-400/40 text-yellow-300 px-3 py-1 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="size-3.5" /> Special Testimonial Offer
-              </div>
-              <h1 className="mt-4 text-3xl md:text-5xl font-black leading-tight">
-                An Irresistible Offer for Doctors, Dentists, Nutritionists & Healthcare Practitioners{" "}
-                <span className="text-yellow-300">You Simply Can't Refuse</span>
-              </h1>
-              <p className="mt-4 text-base md:text-lg text-white/85 leading-relaxed">
-                I'll personally help you build your complete{" "}
-                <span className="font-bold text-white">Patient Acquisition Machine™</span> for only{" "}
-                <span className="font-black text-yellow-300">PKR 23,500 today</span> instead of PKR
-                75,000 — backed by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
-              </p>
+        <div className="relative max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-20 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-yellow-400/15 border border-yellow-400/40 text-yellow-300 px-3 py-1 text-xs font-bold uppercase tracking-wider">
+            <Sparkles className="size-3.5" /> Special Testimonial Offer
+          </div>
+          <h1 className="mt-5 text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+            An Irresistible Offer for Doctors, Dentists, Nutritionists & Healthcare Practitioners{" "}
+            <span className="text-yellow-300">You Simply Can't Refuse</span>
+          </h1>
+          <p className="mt-5 text-base md:text-lg text-white/85 leading-relaxed max-w-2xl mx-auto">
+            I'll personally help you build your complete{" "}
+            <span className="font-bold text-white">Patient Acquisition Machine™</span> for only{" "}
+            <span className="font-black text-yellow-300">PKR 25,000 today</span> instead of PKR
+            75,000 — backed by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
+          </p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                <button
-                  onClick={openOrder}
-                  className="btn-cta inline-flex items-center gap-2 px-6 py-4 text-base md:text-lg rounded-xl"
-                >
-                  Claim My Specialty Slot Now
-                  <ArrowRight className="btn-cta-arrow size-5" />
-                </button>
-              </div>
+          <div className="mt-7 flex flex-wrap gap-3 justify-center">
+            <button
+              onClick={openOrder}
+              className="btn-cta inline-flex items-center gap-2 px-7 py-4 text-base md:text-lg rounded-xl shadow-2xl shadow-yellow-500/20"
+            >
+              Claim My Specialty Slot Now
+              <ArrowRight className="btn-cta-arrow size-5" />
+            </button>
+          </div>
 
-              <div className="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold">
-                ⚠ Only ONE practitioner from each specialty will be accepted.
-              </div>
-            </div>
-
-            <div>
-              <PlaceholderImage label="Hero image — Dr. Farhan Ali / Patient Acquisition Machine branded visual" />
-            </div>
+          <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold">
+            ⚠ Only ONE practitioner from each specialty will be accepted.
           </div>
         </div>
       </section>
@@ -174,7 +158,7 @@ function PatientAcquisitionPage() {
             </div>
             <div className="rounded-2xl bg-gradient-to-br from-emerald-500/20 to-yellow-400/20 border-2 border-yellow-300/50 p-6 text-center">
               <div className="text-sm uppercase tracking-widest text-yellow-200">Today's Special Price</div>
-              <div className="mt-2 text-3xl md:text-4xl font-black text-yellow-300">PKR 23,500</div>
+              <div className="mt-2 text-3xl md:text-4xl font-black text-yellow-300">PKR 25,000</div>
             </div>
           </div>
         </div>
@@ -248,25 +232,54 @@ function PatientAcquisitionPage() {
               <span className="font-semibold">awareness → purchase → follow-up → high-ticket conversion.</span>
             </p>
           </div>
+
+          {/* System diagram — how the machine works */}
+          <div className="mt-10 rounded-2xl bg-white/[0.03] border border-white/10 p-3 md:p-5 shadow-2xl shadow-black/40">
+            <img
+              src={systemDiagramAsset.url}
+              alt="Patient Acquisition Machine system diagram — Low-ticket offer → Sales page → Meta ads → Buyers → WhatsApp & Email follow-up → High-ticket patients → Reinvest → Repeat & scale"
+              loading="lazy"
+              className="w-full h-auto rounded-xl block"
+            />
+          </div>
         </div>
       </section>
 
       {/* WHAT IS PAM */}
-      <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <h2 className="text-2xl md:text-4xl font-black text-center">
-          What Is The <span className="text-yellow-300">Patient Acquisition Machine™</span>?
-        </h2>
-        <div className="mt-8 grid md:grid-cols-2 gap-8 items-center">
-          <PlaceholderImage label="System diagram — Low-ticket offer → sales page → ads → buyers → follow-up → high-ticket patients" />
-          <div className="space-y-3 text-white/85">
-            <p>This is <span className="font-bold text-white">not just Facebook Ads.</span></p>
-            <p>This is <span className="font-bold text-white">not just a website.</span></p>
-            <p>This is <span className="font-bold text-white">not just Google Business Profile.</span></p>
-            <p className="text-lg font-semibold text-white">
-              This is a complete patient-generating system that works together to consistently bring
-              patients into your clinic.
-            </p>
-          </div>
+      <section className="max-w-5xl mx-auto px-4 md:px-6 py-14 md:py-20">
+        <div className="text-center">
+          <h2 className="text-2xl md:text-4xl font-black">
+            What Exactly Is The <span className="text-yellow-300">Patient Acquisition Machine™</span>?
+          </h2>
+          <p className="mt-4 text-white/85 max-w-2xl mx-auto leading-relaxed">
+            It's a complete, done-for-you growth system — not just ads, not just a website, not just
+            SEO. Every piece is built and connected for you so patients flow in consistently.
+          </p>
+        </div>
+
+        {/* Offer stack centerpiece image */}
+        <div className="mt-10 rounded-3xl bg-white/[0.04] border border-white/10 p-3 md:p-5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]">
+          <img
+            src={offerStackAsset.url}
+            alt="Patient Acquisition Machine™ complete offer stack — done-for-you implementation"
+            loading="lazy"
+            className="w-full h-auto rounded-2xl block"
+          />
+        </div>
+
+        <div className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto text-white/85">
+          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
+            <span className="font-bold text-white">Not</span> just Facebook Ads.
+          </p>
+          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
+            <span className="font-bold text-white">Not</span> just a website.
+          </p>
+          <p className="rounded-xl bg-white/5 border border-white/10 p-4">
+            <span className="font-bold text-white">Not</span> just Google Business Profile.
+          </p>
+          <p className="rounded-xl bg-yellow-400/10 border border-yellow-300/30 p-4 text-white">
+            A <span className="font-bold">complete patient-generating system</span> that works together.
+          </p>
         </div>
       </section>
 
@@ -282,25 +295,22 @@ function PatientAcquisitionPage() {
             </h2>
           </div>
 
-          <div className="mt-8 grid md:grid-cols-2 gap-8 items-start">
-            <PlaceholderImage label="Offer stack graphic — box/mockup showing all inclusions" className="md:sticky md:top-6" />
-            <ul className="space-y-3">
-              {OFFER_STACK.map((s) => (
-                <li
-                  key={s.title}
-                  className="flex items-start justify-between gap-3 rounded-xl bg-white/5 border border-white/10 px-4 py-3"
-                >
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
-                    <span className="font-semibold">{s.title}</span>
-                  </div>
-                  <span className="text-sm text-white/60 whitespace-nowrap">
-                    PKR {s.value.toLocaleString()}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="mt-8 grid sm:grid-cols-2 gap-3 max-w-3xl mx-auto">
+            {OFFER_STACK.map((s) => (
+              <li
+                key={s.title}
+                className="flex items-start justify-between gap-3 rounded-xl bg-white/[0.06] backdrop-blur-sm border border-white/10 px-4 py-3 shadow-lg shadow-black/20"
+              >
+                <div className="flex items-start gap-3 min-w-0">
+                  <CheckCircle2 className="size-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <span className="font-semibold text-sm md:text-base break-words">{s.title}</span>
+                </div>
+                <span className="text-xs md:text-sm text-white/60 whitespace-nowrap shrink-0">
+                  PKR {s.value.toLocaleString()}
+                </span>
+              </li>
+            ))}
+          </ul>
 
           <div className="mt-8 grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto text-center">
             <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
@@ -330,30 +340,39 @@ function PatientAcquisitionPage() {
       </section>
 
       {/* GBP */}
-      <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-2xl md:text-4xl font-black">
-              Rank In The <span className="text-yellow-300">Google Top 3</span> Locally
-            </h2>
-            <p className="mt-4 text-white/85 leading-relaxed">
-              We set up and optimize your Google Business Profile correctly, then keep working on it
-              for the next <span className="font-bold">30–50 days</span> with local SEO strategies
-              to maximize your chances of ranking in the <span className="font-bold">Top 3 results</span>{" "}
-              in your local area/city.
-            </p>
-            <ul className="mt-4 space-y-2 text-white/80">
-              {["Best Dentist Near Me", "Gynecologist in Lahore", "Nutritionist in Islamabad"].map(
-                (x) => (
-                  <li key={x} className="flex items-center gap-2">
-                    <CheckCircle2 className="size-4 text-emerald-400" /> "{x}"
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-          <PlaceholderImage label="Google Business Profile visual — clinic in Map Pack / Top 3" />
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-14 md:py-20">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-black">
+            Dominate Your Local Area With <span className="text-yellow-300">Google Business Profile</span>
+          </h2>
+          <p className="mt-4 text-white/85 leading-relaxed">
+            We set up and optimize your Google Business Profile, then keep working on it for the
+            next <span className="font-bold">30–50 days</span> with local SEO — maximizing your
+            chances of ranking in the <span className="font-bold">Top 3 Map results</span> in your city.
+          </p>
         </div>
+
+        <div className="mt-10 rounded-3xl overflow-hidden bg-white/[0.04] border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.7)]">
+          <img
+            src={gbpAsset.url}
+            alt="Dominate your local area with Google Business Profile — top 3 rankings, more calls, more appointments, more patients"
+            loading="lazy"
+            className="w-full h-auto block"
+          />
+        </div>
+
+        <ul className="mt-8 grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-white/85">
+          {["Best Dentist Near Me", "Gynecologist in Lahore", "Nutritionist in Islamabad"].map(
+            (x) => (
+              <li
+                key={x}
+                className="flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm"
+              >
+                <CheckCircle2 className="size-4 text-emerald-400 shrink-0" /> "{x}"
+              </li>
+            ),
+          )}
+        </ul>
       </section>
 
       {/* SIMPLE MATH */}
@@ -375,10 +394,13 @@ function PatientAcquisitionPage() {
 
       {/* GUARANTEE */}
       <section className="max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <div className="rounded-3xl bg-gradient-to-br from-emerald-500/15 to-yellow-400/10 border-2 border-emerald-400/40 p-6 md:p-10 text-center">
-          <div className="mx-auto max-w-xs">
-            <PlaceholderImage label="Iron-Clad 100% Money-Back Guarantee badge" className="min-h-[180px]" />
-          </div>
+        <div className="rounded-3xl bg-gradient-to-br from-emerald-500/15 to-yellow-400/10 border-2 border-emerald-400/40 p-6 md:p-12 text-center">
+          <img
+            src={guaranteeAsset.url}
+            alt="Iron-Clad 100% Money-Back Guarantee — Zero Risk, No Questions Asked, 100% Refund Promise"
+            loading="lazy"
+            className="mx-auto w-56 md:w-72 h-auto drop-shadow-[0_25px_35px_rgba(0,0,0,0.5)]"
+          />
           <h2 className="mt-6 text-2xl md:text-4xl font-black text-emerald-300 inline-flex items-center gap-2 justify-center">
             <ShieldCheck className="size-8" /> Iron-Clad 100% Money-Back Guarantee
           </h2>
@@ -402,15 +424,6 @@ function PatientAcquisitionPage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS PLACEHOLDER */}
-      <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <h2 className="text-2xl md:text-4xl font-black text-center">Real Results From Real Doctors</h2>
-        <div className="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <PlaceholderImage label="WhatsApp testimonial screenshot #1" />
-          <PlaceholderImage label="Client result / masterclass feedback #2" />
-          <PlaceholderImage label="Doctor testimonial screenshot #3" />
-        </div>
-      </section>
 
       {/* FINAL CTA */}
       <section className="max-w-4xl mx-auto px-4 md:px-6 py-14 md:py-20 text-center">
@@ -431,7 +444,7 @@ function PatientAcquisitionPage() {
           </button>
         </div>
         <div className="mt-4 text-white/60 text-sm inline-flex items-center gap-2 justify-center">
-          <Lock className="size-4" /> Secure order · PKR 23,500 (Reg. PKR 75,000)
+          <Lock className="size-4" /> Secure order · PKR 25,000 (Reg. PKR 75,000)
         </div>
       </section>
 
@@ -443,7 +456,7 @@ function PatientAcquisitionPage() {
           onClick={openOrder}
           className="btn-cta w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-black"
         >
-          Claim My Specialty Slot – PKR 23,500
+          Claim My Specialty Slot – PKR 25,000
           <ArrowRight className="btn-cta-arrow size-5" />
         </button>
       </div>
@@ -606,7 +619,7 @@ function OrderModal({ onClose }: { onClose: () => void }) {
           <form onSubmit={handleSubmit} className="p-5 md:p-7 space-y-5">
             <div>
               <div className="text-xs uppercase tracking-widest text-yellow-600 font-black">
-                Special Offer — PKR 23,500
+                Special Offer — PKR 25,000
               </div>
               <h3 className="mt-1 text-xl md:text-2xl font-black">
                 Claim Your Patient Acquisition Machine™ Slot
@@ -638,10 +651,10 @@ function OrderModal({ onClose }: { onClose: () => void }) {
                 <dt className="text-slate-600">Method</dt>
                 <dd className="col-span-2 font-semibold">{paymentInfo.label}</dd>
                 <dt className="text-slate-600">Amount</dt>
-                <dd className="col-span-2 font-black text-emerald-600">PKR 23,500</dd>
+                <dd className="col-span-2 font-black text-emerald-600">PKR 25,000</dd>
               </dl>
               <ol className="mt-3 text-xs text-slate-700 space-y-1 list-decimal list-inside">
-                <li>Send payment of PKR 23,500 to the account above.</li>
+                <li>Send payment of PKR 25,000 to the account above.</li>
                 <li>Take a screenshot of the successful payment.</li>
                 <li>Upload the screenshot below.</li>
                 <li>Submit your order.</li>
