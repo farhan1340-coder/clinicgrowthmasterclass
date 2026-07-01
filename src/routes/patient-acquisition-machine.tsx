@@ -108,6 +108,20 @@ function PatientAcquisitionPage() {
       <section className="relative overflow-hidden bg-gradient-to-b from-[oklch(0.18_0.06_265)] to-[oklch(0.12_0.05_265)]">
         <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(circle_at_20%_10%,oklch(0.55_0.2_260),transparent_50%),radial-gradient(circle_at_80%_30%,oklch(0.55_0.18_20),transparent_50%)]" />
         <div className="relative max-w-4xl mx-auto px-4 md:px-6 py-12 md:py-20 text-center">
+          <div className="mx-auto mb-6 flex flex-col items-center gap-3">
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-yellow-300/60 to-red-400/40 blur-md" />
+              <img
+                src={drAhmedAsset.url}
+                alt="Farhan Ali — Digital Marketing Coach for Healthcare Practitioners"
+                loading="eager"
+                className="relative size-24 md:size-28 rounded-full object-cover border-2 border-yellow-300/70 shadow-2xl"
+              />
+            </div>
+            <div className="text-xs md:text-sm text-white/80">
+              <span className="font-bold text-white">Farhan Ali</span> · Your Coach
+            </div>
+          </div>
           <div className="inline-flex items-center gap-2 rounded-full bg-yellow-400/15 border border-yellow-400/40 text-yellow-300 px-3 py-1 text-xs font-bold uppercase tracking-wider">
             <Sparkles className="size-3.5" /> Special Testimonial Offer
           </div>
