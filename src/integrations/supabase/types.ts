@@ -327,6 +327,60 @@ export type Database = {
         }
         Relationships: []
       }
+      patient_acquisition_orders: {
+        Row: {
+          amount: number
+          city: string | null
+          clinic_name: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          optional_message: string | null
+          order_status: string
+          payment_method: string | null
+          payment_screenshot_url: string | null
+          source: string | null
+          specialty: string
+          updated_at: string
+          whatsapp: string
+        }
+        Insert: {
+          amount?: number
+          city?: string | null
+          clinic_name?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          optional_message?: string | null
+          order_status?: string
+          payment_method?: string | null
+          payment_screenshot_url?: string | null
+          source?: string | null
+          specialty: string
+          updated_at?: string
+          whatsapp: string
+        }
+        Update: {
+          amount?: number
+          city?: string | null
+          clinic_name?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          optional_message?: string | null
+          order_status?: string
+          payment_method?: string | null
+          payment_screenshot_url?: string | null
+          source?: string | null
+          specialty?: string
+          updated_at?: string
+          whatsapp?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
