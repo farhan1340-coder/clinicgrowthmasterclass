@@ -392,11 +392,15 @@ function PatientAcquisitionPage() {
           <div className="mt-8 text-center">
             <button
               onClick={openOrder}
-              className="btn-cta inline-flex items-center gap-2 px-6 py-4 text-base md:text-lg rounded-xl"
+              disabled={expired}
+              className="btn-cta inline-flex items-center gap-2 px-6 py-4 text-base md:text-lg rounded-xl disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              Claim My Specialty Slot Now
+              {ctaLabel}
               <ArrowRight className="btn-cta-arrow size-5" />
             </button>
+            <p className="mt-3 text-xs text-white/70">
+              Only ONE practitioner from each specialty will be accepted. Deadline: Friday 11:59 PM.
+            </p>
           </div>
         </div>
       </section>
