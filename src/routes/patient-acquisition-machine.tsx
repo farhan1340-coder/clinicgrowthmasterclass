@@ -5,7 +5,6 @@ import {
   CheckCircle2,
   Lock,
   Upload,
-  ImageIcon,
   X,
   ArrowRight,
   Stethoscope,
@@ -17,6 +16,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
 import { submitPatientAcquisitionOrder } from "@/lib/patient-acquisition.functions";
+import offerStackAsset from "@/assets/pam/offer-stack.png.asset.json";
+import systemDiagramAsset from "@/assets/pam/system-diagram.png.asset.json";
+import gbpAsset from "@/assets/pam/gbp.png.asset.json";
+import guaranteeAsset from "@/assets/pam/guarantee.png.asset.json";
 
 export const Route = createFileRoute("/patient-acquisition-machine")({
   head: () => ({
@@ -25,14 +28,15 @@ export const Route = createFileRoute("/patient-acquisition-machine")({
       {
         name: "description",
         content:
-          "Get your complete Patient Acquisition Machine™ built for you for only PKR 23,500 today (regularly PKR 75,000). Only ONE practitioner per specialty accepted.",
+          "Get your complete Patient Acquisition Machine™ built for you for only PKR 25,000 today (regularly PKR 75,000). Only ONE practitioner per specialty accepted.",
       },
-      { property: "og:title", content: "Patient Acquisition Machine™ — PKR 23,500 Special Offer" },
+      { property: "og:title", content: "Patient Acquisition Machine™ — PKR 25,000 Special Offer" },
       {
         property: "og:description",
         content:
           "Complete done-for-you patient acquisition system for doctors, dentists, nutritionists & healthcare practitioners in Pakistan.",
       },
+      { property: "og:image", content: offerStackAsset.url },
     ],
   }),
   component: PatientAcquisitionPage,
@@ -71,22 +75,10 @@ const PAYMENT_ACCOUNTS = {
 } as const;
 type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
-const PRICE = 23500;
+const PRICE = 25000;
 const REGULAR_PRICE = 75000;
+const PRICE_LABEL = "PKR 25,000";
 
-function PlaceholderImage({ label, className = "" }: { label: string; className?: string }) {
-  return (
-    <div
-      className={`w-full rounded-2xl border-2 border-dashed border-white/25 bg-white/5 grid place-items-center text-center p-8 min-h-[220px] ${className}`}
-    >
-      <div className="space-y-2">
-        <ImageIcon className="mx-auto size-8 opacity-60" />
-        <div className="text-xs uppercase tracking-widest opacity-70">Image placeholder</div>
-        <div className="text-sm font-semibold opacity-90 max-w-xs">{label}</div>
-      </div>
-    </div>
-  );
-}
 
 function PatientAcquisitionPage() {
   const [open, setOpen] = useState(false);
