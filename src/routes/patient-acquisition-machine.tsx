@@ -153,18 +153,24 @@ function PatientAcquisitionPage() {
                 <span className="text-xs md:text-sm text-white/70 font-semibold">today</span>
               </div>
 
+              {/* Countdown */}
+              <div className="mt-6 flex justify-center lg:justify-start">
+                <OfferCountdown variant="hero" />
+              </div>
+
               <div className="mt-6">
                 <button
                   onClick={openOrder}
-                  className="btn-cta inline-flex items-center gap-2 px-7 py-4 text-base md:text-lg rounded-xl shadow-2xl shadow-yellow-500/20"
+                  disabled={expired}
+                  className="btn-cta inline-flex items-center gap-2 px-7 py-4 text-base md:text-lg rounded-xl shadow-2xl shadow-yellow-500/20 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  Claim My Specialty Slot Now
+                  {ctaLabel}
                   <ArrowRight className="btn-cta-arrow size-5" />
                 </button>
               </div>
 
-              <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold">
-                ⚠ Only ONE practitioner from each specialty will be accepted.
+              <div className="mt-5 inline-flex items-start gap-2 rounded-lg bg-red-500/15 border border-red-400/40 text-red-100 px-3 py-2 text-sm font-semibold text-left">
+                <span>⚠ Only ONE practitioner from each specialty will be accepted. Deadline: Friday 11:59 PM.</span>
               </div>
 
               {/* Founder card — MOBILE ONLY */}
