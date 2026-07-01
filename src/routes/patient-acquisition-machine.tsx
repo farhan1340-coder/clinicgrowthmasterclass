@@ -424,15 +424,6 @@ function PatientAcquisitionPage() {
         </div>
       </section>
 
-      {/* TESTIMONIALS PLACEHOLDER */}
-      <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
-        <h2 className="text-2xl md:text-4xl font-black text-center">Real Results From Real Doctors</h2>
-        <div className="mt-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <PlaceholderImage label="WhatsApp testimonial screenshot #1" />
-          <PlaceholderImage label="Client result / masterclass feedback #2" />
-          <PlaceholderImage label="Doctor testimonial screenshot #3" />
-        </div>
-      </section>
 
       {/* FINAL CTA */}
       <section className="max-w-4xl mx-auto px-4 md:px-6 py-14 md:py-20 text-center">
