@@ -84,6 +84,7 @@ const PRICE_LABEL = "PKR 25,000";
 
 function PatientAcquisitionPage() {
   const [open, setOpen] = useState(false);
+  const expired = useOfferExpired();
   const pixelPageViewFired = useRef(false);
 
   useEffect(() => {
@@ -93,6 +94,10 @@ function PatientAcquisitionPage() {
   }, []);
 
   function openOrder() {
+    if (expired) {
+      window.open("https://wa.me/923135944817?text=Hi%20Farhan%2C%20I%27m%20interested%20in%20the%20Patient%20Acquisition%20Machine%20offer.", "_blank");
+      return;
+    }
     setOpen(true);
     fbqTrack("InitiateCheckout", {
       value: PRICE,
@@ -100,6 +105,8 @@ function PatientAcquisitionPage() {
       content_name: "Patient Acquisition Machine",
     });
   }
+
+  const ctaLabel = expired ? "Offer Closed — Message Farhan" : "Claim My Specialty Slot Now";
 
   return (
     <div className="min-h-screen bg-[oklch(0.14_0.04_265)] text-white">
