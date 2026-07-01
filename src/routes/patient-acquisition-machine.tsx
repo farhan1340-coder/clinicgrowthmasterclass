@@ -199,6 +199,78 @@ function PatientAcquisitionPage() {
         </div>
       </section>
 
+      {/* WHY DOCTORS LOSE MONEY ON ADS — comparison */}
+      <section className="max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-20">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-black">
+            Why Most Doctors <span className="text-red-300">Lose Money</span> Running Facebook Ads
+          </h2>
+          <p className="mt-4 text-white/85 leading-relaxed">
+            Facebook Ads are <span className="font-bold">not</span> the problem. Running Facebook Ads
+            without a complete Patient Acquisition System <span className="font-bold text-yellow-300">is</span>.
+          </p>
+        </div>
+
+        <div className="mt-10 grid md:grid-cols-2 gap-5">
+          {/* LEFT — what most doctors do */}
+          <div className="rounded-3xl bg-gradient-to-br from-red-500/10 to-red-900/10 border border-red-400/30 p-6 md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-red-500/20 border border-red-400/40 text-red-100 px-3 py-1 text-xs font-black uppercase tracking-widest">
+              ❌ What Most Doctors Do
+            </div>
+            <ol className="mt-5 space-y-2">
+              {[
+                "Run Facebook Ads",
+                "Hope patients book",
+                "Very few appointments",
+                "Stop ads",
+                "Blame Facebook",
+              ].map((step, i, arr) => (
+                <li key={step}>
+                  <div className="rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 font-semibold text-white/90">
+                    {step}
+                  </div>
+                  {i < arr.length - 1 && (
+                    <div className="flex justify-center text-red-300/70 py-1">↓</div>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* RIGHT — what we build */}
+          <div className="rounded-3xl bg-gradient-to-br from-emerald-500/10 to-yellow-400/10 border border-emerald-300/30 p-6 md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/20 border border-emerald-300/40 text-emerald-100 px-3 py-1 text-xs font-black uppercase tracking-widest">
+              ✅ What We Build For You
+            </div>
+            <ol className="mt-5 space-y-2">
+              {[
+                "Create an irresistible first visit offer",
+                "Run Meta Ads",
+                "Patients visit your sales page",
+                "Patients book",
+                "Automatic WhatsApp follow-up",
+                "Patients buy premium treatments",
+                "Google Reviews increase",
+                "Google Maps ranking improves",
+                "More patients",
+                "Repeat",
+              ].map((step, i, arr) => (
+                <li key={step}>
+                  <div className="rounded-xl bg-white/[0.05] border border-emerald-300/20 px-4 py-3 font-semibold text-white">
+                    {step}
+                  </div>
+                  {i < arr.length - 1 && (
+                    <div className="flex justify-center text-emerald-300/70 py-1">↓</div>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+
+
       {/* WHY */}
       <section className="max-w-5xl mx-auto px-4 md:px-6 py-12 md:py-16">
         <div className="rounded-3xl bg-white/5 border border-white/10 p-6 md:p-10">
