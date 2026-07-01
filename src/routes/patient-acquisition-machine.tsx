@@ -119,7 +119,7 @@ function PatientAcquisitionPage() {
               <p className="mt-4 text-base md:text-lg text-white/85 leading-relaxed">
                 I'll personally help you build your complete{" "}
                 <span className="font-bold text-white">Patient Acquisition Machine™</span> for only{" "}
-                <span className="font-black text-yellow-300">PKR 23,500 today</span> instead of PKR
+                <span className="font-black text-yellow-300">PKR 25,000 today</span> instead of PKR
                 75,000 — backed by our <span className="font-bold">Iron-Clad 100% Money-Back Guarantee</span>.
               </p>
 
