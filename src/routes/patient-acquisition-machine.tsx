@@ -59,15 +59,15 @@ const SPECIALTIES = [
 ];
 
 const OFFER_STACK = [
-  { title: "Low-Ticket Irresistible Offer Creation", value: 8000 },
-  { title: "High-Ticket Premium Service Creation", value: 8000 },
-  { title: "High-Converting Sales Page", value: 10000 },
-  { title: "Order Bumps Setup", value: 4000 },
+  { title: "Affordable First Visit Offer Creation (e.g. Dental Cleaning, Skin Consultation)", value: 8000 },
+  { title: "Premium Treatment Plan Creation (e.g. Implants, Braces, Laser, Weight Loss)", value: 8000 },
+  { title: "High-Converting Patient Sales Page", value: 10000 },
+  { title: "Bonus Add-Ons Setup at Checkout", value: 4000 },
   { title: "WhatsApp & Email Follow-Up Automation", value: 7000 },
   { title: "Meta Ads Setup, Run & Management", value: 12000 },
   { title: "Google Business Profile Setup & Optimization", value: 6000 },
   { title: "30–50 Days Google Business Profile Local SEO Work", value: 10000 },
-  { title: "Patient Journey / Awareness Bridge", value: 5000 },
+  { title: "Complete Patient Awareness Journey", value: 5000 },
   { title: "Lead Tracking & Conversion System", value: 5000 },
 ];
 
