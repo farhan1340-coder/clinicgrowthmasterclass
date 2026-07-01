@@ -57,8 +57,7 @@ export function isPaidLikeStatus(status: string | null | undefined): boolean {
     s.startsWith('pending payment') ||
     s.startsWith('paid') ||
     s.startsWith('confirmed') ||
-    s.startsWith('registered') ||
-    s.startsWith('oto taken')
+    s.startsWith('registered')
   )
 }
 

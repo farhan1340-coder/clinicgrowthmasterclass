@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as PatientAcquisitionMachineRouteImport } from './routes/patient-acquisition-machine'
-import { Route as OtoRouteImport } from './routes/oto'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as IndexRouteImport } from './routes/index'
@@ -37,11 +36,6 @@ const PatientAcquisitionMachineRoute =
     path: '/patient-acquisition-machine',
     getParentRoute: () => rootRouteImport,
   } as any)
-const OtoRoute = OtoRouteImport.update({
-  id: '/oto',
-  path: '/oto',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const OrderRoute = OrderRouteImport.update({
   id: '/order',
   path: '/order',
@@ -116,7 +110,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/onboarding': typeof OnboardingRoute
   '/order': typeof OrderRoute
-  '/oto': typeof OtoRoute
   '/patient-acquisition-machine': typeof PatientAcquisitionMachineRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
@@ -134,7 +127,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/onboarding': typeof OnboardingRoute
   '/order': typeof OrderRoute
-  '/oto': typeof OtoRoute
   '/patient-acquisition-machine': typeof PatientAcquisitionMachineRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
@@ -153,7 +145,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/onboarding': typeof OnboardingRoute
   '/order': typeof OrderRoute
-  '/oto': typeof OtoRoute
   '/patient-acquisition-machine': typeof PatientAcquisitionMachineRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
@@ -173,7 +164,6 @@ export interface FileRouteTypes {
     | '/'
     | '/onboarding'
     | '/order'
-    | '/oto'
     | '/patient-acquisition-machine'
     | '/thank-you'
     | '/admin/leads1340'
@@ -191,7 +181,6 @@ export interface FileRouteTypes {
     | '/'
     | '/onboarding'
     | '/order'
-    | '/oto'
     | '/patient-acquisition-machine'
     | '/thank-you'
     | '/admin/leads1340'
@@ -209,7 +198,6 @@ export interface FileRouteTypes {
     | '/'
     | '/onboarding'
     | '/order'
-    | '/oto'
     | '/patient-acquisition-machine'
     | '/thank-you'
     | '/admin/leads1340'
@@ -228,7 +216,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   OnboardingRoute: typeof OnboardingRoute
   OrderRoute: typeof OrderRoute
-  OtoRoute: typeof OtoRoute
   PatientAcquisitionMachineRoute: typeof PatientAcquisitionMachineRoute
   ThankYouRoute: typeof ThankYouRoute
   AdminLeads1340Route: typeof AdminLeads1340Route
@@ -257,13 +244,6 @@ declare module '@tanstack/react-router' {
       path: '/patient-acquisition-machine'
       fullPath: '/patient-acquisition-machine'
       preLoaderRoute: typeof PatientAcquisitionMachineRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/oto': {
-      id: '/oto'
-      path: '/oto'
-      fullPath: '/oto'
-      preLoaderRoute: typeof OtoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/order': {
@@ -364,7 +344,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   OnboardingRoute: OnboardingRoute,
   OrderRoute: OrderRoute,
-  OtoRoute: OtoRoute,
   PatientAcquisitionMachineRoute: PatientAcquisitionMachineRoute,
   ThankYouRoute: ThankYouRoute,
   AdminLeads1340Route: AdminLeads1340Route,
