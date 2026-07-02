@@ -40,16 +40,35 @@ export const Route = createFileRoute("/order")({
   component: OrderPage,
 });
 
-const BUMPS = [
+type Bump = {
+  id: "strategy" | "prompts";
+  title: string;
+  shortTitle: string;
+  price: number;
+  badge: string;
+  image: string;
+  description: string;
+  checklist: string[];
+};
+
+const BUMPS: readonly Bump[] = [
   {
     id: "strategy",
     title: "Clinic Offer Workbook",
     shortTitle: "Clinic Offer Workbook",
     price: 499,
-    badge: "🔥 Best For Quick Wins",
+    badge: "Best For Quick Wins",
     image: bumpWorkbookImg.url,
     description:
-      "Build an irresistible clinic offer that patients actually want to book. This practical workbook helps you create an offer that makes your clinic stand out from competitors and increases appointment bookings.\n\nYou'll discover:\n✅ The Clinic Offer Formula\n✅ High-Converting Offer Templates\n✅ Value Stack Worksheet\n✅ Pricing & Positioning Framework\n✅ Fill-in-the-Blank Workbook\n✅ Real Healthcare Examples",
+      "Build an irresistible clinic offer that patients actually want to book — stand out from competitors and increase appointment bookings.",
+    checklist: [
+      "The Clinic Offer Formula",
+      "High-Converting Offer Templates",
+      "Value Stack Worksheet",
+      "Pricing & Positioning Framework",
+      "Fill-in-the-Blank Workbook",
+      "Real Healthcare Examples",
+    ],
   },
   {
     id: "prompts",
@@ -58,7 +77,16 @@ const BUMPS = [
     price: 699,
     badge: "Special Offer",
     image: bumpPromptsImg.url,
-    description: "Ready-to-use AI prompts for social posts, patient education, and lead generation — save hours every week.",
+    description:
+      "Ready-to-use AI prompts for social posts, patient education, and lead generation — save hours every week.",
+    checklist: [
+      "100+ Doctor-Specific Prompts",
+      "Social Media Post Templates",
+      "Patient Education Scripts",
+      "Lead Generation Prompts",
+      "Ad Copy & Hooks Library",
+      "Plug-and-Play Format",
+    ],
   },
 ] as const;
 
@@ -407,11 +435,21 @@ function OrderPage() {
 
                           {/* Description */}
                           <p
-                            className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full whitespace-pre-line break-words"
+                            className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full break-words"
                             style={{ overflowWrap: "anywhere" }}
                           >
                             {b.description}
                           </p>
+
+                          {/* Checklist */}
+                          <ul className="mt-2 space-y-1">
+                            {b.checklist.map((item) => (
+                              <li key={item} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 min-w-0 max-w-full break-words" style={{ overflowWrap: "anywhere" }}>
+                                <Check className="size-4 shrink-0 text-green-600 mt-0.5" strokeWidth={3} />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
 
                           {/* Price */}
                           <div className="mt-3 text-lg sm:text-xl font-black text-orange-600">
