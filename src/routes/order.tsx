@@ -418,23 +418,11 @@ function OrderPage() {
                             {b.description}
                           </p>
 
-                          {/* Price block */}
-                          <div className="mt-3 pt-3 border-t border-slate-200/70">
-                            <div className="text-xs text-slate-400 line-through">
-                              Regular Price: Rs. {b.regularPrice.toLocaleString()}
-                            </div>
-                            <div className="mt-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                              🔥 {b.priceLabel}
-                            </div>
-                            <div className="text-2xl sm:text-3xl font-black text-orange-600 leading-tight">
-                              Rs. {b.price.toLocaleString()}
-                            </div>
+                          {/* Price */}
+                          <div className="mt-3 text-lg sm:text-xl font-black text-orange-600">
+                            + Rs. {b.price.toLocaleString()}
                           </div>
 
-                          {/* CTA line */}
-                          <div className="mt-3 text-center text-sm font-black text-slate-900 bg-orange-100/70 rounded-lg py-2 px-3 break-words">
-                            {b.cta}
-                          </div>
                         </div>
                       </div>
                     </label>
