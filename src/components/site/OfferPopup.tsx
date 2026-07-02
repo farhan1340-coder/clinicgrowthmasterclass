@@ -129,7 +129,7 @@ export function OfferPopup() {
 
               <div className="mt-2 rounded-xl border-2 border-emerald-200 bg-emerald-50 p-4">
                 <div className="text-3xl md:text-4xl font-black text-emerald-600">PKR 999</div>
-                <div className="mt-1 text-base text-slate-500 line-through">Original: PKR 999</div>
+                
                 <div className="mt-2 text-sm font-bold text-orange-600">
                   Early-bird Rs. 999 offer ends: {DEADLINE_LABEL}
                 </div>
