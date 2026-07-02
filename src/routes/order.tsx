@@ -4,6 +4,7 @@ import bumpStrategyImg from "@/assets/bump-strategy.png.asset.json";
 import bumpPromptsImg from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Footer } from "@/components/site/Footer";
+import { PROOFS } from "@/components/site/ProofGallery";
 import { Lock, ShieldCheck, ArrowRight, ChevronDown, CreditCard, Upload, ImageIcon, Check, Gift } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
@@ -529,6 +530,38 @@ function OrderPage() {
           </aside>
         </div>
       </main>
+
+      {/* Reused sales-page testimonials */}
+      <section className="bg-sky-50 pb-16 pt-4 px-4">
+        <div className="mx-auto max-w-6xl">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
+                Real Reviews From <span className="text-sky-600">Masterclass Attendees</span>
+              </h2>
+              <p className="mt-2 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+                Feedback and payment proofs from doctors who joined the Clinic Growth Masterclass.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {PROOFS.map((p, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl overflow-hidden border border-slate-200 bg-slate-50 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <img
+                    src={p.url}
+                    alt={p.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-64 sm:h-72 object-contain bg-white"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>
