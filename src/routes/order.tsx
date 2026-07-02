@@ -59,14 +59,18 @@ const BUMPS = [
   },
 ] as const;
 
-const INCLUDED_ITEMS = [
-  "Clinic Growth Masterclass",
-  "Authority Content Cheat Sheet",
-  "Doctor Personal Brand Worksheet",
-  "WhatsApp Follow-Up Scripts",
-  "Private Doctor Growth Community",
-  "Free Clinic Website Giveaway Chance",
+const INCLUDED_ITEMS: { label: string; highlight?: boolean }[] = [
+  { label: "Complete Clinic Growth Masterclass Training" },
+  { label: "Local Patient Domination System" },
+  { label: "Doctor Personal Brand Blueprint" },
+  { label: "2-Hour Content Creation System" },
+  { label: "Patient Acquisition via Meta Ads" },
+  { label: "Irresistible Clinic Offer Framework" },
+  { label: "Patient Acquisition Machine" },
+  { label: "4+ Additional Bonuses", highlight: true },
+  { label: "Chance To Win A FREE Professional Clinic Website", highlight: true },
 ];
+
 
 const PAYMENT_ACCOUNTS = {
   easypaisa: { label: "Easypaisa", name: "Farhan Ali Rasheed", account: "03135944817" },
@@ -303,14 +307,24 @@ function OrderPage() {
               </div>
               <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
                 {INCLUDED_ITEMS.map((it) => (
-                  <li key={it} className="flex items-start gap-2 text-sm text-slate-700">
-                    <span className="mt-0.5 shrink-0 grid place-items-center size-5 rounded-full bg-emerald-500 text-white">
+                  <li
+                    key={it.label}
+                    className={`flex items-start gap-2 text-sm ${
+                      it.highlight
+                        ? "text-orange-700 font-black bg-orange-50 border border-orange-200 rounded-lg px-2 py-1.5"
+                        : "text-slate-700"
+                    }`}
+                  >
+                    <span className={`mt-0.5 shrink-0 grid place-items-center size-5 rounded-full text-white ${
+                      it.highlight ? "bg-orange-500" : "bg-emerald-500"
+                    }`}>
                       <Check className="size-3.5" strokeWidth={3} />
                     </span>
-                    <span className="font-semibold">{it}</span>
+                    <span className={it.highlight ? "font-black" : "font-semibold"}>{it.label}</span>
                   </li>
                 ))}
               </ul>
+
             </section>
 
             {/* Your Order */}
