@@ -294,6 +294,24 @@ function OrderPage() {
         <div className="mx-auto max-w-6xl grid lg:grid-cols-5 gap-6">
           {/* LEFT */}
           <form className="lg:col-span-3 space-y-5 min-w-0" onSubmit={handleSubmit}>
+            {/* Here's What You'll Get */}
+            <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Gift className="size-5 text-orange-500" />
+                <h2 className="text-base font-black text-slate-900">Here's What You'll Get</h2>
+              </div>
+              <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
+                {INCLUDED_ITEMS.map((it) => (
+                  <li key={it} className="flex items-start gap-2 text-sm text-slate-700">
+                    <span className="mt-0.5 shrink-0 grid place-items-center size-5 rounded-full bg-emerald-500 text-white">
+                      <Check className="size-3.5" strokeWidth={3} />
+                    </span>
+                    <span className="font-semibold">{it}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
             {/* Your Order */}
             <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h2 className="text-base font-black text-slate-900 mb-4">Your Order</h2>
@@ -319,35 +337,45 @@ function OrderPage() {
                   return (
                     <label
                       key={b.id}
-                      className={`flex items-start gap-3 rounded-xl border-2 p-4 cursor-pointer transition ${
+                      className={`flex flex-col sm:flex-row items-stretch sm:items-start gap-4 rounded-xl border-2 p-4 cursor-pointer transition ${
                         checked
-                          ? "border-emerald-500 bg-emerald-50 shadow-sm"
+                          ? "border-orange-500 border-dashed bg-orange-50/70 shadow-sm"
                           : "border-slate-200 hover:border-slate-300 bg-white"
                       }`}
                     >
-                      <div className="mt-0.5 shrink-0">
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={(e) => setBumps((s) => ({ ...s, [b.id]: e.target.checked }))}
-                          className="sr-only peer"
+                      <div className="sm:w-28 w-full shrink-0">
+                        <img
+                          src={b.image}
+                          alt={b.title}
+                          loading="lazy"
+                          className="w-full h-32 sm:h-24 object-cover rounded-lg border border-slate-200 bg-slate-50"
                         />
-                        <span className={`grid place-items-center size-5 rounded border-2 transition ${
-                          checked ? "bg-emerald-600 border-emerald-600 text-white" : "bg-white border-slate-300"
-                        }`}>
-                          {checked && <Check className="size-3.5" strokeWidth={3} />}
-                        </span>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="text-sm font-black text-slate-900">{b.title}</span>
-                          <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                            checked ? "bg-emerald-600 text-white" : "bg-amber-100 text-amber-800"
-                          }`}>{b.badge}</span>
+                      <div className="flex-1 min-w-0 flex gap-3">
+                        <div className="mt-0.5 shrink-0">
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={(e) => setBumps((s) => ({ ...s, [b.id]: e.target.checked }))}
+                            className="sr-only peer"
+                          />
+                          <span className={`grid place-items-center size-5 rounded border-2 transition ${
+                            checked ? "bg-orange-500 border-orange-500 text-white" : "bg-white border-slate-300"
+                          }`}>
+                            {checked && <Check className="size-3.5" strokeWidth={3} />}
+                          </span>
                         </div>
-                        <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed">{b.description}</p>
-                        <div className="mt-2 text-sm font-black text-emerald-700">
-                          + Rs. {b.price.toLocaleString()}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-sm font-black text-slate-900">{b.title}</span>
+                            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                              checked ? "bg-orange-500 text-white" : "bg-amber-100 text-amber-800"
+                            }`}>{b.badge}</span>
+                          </div>
+                          <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed">{b.description}</p>
+                          <div className="mt-2 text-sm font-black text-orange-600">
+                            + Rs. {b.price.toLocaleString()}
+                          </div>
                         </div>
                       </div>
                     </label>
@@ -355,6 +383,7 @@ function OrderPage() {
                 })}
               </div>
             </section>
+
 
             {/* Payment Method */}
             <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
