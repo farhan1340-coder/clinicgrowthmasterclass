@@ -36,7 +36,7 @@ export const Route = createFileRoute("/order")({
   head: () => ({
     meta: [
       { title: "Checkout — Clinic Growth Masterclass" },
-      { name: "description", content: "Secure your seat in the Clinic Growth Masterclass for Rs. 999 (was Rs. 999). Add high-converting order bumps to maximize your results." },
+      { name: "description", content: "Secure your seat in the Clinic Growth Masterclass for Rs. 999. Add high-converting order bumps to maximize your results." },
     ],
   }),
   component: OrderPage,
