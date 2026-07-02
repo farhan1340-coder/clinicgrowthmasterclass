@@ -81,7 +81,7 @@ export function OfferPopup() {
           </button>
           <div className="flex-1 text-[12px] leading-tight font-semibold">
             <div>Live Masterclass: 12 July, 5–8 PM PKT</div>
-            <div className="text-yellow-300"><span className="line-through opacity-70 mr-1">Rs. 999</span>Rs. 999 Today</div>
+            <div className="text-yellow-300">Rs. 999 Today</div>
           </div>
           <button
             onClick={goToOrder}
