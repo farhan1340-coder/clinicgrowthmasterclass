@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
-import bumpWorkbookImg from "@/assets/bump-workbook.png";
+import bumpWorkbookImg from "@/assets/bump-workbook.png.asset.json";
 import bumpPromptsImg from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Footer } from "@/components/site/Footer";
@@ -47,7 +47,7 @@ const BUMPS = [
     shortTitle: "Clinic Offer Workbook",
     price: 499,
     badge: "🔥 Best For Quick Wins",
-    image: bumpWorkbookImg,
+    image: bumpWorkbookImg.url,
     description:
       "Build an irresistible clinic offer that patients actually want to book. This practical workbook helps you create an offer that makes your clinic stand out from competitors and increases appointment bookings.\n\nYou'll discover:\n✅ The Clinic Offer Formula\n✅ High-Converting Offer Templates\n✅ Value Stack Worksheet\n✅ Pricing & Positioning Framework\n✅ Fill-in-the-Blank Workbook\n✅ Real Healthcare Examples",
   },
