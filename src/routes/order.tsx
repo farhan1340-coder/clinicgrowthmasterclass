@@ -407,7 +407,7 @@ function OrderPage() {
 
                           {/* Description */}
                           <p
-                            className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full whitespace-normal break-words"
+                            className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full whitespace-pre-line break-words"
                             style={{ overflowWrap: "anywhere" }}
                           >
                             {b.description}
