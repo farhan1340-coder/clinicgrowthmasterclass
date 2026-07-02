@@ -961,7 +961,7 @@ function FinalCta() {
           Reserve your spot before all seats fill.
         </h2>
         <p className="mt-4 text-lg text-white/85">
-          Price will increase soon — lock in your seat for just <span className="line-through">Rs. 999</span> <span className="font-bold">Rs. 999</span> today.
+          Price will increase soon — lock in your seat for just <span className="font-bold">Rs. 999</span> today.
         </p>
         <div className="mt-8 max-w-md mx-auto">
           <MasterclassCountdown variant="dark" className="mb-6" />
