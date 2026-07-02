@@ -44,6 +44,7 @@ const BUMPS = [
   {
     id: "strategy",
     title: "1-on-1 Personalized Digital Marketing Strategy Session",
+    shortTitle: "1-on-1 Strategy Session",
     price: 3999,
     regularPrice: 9999,
     priceLabel: "Exclusive Checkout Price",
@@ -55,6 +56,7 @@ const BUMPS = [
   {
     id: "prompts",
     title: "AI Content Prompt Vault for Doctors",
+    shortTitle: "AI Prompt Vault",
     price: 699,
     regularPrice: 1999,
     priceLabel: "Today During Checkout",
@@ -159,7 +161,7 @@ function OrderPage() {
       { id: "main", title: MAIN_PRODUCT.title, price: MAIN_PRODUCT.price, qty: 1 },
     ];
     for (const b of BUMPS) {
-      if (bumps[b.id]) list.push({ id: b.id, title: b.title, price: b.price, qty: 1 });
+      if (bumps[b.id]) list.push({ id: b.id, title: b.shortTitle, price: b.price, qty: 1 });
     }
     return list;
   }, [bumps]);
