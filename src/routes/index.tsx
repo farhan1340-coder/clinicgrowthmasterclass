@@ -64,6 +64,7 @@ function LandingPage() {
       <TrainerSection />
       <GuaranteeSection />
       <FAQSection />
+      <MoreReviews />
       <FinalCta />
       <Footer />
     </div>
