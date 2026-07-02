@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
-import bumpWorkbookImg from "@/assets/bump-workbook.png";
+import bumpWorkbookImg from "@/assets/bump-workbook.png.asset.json";
 import bumpPromptsImg from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Footer } from "@/components/site/Footer";
