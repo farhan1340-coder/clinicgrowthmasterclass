@@ -274,7 +274,7 @@ function OrderPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-sky-50">
+    <div className="min-h-screen flex flex-col bg-sky-50 overflow-x-hidden max-w-full">
       {/* Top blue bar */}
       <div className="bg-gradient-to-r from-sky-600 to-blue-700 text-white text-center py-2.5 px-4 text-xs sm:text-sm font-bold tracking-wider uppercase flex items-center justify-center gap-2">
         <Lock className="size-3.5 sm:size-4" />
