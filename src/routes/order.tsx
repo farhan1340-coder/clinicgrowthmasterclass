@@ -274,7 +274,7 @@ function OrderPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-sky-50">
+    <div className="min-h-screen flex flex-col bg-sky-50 overflow-x-hidden max-w-full">
       {/* Top blue bar */}
       <div className="bg-gradient-to-r from-sky-600 to-blue-700 text-white text-center py-2.5 px-4 text-xs sm:text-sm font-bold tracking-wider uppercase flex items-center justify-center gap-2">
         <Lock className="size-3.5 sm:size-4" />
@@ -338,21 +338,21 @@ function OrderPage() {
                   return (
                     <label
                       key={b.id}
-                      className={`flex flex-col sm:flex-row items-stretch sm:items-start gap-4 rounded-xl border-2 p-4 cursor-pointer transition ${
+                      className={`box-border w-full max-w-full min-w-0 flex flex-col sm:flex-row items-stretch sm:items-start gap-4 rounded-xl border-2 p-4 cursor-pointer transition overflow-hidden ${
                         checked
                           ? "border-orange-500 border-dashed bg-orange-50/70 shadow-sm"
                           : "border-slate-200 hover:border-slate-300 bg-white"
                       }`}
                     >
-                      <div className="sm:w-28 w-full shrink-0">
+                      <div className="sm:w-28 w-full max-w-full shrink-0 min-w-0">
                         <img
                           src={b.image}
                           alt={b.title}
                           loading="lazy"
-                          className="w-full h-32 sm:h-24 object-cover rounded-lg border border-slate-200 bg-slate-50"
+                          className="block w-full max-w-full h-32 sm:h-24 object-cover rounded-lg border border-slate-200 bg-slate-50"
                         />
                       </div>
-                      <div className="flex-1 min-w-0 flex gap-3">
+                      <div className="flex-1 min-w-0 max-w-full flex gap-3">
                         <div className="mt-0.5 shrink-0">
                           <input
                             type="checkbox"
@@ -366,20 +366,21 @@ function OrderPage() {
                             {checked && <Check className="size-3.5" strokeWidth={3} />}
                           </span>
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-sm font-black text-slate-900">{b.title}</span>
-                            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                        <div className="flex-1 min-w-0 max-w-full">
+                          <div className="flex flex-wrap items-center gap-2 min-w-0">
+                            <span className="text-sm font-black text-slate-900 break-words min-w-0">{b.title}</span>
+                            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full whitespace-nowrap ${
                               checked ? "bg-orange-500 text-white" : "bg-amber-100 text-amber-800"
                             }`}>{b.badge}</span>
                           </div>
-                          <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed">{b.description}</p>
+                          <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed break-words">{b.description}</p>
                           <div className="mt-2 text-sm font-black text-orange-600">
                             + Rs. {b.price.toLocaleString()}
                           </div>
                         </div>
                       </div>
                     </label>
+
                   );
                 })}
               </div>
