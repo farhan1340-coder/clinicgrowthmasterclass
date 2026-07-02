@@ -45,6 +45,7 @@ const BUMPS = [
     title: "1-on-1 Personalized Digital Marketing Strategy Session",
     price: 3999,
     badge: "Most Popular",
+    image: bumpStrategyImg.url,
     description: "90-min private strategy call, custom patient growth plan, Meta Ads guidance, website review, and 15 days WhatsApp support.",
   },
   {
@@ -52,9 +53,19 @@ const BUMPS = [
     title: "AI Content Prompt Vault for Doctors",
     price: 699,
     badge: "Recommended",
+    image: bumpPromptsImg.url,
     description: "Ready-to-use AI prompts for social posts, patient education, and lead generation — save hours every week.",
   },
 ] as const;
+
+const INCLUDED_ITEMS = [
+  "Clinic Growth Masterclass",
+  "Authority Content Cheat Sheet",
+  "Doctor Personal Brand Worksheet",
+  "WhatsApp Follow-Up Scripts",
+  "Private Doctor Growth Community",
+  "Free Clinic Website Giveaway Chance",
+];
 
 const PAYMENT_ACCOUNTS = {
   easypaisa: { label: "Easypaisa", name: "Farhan Ali Rasheed", account: "03135944817" },
