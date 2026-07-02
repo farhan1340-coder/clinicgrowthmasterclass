@@ -352,48 +352,72 @@ function OrderPage() {
                   return (
                     <label
                       key={b.id}
-                      className={`box-border w-full max-w-full min-w-0 flex flex-col sm:flex-row items-stretch sm:items-start gap-4 rounded-xl border-2 p-4 cursor-pointer transition overflow-hidden ${
+                      className={`box-border block w-full max-w-full min-w-0 rounded-xl border-2 p-4 cursor-pointer transition ${
                         checked
-                          ? "border-orange-500 border-dashed bg-orange-50/70 shadow-sm"
-                          : "border-slate-200 hover:border-slate-300 bg-white"
+                          ? "border-orange-500 border-dashed bg-orange-50/70"
+                          : "border-slate-200 border-solid hover:border-slate-300 bg-white"
                       }`}
                     >
-                      <div className="sm:w-28 w-full max-w-full shrink-0 min-w-0">
-                        <img
-                          src={b.image}
-                          alt={b.title}
-                          loading="lazy"
-                          className="block w-full max-w-full h-32 sm:h-24 object-cover rounded-lg border border-slate-200 bg-slate-50"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0 max-w-full flex gap-3">
-                        <div className="mt-0.5 shrink-0">
-                          <input
-                            type="checkbox"
-                            checked={checked}
-                            onChange={(e) => setBumps((s) => ({ ...s, [b.id]: e.target.checked }))}
-                            className="sr-only peer"
+                      {/* Mobile: vertical stack. Desktop: image left, content right */}
+                      <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 w-full min-w-0 max-w-full">
+                        {/* Thumbnail */}
+                        <div className="w-full sm:w-28 max-w-full shrink-0 min-w-0">
+                          <img
+                            src={b.image}
+                            alt={b.title}
+                            loading="lazy"
+                            className="block w-full max-w-full h-auto sm:h-24 sm:object-cover object-contain rounded-lg border border-slate-200 bg-slate-50"
                           />
-                          <span className={`grid place-items-center size-5 rounded border-2 transition ${
-                            checked ? "bg-orange-500 border-orange-500 text-white" : "bg-white border-slate-300"
-                          }`}>
-                            {checked && <Check className="size-3.5" strokeWidth={3} />}
-                          </span>
                         </div>
-                        <div className="flex-1 min-w-0 max-w-full">
-                          <div className="flex flex-wrap items-center gap-2 min-w-0">
-                            <span className="text-sm font-black text-slate-900 break-words min-w-0">{b.title}</span>
-                            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full whitespace-nowrap ${
+
+                        {/* Content */}
+                        <div className="flex-1 min-w-0 max-w-full w-full">
+                          {/* Checkbox + title row */}
+                          <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 items-start w-full min-w-0 max-w-full">
+                            <div className="mt-0.5">
+                              <input
+                                type="checkbox"
+                                checked={checked}
+                                onChange={(e) => setBumps((s) => ({ ...s, [b.id]: e.target.checked }))}
+                                className="sr-only peer"
+                              />
+                              <span className={`grid place-items-center size-5 rounded border-2 transition ${
+                                checked ? "bg-orange-500 border-orange-500 text-white" : "bg-white border-slate-300"
+                              }`}>
+                                {checked && <Check className="size-3.5" strokeWidth={3} />}
+                              </span>
+                            </div>
+                            <span
+                              className="text-sm font-black text-slate-900 leading-snug min-w-0 max-w-full whitespace-normal break-words"
+                              style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
+                            >
+                              {b.title}
+                            </span>
+                          </div>
+
+                          {/* Badge */}
+                          <div className="mt-2">
+                            <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full max-w-full break-words ${
                               checked ? "bg-orange-500 text-white" : "bg-amber-100 text-amber-800"
                             }`}>{b.badge}</span>
                           </div>
-                          <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed break-words">{b.description}</p>
+
+                          {/* Description */}
+                          <p
+                            className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full whitespace-normal break-words"
+                            style={{ overflowWrap: "anywhere" }}
+                          >
+                            {b.description}
+                          </p>
+
+                          {/* Price */}
                           <div className="mt-2 text-sm font-black text-orange-600">
                             + Rs. {b.price.toLocaleString()}
                           </div>
                         </div>
                       </div>
                     </label>
+
 
                   );
                 })}
