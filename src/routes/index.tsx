@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Clinic Growth Masterclass — Get 20–25 Patients Every Week" },
-      { name: "description", content: "Live masterclass by Farhan Ali for Pakistani doctors. Get 20–25 new patients every week without spending hours on digital marketing. Only Rs. 999 (was Rs. 999)." },
+      { name: "description", content: "Live masterclass by Farhan Ali for Pakistani doctors. Get 20–25 new patients every week without spending hours on digital marketing. Only Rs. 999." },
       { property: "og:title", content: "Clinic Growth Masterclass — Farhan Ali" },
       { property: "og:description", content: "Discover how busy doctors are getting 20–25 patients every week — without ads, social media, or personal branding headaches." },
     ],
@@ -614,7 +614,7 @@ function BonusesSection() {
           <span className="text-destructive">included FREE with your seat today.</span>
         </p>
         <div className="mt-10 max-w-md mx-auto">
-          <CtaButton subtitle="Get Your Seat + All 4 Bonuses For Rs. 999 (was Rs. 999)">YES! I Want The Bonuses</CtaButton>
+          <CtaButton subtitle="Get Your Seat + All 4 Bonuses For Rs. 999">YES! I Want The Bonuses</CtaButton>
         </div>
       </div>
     </section>
@@ -729,7 +729,7 @@ function WhoFor() {
           ))}
         </div>
         <div className="mt-10 max-w-md mx-auto">
-          <CtaButton subtitle="Only Rs. 999 (was Rs. 999) — Limited Seats">Register Now</CtaButton>
+          <CtaButton subtitle="Only Rs. 999 — Limited Seats">Register Now</CtaButton>
         </div>
       </div>
     </section>
@@ -887,7 +887,7 @@ function GuaranteeSection() {
 
             {/* CTA */}
             <div className="mt-8 max-w-md mx-auto">
-              <CtaButton subtitle="Only Rs. 999 (was Rs. 999) — Live on Sunday, 12th July">
+              <CtaButton subtitle="Only Rs. 999 — Live on Sunday, 12th July">
                 Join Clinic Growth Masterclass Risk-Free →
               </CtaButton>
               <p className="mt-3 text-center text-xs md:text-sm text-muted-foreground font-medium">
