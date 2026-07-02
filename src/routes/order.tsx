@@ -435,11 +435,21 @@ function OrderPage() {
 
                           {/* Description */}
                           <p
-                            className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full whitespace-pre-line break-words"
+                            className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full break-words"
                             style={{ overflowWrap: "anywhere" }}
                           >
                             {b.description}
                           </p>
+
+                          {/* Checklist */}
+                          <ul className="mt-2 space-y-1">
+                            {b.checklist.map((item) => (
+                              <li key={item} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 min-w-0 max-w-full break-words" style={{ overflowWrap: "anywhere" }}>
+                                <Check className="size-4 shrink-0 text-green-600 mt-0.5" strokeWidth={3} />
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
 
                           {/* Price */}
                           <div className="mt-3 text-lg sm:text-xl font-black text-orange-600">
