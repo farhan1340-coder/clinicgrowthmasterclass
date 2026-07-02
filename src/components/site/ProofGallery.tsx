@@ -27,10 +27,10 @@ import payEpAdeel from "@/assets/proof/pay-easypaisa-adeel-999.jpg.asset.json";
 import payEpShaheen from "@/assets/proof/pay-easypaisa-shaheen-999.jpg.asset.json";
 import payEpUmair from "@/assets/proof/pay-easypaisa-umair-1999.jpg.asset.json";
 
-type Proof = { url: string; kind: "text" | "payment"; alt: string };
+export type Proof = { url: string; kind: "text" | "payment"; alt: string };
 
 // Alternating text → payment → text → payment ...
-const PROOFS: Proof[] = [
+export const PROOFS: Proof[] = [
   { url: textKhalid.url, kind: "text", alt: "WhatsApp feedback: Course is amazing, everyone should enroll" },
   { url: payEasypaisa.url, kind: "payment", alt: "Easypaisa payment proof Rs. 1,999" },
   { url: textDanish.url, kind: "text", alt: "WhatsApp feedback from Danish: Zabardast lagi training" },
