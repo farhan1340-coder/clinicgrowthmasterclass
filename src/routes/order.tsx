@@ -307,14 +307,24 @@ function OrderPage() {
               </div>
               <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
                 {INCLUDED_ITEMS.map((it) => (
-                  <li key={it} className="flex items-start gap-2 text-sm text-slate-700">
-                    <span className="mt-0.5 shrink-0 grid place-items-center size-5 rounded-full bg-emerald-500 text-white">
+                  <li
+                    key={it.label}
+                    className={`flex items-start gap-2 text-sm ${
+                      it.highlight
+                        ? "text-orange-700 font-black bg-orange-50 border border-orange-200 rounded-lg px-2 py-1.5"
+                        : "text-slate-700"
+                    }`}
+                  >
+                    <span className={`mt-0.5 shrink-0 grid place-items-center size-5 rounded-full text-white ${
+                      it.highlight ? "bg-orange-500" : "bg-emerald-500"
+                    }`}>
                       <Check className="size-3.5" strokeWidth={3} />
                     </span>
-                    <span className="font-semibold">{it}</span>
+                    <span className={it.highlight ? "font-black" : "font-semibold"}>{it.label}</span>
                   </li>
                 ))}
               </ul>
+
             </section>
 
             {/* Your Order */}
