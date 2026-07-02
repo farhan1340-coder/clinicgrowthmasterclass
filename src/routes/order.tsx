@@ -59,14 +59,18 @@ const BUMPS = [
   },
 ] as const;
 
-const INCLUDED_ITEMS = [
-  "Clinic Growth Masterclass",
-  "Authority Content Cheat Sheet",
-  "Doctor Personal Brand Worksheet",
-  "WhatsApp Follow-Up Scripts",
-  "Private Doctor Growth Community",
-  "Free Clinic Website Giveaway Chance",
+const INCLUDED_ITEMS: { label: string; highlight?: boolean }[] = [
+  { label: "Complete Clinic Growth Masterclass Training" },
+  { label: "Local Patient Domination System" },
+  { label: "Doctor Personal Brand Blueprint" },
+  { label: "2-Hour Content Creation System" },
+  { label: "Patient Acquisition via Meta Ads" },
+  { label: "Irresistible Clinic Offer Framework" },
+  { label: "Patient Acquisition Machine" },
+  { label: "4+ Additional Bonuses", highlight: true },
+  { label: "Chance To Win A FREE Professional Clinic Website", highlight: true },
 ];
+
 
 const PAYMENT_ACCOUNTS = {
   easypaisa: { label: "Easypaisa", name: "Farhan Ali Rasheed", account: "03135944817" },
