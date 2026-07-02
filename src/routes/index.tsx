@@ -16,7 +16,6 @@ import { Topbar } from "@/components/site/Topbar";
 import { Footer } from "@/components/site/Footer";
 import { CtaButton } from "@/components/site/CtaButton";
 import { ProofGallery } from "@/components/site/ProofGallery";
-import { MoreReviews } from "@/components/site/MoreReviews";
 import {
   Star, ShieldCheck, CheckCircle2, PlayCircle, Lock, BadgeCheck, Volume2,
   Stethoscope, Users, TrendingUp, Calendar, Gift, Play, ChevronDown, ArrowRight,
