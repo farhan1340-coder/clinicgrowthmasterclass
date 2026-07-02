@@ -45,6 +45,9 @@ const BUMPS = [
     id: "strategy",
     title: "1-on-1 Personalized Digital Marketing Strategy Session",
     price: 3999,
+    regularPrice: 9999,
+    priceLabel: "Exclusive Checkout Price",
+    cta: "Upgrade My Order for Only Rs. 3,999",
     badge: "Most Popular",
     image: bumpStrategyImg.url,
     description: "90-min private strategy call, custom patient growth plan, Meta Ads guidance, website review, and 15 days WhatsApp support.",
@@ -53,7 +56,10 @@ const BUMPS = [
     id: "prompts",
     title: "AI Content Prompt Vault for Doctors",
     price: 699,
-    badge: "Recommended",
+    regularPrice: 1999,
+    priceLabel: "Today During Checkout",
+    cta: "Add to My Order for Only Rs. 699",
+    badge: "Special Offer",
     image: bumpPromptsImg.url,
     description: "Ready-to-use AI prompts for social posts, patient education, and lead generation — save hours every week.",
   },
@@ -410,9 +416,22 @@ function OrderPage() {
                             {b.description}
                           </p>
 
-                          {/* Price */}
-                          <div className="mt-2 text-sm font-black text-orange-600">
-                            + Rs. {b.price.toLocaleString()}
+                          {/* Price block */}
+                          <div className="mt-3 pt-3 border-t border-slate-200/70">
+                            <div className="text-xs text-slate-400 line-through">
+                              Regular Price: Rs. {b.regularPrice.toLocaleString()}
+                            </div>
+                            <div className="mt-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                              🔥 {b.priceLabel}
+                            </div>
+                            <div className="text-2xl sm:text-3xl font-black text-orange-600 leading-tight">
+                              Rs. {b.price.toLocaleString()}
+                            </div>
+                          </div>
+
+                          {/* CTA line */}
+                          <div className="mt-3 text-center text-sm font-black text-slate-900 bg-orange-100/70 rounded-lg py-2 px-3 break-words">
+                            {b.cta}
                           </div>
                         </div>
                       </div>
