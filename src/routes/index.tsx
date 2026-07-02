@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Clinic Growth Masterclass — Get 20–25 Patients Every Week" },
-      { name: "description", content: "Live masterclass by Farhan Ali for Pakistani doctors. Get 20–25 new patients every week without spending hours on digital marketing. Only Rs. 199 (was Rs. 999)." },
+      { name: "description", content: "Live masterclass by Farhan Ali for Pakistani doctors. Get 20–25 new patients every week without spending hours on digital marketing. Only Rs. 999." },
       { property: "og:title", content: "Clinic Growth Masterclass — Farhan Ali" },
       { property: "og:description", content: "Discover how busy doctors are getting 20–25 patients every week — without ads, social media, or personal branding headaches." },
     ],
@@ -41,7 +41,7 @@ function LandingPage() {
     fbqTrack("ViewContent", {
       content_name: "Clinic Growth Masterclass",
       content_category: "Masterclass",
-      value: 199,
+      value: 999,
       currency: "PKR",
     });
   }, []);
@@ -210,7 +210,7 @@ function Hero() {
 
             <div className="mt-4 md:mt-6">
               <MasterclassCountdown variant="dark" className="mb-3 md:mb-4" />
-              <CtaButton subtitle="Get instant access to the live masterclass for only 199 PKR">
+              <CtaButton subtitle="Enroll in just 999 PKR">
                 YES! I Want My Patient-Getting System
               </CtaButton>
             </div>
@@ -245,15 +245,11 @@ function Hero() {
             <div className="p-6 text-center">
               <div className="text-lg font-extrabold">ONLY A FEW SPOTS LEFT</div>
               <div className="mt-2 text-3xl font-black text-destructive">
-                ONLY <span className="line-through text-foreground/60 font-bold">Rs. 999</span>{" "}
-                <br />
-                <span>Rs. 199</span>
+                ONLY <span>Rs. 999</span>
               </div>
-              <div className="text-sm font-semibold">(SAVE Rs. 800 TODAY)</div>
 
               <p className="mt-4 text-sm">
-                Get Your Seat For <span className="line-through">Rs. 999</span> just{" "}
-                <span className="font-bold">Rs. 199!</span><br />
+                Get Your Seat For just <span className="font-bold">Rs. 999!</span><br />
                 Live on Zoom — Sunday, 12th July 2026.
               </p>
 
@@ -618,7 +614,7 @@ function BonusesSection() {
           <span className="text-destructive">included FREE with your seat today.</span>
         </p>
         <div className="mt-10 max-w-md mx-auto">
-          <CtaButton subtitle="Get Your Seat + All 4 Bonuses For Rs. 199 (was Rs. 999)">YES! I Want The Bonuses</CtaButton>
+          <CtaButton subtitle="Get Your Seat + All 4 Bonuses For Rs. 999">YES! I Want The Bonuses</CtaButton>
         </div>
       </div>
     </section>
@@ -629,7 +625,7 @@ function BonusesSection() {
 
 function HowItWorks() {
   const steps = [
-    { icon: Calendar, title: "Step 1 — Reserve Your Seat", text: "Lock in your Rs. 199 spot and get the Zoom link instantly in your email." },
+    { icon: Calendar, title: "Step 1 — Reserve Your Seat", text: "Lock in your Rs. 999 spot and get the Zoom link instantly in your email." },
     { icon: Stethoscope, title: "Step 2 — Attend Live on Zoom", text: "Join the 3-hour deep-dive on Sunday, 12th July 2026 — interactive and personal." },
     { icon: TrendingUp, title: "Step 3 — Get 20–25 New Patients/Week", text: "Implement the system the same week and watch your appointment book fill up." },
   ];
@@ -733,7 +729,7 @@ function WhoFor() {
           ))}
         </div>
         <div className="mt-10 max-w-md mx-auto">
-          <CtaButton subtitle="Only Rs. 199 (was Rs. 999) — Limited Seats">Register Now</CtaButton>
+          <CtaButton subtitle="Only Rs. 999 — Limited Seats">Register Now</CtaButton>
         </div>
       </div>
     </section>
@@ -832,7 +828,7 @@ function GuaranteeSection() {
               <p>
                 I want you to feel completely comfortable joining the Clinic Growth Masterclass.
               </p>
-              <p>Even though the investment is only <span className="font-bold">PKR 199</span>.</p>
+              <p>Even though the investment is only <span className="font-bold">PKR 999</span>.</p>
               <p>
                 Because this is not another motivational webinar where you leave with notes but no clear
                 action plan.
@@ -869,7 +865,7 @@ function GuaranteeSection() {
                 Simply message us within <span className="font-bold">7 days</span> of joining and ask for
                 a refund.
               </p>
-              <p className="font-bold text-emerald-700">We will return your PKR 199.</p>
+              <p className="font-bold text-emerald-700">We will return your PKR 999.</p>
             </div>
 
             {/* Reassurance box */}
@@ -891,7 +887,7 @@ function GuaranteeSection() {
 
             {/* CTA */}
             <div className="mt-8 max-w-md mx-auto">
-              <CtaButton subtitle="Only Rs. 199 (was Rs. 999) — Live on Sunday, 12th July">
+              <CtaButton subtitle="Only Rs. 999 — Live on Sunday, 12th July">
                 Join Clinic Growth Masterclass Risk-Free →
               </CtaButton>
               <p className="mt-3 text-center text-xs md:text-sm text-muted-foreground font-medium">
@@ -965,11 +961,11 @@ function FinalCta() {
           Reserve your spot before all seats fill.
         </h2>
         <p className="mt-4 text-lg text-white/85">
-          Price will increase soon — lock in your seat for just <span className="line-through">Rs. 999</span> <span className="font-bold">Rs. 199</span> today.
+          Price will increase soon — lock in your seat for just <span className="font-bold">Rs. 999</span> today.
         </p>
         <div className="mt-8 max-w-md mx-auto">
           <MasterclassCountdown variant="dark" className="mb-6" />
-          <CtaButton subtitle="Enroll Now — Only Rs. 199">YES! Reserve My Seat</CtaButton>
+          <CtaButton subtitle="Enroll Now — Only Rs. 999">YES! Reserve My Seat</CtaButton>
         </div>
 
         <p className="mt-6 text-sm text-white/70">
