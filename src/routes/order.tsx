@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
-import bumpStrategyImg from "@/assets/bump-strategy.png.asset.json";
+import bumpWorkbookImg from "@/assets/bump-workbook.png";
 import bumpPromptsImg from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Footer } from "@/components/site/Footer";
@@ -43,24 +43,19 @@ export const Route = createFileRoute("/order")({
 const BUMPS = [
   {
     id: "strategy",
-    title: "1-on-1 Personalized Digital Marketing Strategy Session",
-    shortTitle: "1-on-1 Strategy Session",
-    price: 3999,
-    regularPrice: 9999,
-    priceLabel: "Exclusive Checkout Price",
-    cta: "Upgrade My Order for Only Rs. 3,999",
-    badge: "Most Popular",
-    image: bumpStrategyImg.url,
-    description: "90-min private strategy call, custom patient growth plan, Meta Ads guidance, website review, and 15 days WhatsApp support.",
+    title: "Clinic Offer Workbook",
+    shortTitle: "Clinic Offer Workbook",
+    price: 499,
+    badge: "🔥 Best For Quick Wins",
+    image: bumpWorkbookImg,
+    description:
+      "Build an irresistible clinic offer that patients actually want to book. This practical workbook helps you create an offer that makes your clinic stand out from competitors and increases appointment bookings.\n\nYou'll discover:\n✅ The Clinic Offer Formula\n✅ High-Converting Offer Templates\n✅ Value Stack Worksheet\n✅ Pricing & Positioning Framework\n✅ Fill-in-the-Blank Workbook\n✅ Real Healthcare Examples",
   },
   {
     id: "prompts",
     title: "AI Content Prompt Vault for Doctors",
     shortTitle: "AI Prompt Vault",
     price: 699,
-    regularPrice: 1999,
-    priceLabel: "Today During Checkout",
-    cta: "Add to My Order for Only Rs. 699",
     badge: "Special Offer",
     image: bumpPromptsImg.url,
     description: "Ready-to-use AI prompts for social posts, patient education, and lead generation — save hours every week.",
