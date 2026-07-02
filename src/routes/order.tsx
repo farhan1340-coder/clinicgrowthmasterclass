@@ -36,7 +36,7 @@ export const Route = createFileRoute("/order")({
   head: () => ({
     meta: [
       { title: "Checkout — Clinic Growth Masterclass" },
-      { name: "description", content: "Secure your seat in the Clinic Growth Masterclass for Rs. 199 (was Rs. 999). Add high-converting order bumps to maximize your results." },
+      { name: "description", content: "Secure your seat in the Clinic Growth Masterclass for Rs. 999 (was Rs. 999). Add high-converting order bumps to maximize your results." },
     ],
   }),
   component: OrderPage,
@@ -81,7 +81,7 @@ const PAYMENT_ACCOUNTS = {
 } as const;
 type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
-const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 199 };
+const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 
 function OrderPage() {
   const search = Route.useSearch();
@@ -150,7 +150,7 @@ function OrderPage() {
   const purchaseFiredRef = useRef(false);
 
   useEffect(() => {
-    fbqTrack("InitiateCheckout", { value: 199, currency: "PKR" });
+    fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
   }, []);
 
 
@@ -273,7 +273,7 @@ function OrderPage() {
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
       fbqTrack("Purchase", {
-        value: 199,
+        value: 999,
         currency: "PKR",
         content_name: "Clinic Growth Masterclass",
       });
@@ -555,7 +555,7 @@ function OrderPage() {
               <div className="p-5 text-center">
                 <div className="text-lg font-bold">Get Access For</div>
                 <div className="mt-1 text-base text-slate-500 line-through">Original: Rs. 999</div>
-                <div className="text-3xl font-black text-emerald-600 mt-1 whitespace-pre-line">{"Today\nOnly Rs. 199!"}</div>
+                <div className="text-3xl font-black text-emerald-600 mt-1 whitespace-pre-line">{"Today\nOnly Rs. 999!"}</div>
 
                 <div className="mt-5 text-left">
                   <div className="bg-primary text-primary-foreground text-center font-bold py-2 rounded">
