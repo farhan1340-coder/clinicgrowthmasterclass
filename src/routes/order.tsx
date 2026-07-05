@@ -187,8 +187,10 @@ function OrderPage() {
     const list: { id: string; title: string; price: number; qty: number }[] = [
       { id: "main", title: MAIN_PRODUCT.title, price: MAIN_PRODUCT.price, qty: 1 },
     ];
-    for (const b of BUMPS) {
-      if (bumps[b.id]) list.push({ id: b.id, title: b.shortTitle, price: b.price, qty: 1 });
+    if (SHOW_ORDER_BUMPS) {
+      for (const b of BUMPS) {
+        if (bumps[b.id]) list.push({ id: b.id, title: b.shortTitle, price: b.price, qty: 1 });
+      }
     }
     return list;
   }, [bumps]);
