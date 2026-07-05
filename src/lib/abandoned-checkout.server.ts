@@ -369,7 +369,7 @@ export async function processDueAbandonedReminders(opts: { limit?: number } = {}
         .from('abandoned_checkout_email_queue')
         .update({ status: 'sent', sent_at: new Date().toISOString(), error_message: null })
         .eq('id', (row as any).id)
-    } else if (res.reason === 'lead_already_paid' || res.reason === 'suppressed' || res.reason === 'lead_missing') {
+    } else if (res.reason === 'lead_already_paid' || res.reason === 'suppressed' || res.reason === 'lead_missing' || res.reason === 'cohort_started') {
       skipped++
       await (supabaseAdmin as any)
         .from('abandoned_checkout_email_queue')
