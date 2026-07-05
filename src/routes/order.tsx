@@ -111,6 +111,10 @@ type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
 const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 
+// TEMPORARY: hide both order bumps for a 7-day checkout conversion test.
+// Set back to `true` to restore both order bumps unchanged.
+const SHOW_ORDER_BUMPS = false;
+
 function OrderPage() {
   const search = Route.useSearch();
   const navigate = useNavigate();
