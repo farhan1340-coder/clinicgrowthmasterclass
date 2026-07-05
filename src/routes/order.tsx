@@ -34,7 +34,7 @@ export const Route = createFileRoute("/order")({
   head: () => ({
     meta: [
       { title: "Checkout — Clinic Growth Masterclass" },
-      { name: "description", content: "Secure your seat in the Clinic Growth Masterclass for Rs. 499. Add high-converting order bumps to maximize your results." },
+      { name: "description", content: "Secure your seat in the Clinic Growth Masterclass for Rs. 999. Add high-converting order bumps to maximize your results." },
     ],
   }),
   component: OrderPage,
@@ -56,7 +56,7 @@ const BUMPS: readonly Bump[] = [
     id: "strategy",
     title: "Clinic Offer Workbook",
     shortTitle: "Clinic Offer Workbook",
-    price: 499,
+    price: 999,
     badge: "Best For Quick Wins",
     image: bumpWorkbookImg.url,
     description:
@@ -109,7 +109,11 @@ const PAYMENT_ACCOUNTS = {
 } as const;
 type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
-const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 499 };
+const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
+
+// TEMPORARY: hide both order bumps for a 7-day checkout conversion test.
+// Set back to `true` to restore both order bumps unchanged.
+const SHOW_ORDER_BUMPS = false;
 
 function OrderPage() {
   const search = Route.useSearch();
@@ -176,15 +180,17 @@ function OrderPage() {
   const purchaseFiredRef = useRef(false);
 
   useEffect(() => {
-    fbqTrack("InitiateCheckout", { value: 499, currency: "PKR" });
+    fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
   }, []);
 
   const items = useMemo(() => {
     const list: { id: string; title: string; price: number; qty: number }[] = [
       { id: "main", title: MAIN_PRODUCT.title, price: MAIN_PRODUCT.price, qty: 1 },
     ];
-    for (const b of BUMPS) {
-      if (bumps[b.id]) list.push({ id: b.id, title: b.shortTitle, price: b.price, qty: 1 });
+    if (SHOW_ORDER_BUMPS) {
+      for (const b of BUMPS) {
+        if (bumps[b.id]) list.push({ id: b.id, title: b.shortTitle, price: b.price, qty: 1 });
+      }
     }
     return list;
   }, [bumps]);
@@ -292,7 +298,7 @@ function OrderPage() {
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
       fbqTrack("Purchase", {
-        value: 499,
+        value: 999,
         currency: "PKR",
         content_name: "Clinic Growth Masterclass",
       });
@@ -371,7 +377,8 @@ function OrderPage() {
               </div>
             </section>
 
-            {/* Order Bumps */}
+            {/* Order Bumps — TEMPORARILY HIDDEN (7-day conversion test). Toggle SHOW_ORDER_BUMPS above to restore. */}
+            {SHOW_ORDER_BUMPS && (
             <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <div className="flex items-center gap-2 mb-4">
                 <h2 className="text-base font-black text-slate-900">Upgrade Your Order</h2>
@@ -389,9 +396,7 @@ function OrderPage() {
                           : "border-slate-200 border-solid hover:border-slate-300 bg-white"
                       }`}
                     >
-                      {/* Mobile: vertical stack. Desktop: image left, content right */}
                       <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 w-full min-w-0 max-w-full">
-                        {/* Thumbnail */}
                         <div className="w-full sm:w-28 max-w-full shrink-0 min-w-0">
                           <img
                             src={b.image}
@@ -400,10 +405,7 @@ function OrderPage() {
                             className="block w-full max-w-full h-auto sm:h-24 sm:object-cover object-contain rounded-lg border border-slate-200 bg-slate-50"
                           />
                         </div>
-
-                        {/* Content */}
                         <div className="flex-1 min-w-0 max-w-full w-full">
-                          {/* Checkbox + title row */}
                           <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 items-start w-full min-w-0 max-w-full">
                             <div className="mt-0.5">
                               <input
@@ -425,23 +427,17 @@ function OrderPage() {
                               {b.title}
                             </span>
                           </div>
-
-                          {/* Badge */}
                           <div className="mt-2">
                             <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full max-w-full break-words ${
                               checked ? "bg-orange-500 text-white" : "bg-amber-100 text-amber-800"
                             }`}>{b.badge}</span>
                           </div>
-
-                          {/* Description */}
                           <p
                             className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full break-words"
                             style={{ overflowWrap: "anywhere" }}
                           >
                             {b.description}
                           </p>
-
-                          {/* Checklist */}
                           <ul className="mt-2 space-y-1">
                             {b.checklist.map((item) => (
                               <li key={item} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 min-w-0 max-w-full break-words" style={{ overflowWrap: "anywhere" }}>
@@ -450,21 +446,35 @@ function OrderPage() {
                               </li>
                             ))}
                           </ul>
-
-                          {/* Price */}
                           <div className="mt-3 text-lg sm:text-xl font-black text-orange-600">
                             + Rs. {b.price.toLocaleString()}
                           </div>
-
                         </div>
                       </div>
                     </label>
-
-
                   );
                 })}
               </div>
             </section>
+            )}
+
+            {/* Live + Replay reassurance */}
+            <section className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 sm:p-6">
+              <div className="flex items-start gap-3">
+                <div className="shrink-0 size-9 rounded-full bg-emerald-500 grid place-items-center text-white">
+                  <Check className="size-5" strokeWidth={3} />
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-black text-emerald-800 uppercase tracking-wide">
+                    Attend LIVE + Get 7-Day Replay Access
+                  </h3>
+                  <p className="mt-1 text-xs sm:text-sm text-emerald-900/80 leading-relaxed">
+                    Can't attend the full LIVE session? No problem. Every registered participant gets 7-day replay access.
+                  </p>
+                </div>
+              </div>
+            </section>
+
 
 
             {/* Payment Method */}
@@ -577,6 +587,10 @@ function OrderPage() {
                   <div className="border-t border-slate-100 mt-4 pt-4 flex justify-between items-baseline">
                     <span className="text-sm font-bold uppercase text-slate-500 tracking-wider">Total</span>
                     <span className="text-2xl font-black text-emerald-600">Rs. {total.toLocaleString()}</span>
+                  </div>
+
+                  <div className="mt-3 rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-[11px] sm:text-xs font-bold text-emerald-800 text-center">
+                    ✅ Attend LIVE + Get 7-Day Replay Access
                   </div>
 
                   {/* Desktop submit (form submit via native form pairing) */}
