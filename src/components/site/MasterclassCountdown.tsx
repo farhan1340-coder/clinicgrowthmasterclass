@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Calendar, Clock } from "lucide-react";
 
-// 12th July 2026 (Sunday), 5:00 PM Pakistan Standard Time (UTC+5)
-// => 2026-07-12T17:00:00+05:00 => 2026-07-12T12:00:00Z
-export const MASTERCLASS_DATE_ISO = "2026-07-12T12:00:00Z";
-export const MASTERCLASS_DATE_LABEL =
-  "Live Masterclass: 12th (Sun) July at 5 PM – 8 PM Pakistan Standard Time";
+// Cohort date/time is defined in src/lib/cohort.ts (single source of truth).
+export { MASTERCLASS_DATE_ISO, MASTERCLASS_DATE_LABEL } from "@/lib/cohort";
+import { MASTERCLASS_DATE_ISO } from "@/lib/cohort";
+
 
 function getTimeLeft(target: number) {
   const diff = Math.max(0, target - Date.now());
