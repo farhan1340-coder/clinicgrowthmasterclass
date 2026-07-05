@@ -213,6 +213,9 @@ function Hero() {
               <CtaButton subtitle="Enroll in just 999 PKR">
                 YES! I Want My Patient-Getting System
               </CtaButton>
+              <div className="mt-3 text-center text-[11px] md:text-xs font-bold text-yellow-300 uppercase tracking-wider">
+                ✅ Attend LIVE + Get 7-Day Replay Access
+              </div>
             </div>
 
             <TopTestimonials />
