@@ -8,11 +8,12 @@ export const Route = createFileRoute('/api/public/hooks/abandoned-checkout')({
     handlers: {
       POST: async () => {
         try {
-          const { processDueAbandonedReminders } = await import(
+          const { processDueAbandonedReminders, ensureCohortDeadlineReminders } = await import(
             '@/lib/abandoned-checkout.server'
           )
+          const backfilled = await ensureCohortDeadlineReminders()
           const result = await processDueAbandonedReminders({ limit: 100 })
-          return Response.json({ ok: true, ...result })
+          return Response.json({ ok: true, backfilled, ...result })
         } catch (err: any) {
           console.error('[cron abandoned-checkout] failed', err)
           return Response.json(
