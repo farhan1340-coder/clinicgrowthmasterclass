@@ -81,8 +81,12 @@ export function isPaidLikeStatus(status: string | null | undefined): boolean {
 }
 
 /**
- * Schedule the 4 follow-up reminders for a freshly opted-in lead.
- * No-op if any rows already exist for this lead (idempotent across refreshes).
+ * Schedule the follow-up reminders for a freshly opted-in lead:
+ * - Sequences 1-4: relative delays after opt-in (see SEQUENCE_DELAYS_MS)
+ * - Sequences 5-6: deadline reminders anchored to the current cohort
+ *   (4h and 1h before start). Only scheduled if the send time is in the
+ *   future.
+ * No-op if any rows already exist for this lead (idempotent).
  */
 export async function scheduleAbandonedCheckoutSequence(opts: {
   leadId: string
@@ -91,7 +95,8 @@ export async function scheduleAbandonedCheckoutSequence(opts: {
   startAt?: Date
 }): Promise<void> {
   const start = opts.startAt ?? new Date()
-  const rows = ([1, 2, 3, 4] as const).map((seq) => ({
+  const now = Date.now()
+  const rows: Array<Record<string, any>> = ([1, 2, 3, 4] as const).map((seq) => ({
     lead_id: opts.leadId,
     email: opts.email,
     name: opts.name,
@@ -99,6 +104,19 @@ export async function scheduleAbandonedCheckoutSequence(opts: {
     scheduled_for: new Date(start.getTime() + SEQUENCE_DELAYS_MS[seq]).toISOString(),
     status: 'pending' as const,
   }))
+  for (const seq of [5, 6] as const) {
+    const when = computeCohortSlot(seq)
+    if (when.getTime() > now) {
+      rows.push({
+        lead_id: opts.leadId,
+        email: opts.email,
+        name: opts.name,
+        sequence_number: seq,
+        scheduled_for: when.toISOString(),
+        status: 'pending' as const,
+      })
+    }
+  }
   const { error } = await (supabaseAdmin as any)
     .from('abandoned_checkout_email_queue')
     .upsert(rows, { onConflict: 'lead_id,sequence_number', ignoreDuplicates: true })
@@ -106,6 +124,66 @@ export async function scheduleAbandonedCheckoutSequence(opts: {
     console.error('[abandoned-checkout] schedule failed', { leadId: opts.leadId, error })
   }
 }
+
+/**
+ * Backfill deadline reminders (seq 5 & 6) for every unpaid lead that already
+ * has abandoned-checkout rows but is missing the deadline ones. Idempotent;
+ * safe to call from the cron on every tick.
+ */
+export async function ensureCohortDeadlineReminders(): Promise<number> {
+  const now = Date.now()
+  const slots = ([5, 6] as const)
+    .map((seq) => ({ seq, at: computeCohortSlot(seq) }))
+    .filter((s) => s.at.getTime() > now)
+  if (slots.length === 0) return 0
+
+  // Find candidate leads: have at least one queue row and are not paid.
+  const { data: leads, error } = await (supabaseAdmin as any)
+    .from('abandoned_checkout_email_queue')
+    .select('lead_id, email, name, clinic_growth_leads!inner(id, lead_status, payment_screenshot_url)')
+    .in('status', ['pending', 'sent'])
+  if (error) {
+    console.error('[abandoned-checkout] backfill query failed', error)
+    return 0
+  }
+
+  const byLead = new Map<string, { email: string; name: string }>()
+  for (const row of leads ?? []) {
+    const l = (row as any).clinic_growth_leads
+    if (!l) continue
+    if (l.payment_screenshot_url || isPaidLikeStatus(l.lead_status)) continue
+    if (!byLead.has((row as any).lead_id)) {
+      byLead.set((row as any).lead_id, {
+        email: (row as any).email,
+        name: (row as any).name ?? 'Doctor',
+      })
+    }
+  }
+  if (byLead.size === 0) return 0
+
+  const rows: Array<Record<string, any>> = []
+  for (const [leadId, info] of byLead) {
+    for (const s of slots) {
+      rows.push({
+        lead_id: leadId,
+        email: info.email,
+        name: info.name,
+        sequence_number: s.seq,
+        scheduled_for: s.at.toISOString(),
+        status: 'pending',
+      })
+    }
+  }
+  const { error: upErr, count } = await (supabaseAdmin as any)
+    .from('abandoned_checkout_email_queue')
+    .upsert(rows, { onConflict: 'lead_id,sequence_number', ignoreDuplicates: true, count: 'exact' })
+  if (upErr) {
+    console.error('[abandoned-checkout] backfill upsert failed', upErr)
+    return 0
+  }
+  return count ?? 0
+}
+
 
 /** Cancel any remaining pending reminders for a lead. */
 export async function cancelRemainingAbandonedReminders(leadId: string, reason = 'cancelled'): Promise<number> {
