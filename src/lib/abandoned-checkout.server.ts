@@ -232,6 +232,12 @@ export async function sendQueuedAbandonedReminder(queueRow: {
     return { ok: false, reason: 'lead_already_paid' }
   }
 
+  // Deadline reminders (seq 5 & 6) must never be sent after the session starts.
+  if (queueRow.sequence_number >= 5 && Date.now() >= getCohortStartMs()) {
+    return { ok: false, reason: 'cohort_started' }
+  }
+
+
   // Suppression check (bounces / complaints / unsubscribes)
   const { data: suppressed } = await supabaseAdmin
     .from('suppressed_emails')
