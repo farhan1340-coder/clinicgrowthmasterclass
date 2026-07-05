@@ -272,10 +272,15 @@ export async function sendQueuedAbandonedReminder(queueRow: {
   const template = TEMPLATES[templateName]
   if (!template) return { ok: false, reason: 'template_missing' }
 
-  const templateData = {
+  const templateData: Record<string, any> = {
     name: queueRow.name || lead.full_name || 'Doctor',
     checkoutUrl: buildCheckoutUrl(lead),
   }
+  if (queueRow.sequence_number >= 5) {
+    templateData.cohortDate = formatCohortDate(MASTERCLASS_DATE_ISO)
+    templateData.cohortTime = formatCohortTime(MASTERCLASS_DATE_ISO)
+  }
+
   const element = React.createElement(template.component, templateData)
   const html = await render(element)
   const text = await render(element, { plainText: true })
