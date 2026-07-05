@@ -976,6 +976,11 @@ function FinalCta() {
         <div className="mt-8 max-w-md mx-auto">
           <MasterclassCountdown variant="dark" className="mb-6" />
           <CtaButton subtitle="Enroll Now — Only Rs. 999">YES! Reserve My Seat</CtaButton>
+          <p className="mt-4 text-sm text-white/85">
+            <span className="font-bold text-yellow-300">✅ Attend LIVE + Get 7-Day Replay Access</span>
+            <br />
+            <span className="text-white/70">Can't attend the full LIVE session? No problem. Every registered participant gets 7-day replay access.</span>
+          </p>
         </div>
 
         <p className="mt-6 text-sm text-white/70">
