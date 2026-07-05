@@ -34,7 +34,7 @@ export const Route = createFileRoute("/order")({
   head: () => ({
     meta: [
       { title: "Checkout — Clinic Growth Masterclass" },
-      { name: "description", content: "Secure your seat in the Clinic Growth Masterclass for Rs. 499. Add high-converting order bumps to maximize your results." },
+      { name: "description", content: "Secure your seat in the Clinic Growth Masterclass for Rs. 999. Add high-converting order bumps to maximize your results." },
     ],
   }),
   component: OrderPage,
@@ -56,7 +56,7 @@ const BUMPS: readonly Bump[] = [
     id: "strategy",
     title: "Clinic Offer Workbook",
     shortTitle: "Clinic Offer Workbook",
-    price: 499,
+    price: 999,
     badge: "Best For Quick Wins",
     image: bumpWorkbookImg.url,
     description:
@@ -109,7 +109,7 @@ const PAYMENT_ACCOUNTS = {
 } as const;
 type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
-const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 499 };
+const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 
 function OrderPage() {
   const search = Route.useSearch();
@@ -176,7 +176,7 @@ function OrderPage() {
   const purchaseFiredRef = useRef(false);
 
   useEffect(() => {
-    fbqTrack("InitiateCheckout", { value: 499, currency: "PKR" });
+    fbqTrack("InitiateCheckout", { value: 999, currency: "PKR" });
   }, []);
 
   const items = useMemo(() => {
@@ -292,7 +292,7 @@ function OrderPage() {
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
       fbqTrack("Purchase", {
-        value: 499,
+        value: 999,
         currency: "PKR",
         content_name: "Clinic Growth Masterclass",
       });
