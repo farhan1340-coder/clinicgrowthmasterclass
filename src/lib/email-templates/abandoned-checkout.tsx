@@ -17,54 +17,97 @@ interface Props {
   name?: string
   checkoutUrl?: string
   sequenceNumber?: 1 | 2 | 3 | 4
-  trainingDate?: string
-  trainingTime?: string
 }
 
 const DEFAULTS = {
   checkoutUrl: 'https://www.zeroappleaday.site/order',
-  trainingDate: '12th July 2026 (Sunday)',
-  trainingTime: '5:00 PM – 8:00 PM (Pakistan Standard Time)',
 }
 
-type Copy = { headline: string; preview: string; intro: string; body: string; cta: string }
+type Copy = {
+  headline: string
+  preview: string
+  paragraphs: string[]
+  bullets?: string[]
+  closingParagraphs?: string[]
+  cta: string
+  signOff: string
+}
 
 const COPY: Record<1 | 2 | 3 | 4, Copy> = {
   1: {
-    headline: "You're Almost In 🎉",
-    preview: "Complete your Clinic Growth Masterclass registration",
-    intro:
-      "You opted in for the Clinic Growth Masterclass but your registration isn't complete yet.",
-    body:
-      "Your seat will only be confirmed once your payment is submitted. Tap the button below to complete the simple checkout — it only takes a minute.",
+    headline: 'You Were Just One Step Away',
+    preview: 'Your Clinic Growth Masterclass registration is still open',
+    paragraphs: [
+      'You were just one step away from registering for the Clinic Growth Masterclass… but your registration was not completed.',
+      'Maybe you got busy. Maybe you had a question. Or maybe you are still thinking:',
+      '“Is 999 PKR really worth it?”',
+      'But Doctor, the real question is:',
+      'Can you afford to keep depending only on referrals and random walk-ins for your clinic growth?',
+      'Inside this masterclass, you will learn how to attract more local patients using Meta Ads, Google Business Profile, content, and WhatsApp follow-up.',
+      'Your registration is still open for now.',
+    ],
     cta: 'Complete My Registration',
+    signOff: 'Regards,\nTeam Farhan Ali',
   },
   2: {
-    headline: 'Your Seat Is Still Waiting',
-    preview: 'Your Clinic Growth Masterclass seat is still open',
-    intro:
-      'We noticed you started the registration but did not finish payment. Your seat is still reserved for now.',
-    body:
-      'Seats are limited and we want to make sure you get yours. Tap below to complete your registration before someone else takes it.',
-    cta: 'Complete My Registration',
+    headline: 'A Respectful But Honest Question',
+    preview: 'Can you not invest even 999 PKR in your clinic’s growth?',
+    paragraphs: [
+      'A respectful but honest question, Doctor:',
+      'You want more patients for your clinic… but can you not invest even 999 PKR to learn a proper patient acquisition system?',
+      'Most practitioners spend years hoping that referrals, random Facebook posts, or occasional boosted ads will somehow bring consistent patients.',
+      'But hope is not a growth strategy.',
+      'The Clinic Growth Masterclass will show you a simple system to:',
+    ],
+    bullets: [
+      'Create an offer patients actually respond to',
+      'Build trust through content and personal branding',
+      'Get local patient inquiries through Meta Ads',
+      'Turn inquiries into bookings through WhatsApp',
+    ],
+    closingParagraphs: [
+      'One patient appointment can easily recover your 999 PKR investment.',
+    ],
+    cta: 'Register Now',
+    signOff: 'Regards,\nTeam Farhan Ali',
   },
   3: {
-    headline: 'Doctors Are Already Building Their Patient Acquisition System',
-    preview: 'Doctors are already enrolling — join them',
-    intro:
-      'Dozens of doctors have already enrolled in the Clinic Growth Masterclass and are getting ready to build their own patient acquisition system.',
-    body:
-      "Don't miss the chance to be in the room with them. Complete your registration now so you don't get left behind.",
+    headline: 'Let’s Look At This Practically',
+    preview: 'One new patient recovers your 999 PKR — many times over',
+    paragraphs: [
+      'Your registration is still incomplete.',
+      'Let’s look at this practically.',
+      'The Clinic Growth Masterclass costs only 999 PKR.',
+      'For most doctors, dentists, nutritionists, physiotherapists, and healthcare practitioners, even one new patient can recover that amount.',
+      'And what happens when you learn how to consistently generate inquiries instead of waiting for patients to find you?',
+      'That is exactly what this masterclass is designed to help you understand.',
+      'You will not just learn “how to run ads.” You will learn how to build a complete patient journey:',
+      'Offer → Ad/Content → WhatsApp Inquiry → Appointment',
+    ],
     cta: 'Complete My Registration',
+    signOff: 'Regards,\nTeam Farhan Ali',
   },
   4: {
     headline: 'Final Reminder ⏰',
-    preview: 'Final reminder — complete your registration before you miss out',
-    intro:
-      "This is the final reminder. Your registration for the Clinic Growth Masterclass is still incomplete.",
-    body:
-      "After this we won't follow up again — your reserved seat will be released. Tap below to lock in your spot right now.",
+    preview: 'Last reminder — registrations closing soon',
+    paragraphs: [
+      'This is the last reminder regarding your incomplete registration for the Clinic Growth Masterclass.',
+      'We are closing registrations soon so we can focus on the registered participants.',
+      'Inside, you will learn practical strategies to help your clinic:',
+    ],
+    bullets: [
+      'Get discovered by local patients',
+      'Build trust online',
+      'Create better healthcare offers',
+      'Generate inquiries through Meta Ads',
+      'Convert inquiries into appointments on WhatsApp',
+    ],
+    closingParagraphs: [
+      'At 999 PKR, this is one of the easiest investments you can make in your clinic’s growth.',
+      'Don’t stay stuck in the same cycle of inconsistent patients and unpredictable income.',
+    ],
     cta: 'Complete My Registration Now',
+    signOff: 'See you inside,\nTeam Farhan Ali',
   },
 }
 
@@ -72,8 +115,6 @@ const Email = ({
   name = 'Doctor',
   checkoutUrl = DEFAULTS.checkoutUrl,
   sequenceNumber = 1,
-  trainingDate = DEFAULTS.trainingDate,
-  trainingTime = DEFAULTS.trainingTime,
 }: Props) => {
   const c = COPY[sequenceNumber] ?? COPY[1]
   return (
@@ -83,33 +124,53 @@ const Email = ({
       <Body style={main}>
         <Container style={container}>
           <Heading style={h1}>{c.headline}</Heading>
-          <Text style={text}>Assalam-o-Alaikum {name},</Text>
-          <Text style={text}>{c.intro}</Text>
+          <Text style={text}>Hi {name},</Text>
 
-          <Section style={card}>
-            <Text style={cardHeader}>Live Masterclass Details:</Text>
-            <Text style={detail}>📅 <strong>Date:</strong> {trainingDate}</Text>
-            <Text style={detail}>⏰ <strong>Time:</strong> {trainingTime}</Text>
-            <Text style={detail}>📍 <strong>Location:</strong> Live Online Training</Text>
-          </Section>
+          {c.paragraphs.map((p, i) => (
+            <Text key={`p-${i}`} style={text}>
+              {p}
+            </Text>
+          ))}
 
-          <Text style={text}>{c.body}</Text>
+          {c.bullets && c.bullets.length > 0 && (
+            <Section style={bulletsBox}>
+              {c.bullets.map((b, i) => (
+                <Text key={`b-${i}`} style={bulletItem}>
+                  • {b}
+                </Text>
+              ))}
+            </Section>
+          )}
 
-          <Section style={{ textAlign: 'center', margin: '24px 0' }}>
-            <Button href={checkoutUrl} style={button}>{c.cta}</Button>
+          {c.closingParagraphs?.map((p, i) => (
+            <Text key={`cp-${i}`} style={text}>
+              {p}
+            </Text>
+          ))}
+
+          <Section style={{ textAlign: 'center', margin: '28px 0' }}>
+            <Button href={checkoutUrl} style={button}>
+              👉 {c.cta}
+            </Button>
           </Section>
 
           <Text style={smallText}>
-            Or copy this link into your browser:<br />
-            <a href={checkoutUrl} style={linkText}>{checkoutUrl}</a>
+            Or copy this link into your browser:
+            <br />
+            <a href={checkoutUrl} style={linkText}>
+              {checkoutUrl}
+            </a>
           </Text>
 
           <Hr style={hr} />
 
           <Text style={signature}>
-            Regards,<br />
-            <strong>Team Zero Apple A Day</strong><br />
-            Clinic Growth Masterclass
+            {c.signOff.split('\n').map((line, i, arr) => (
+              <React.Fragment key={i}>
+                {i === arr.length - 1 ? <strong>{line}</strong> : line}
+                {i < arr.length - 1 && <br />}
+              </React.Fragment>
+            ))}
           </Text>
         </Container>
       </Body>
@@ -121,29 +182,29 @@ const previewData = { name: 'Dr. Ahmed', checkoutUrl: DEFAULTS.checkoutUrl }
 
 export const template1 = {
   component: (props: Props) => <Email {...props} sequenceNumber={1} />,
-  subject: "You're Almost In — Complete Your Clinic Growth Masterclass Registration",
-  displayName: 'Abandoned Checkout #1 (5 min)',
+  subject: 'You Were Just One Step Away — Complete Your Registration (999 PKR)',
+  displayName: 'Abandoned Checkout #1 (immediately)',
   previewData,
 } satisfies TemplateEntry
 
 export const template2 = {
   component: (props: Props) => <Email {...props} sequenceNumber={2} />,
-  subject: 'Your Clinic Growth Masterclass Seat Is Still Waiting',
-  displayName: 'Abandoned Checkout #2 (1 hour)',
+  subject: 'Doctor, Can You Not Invest Even 999 PKR In Your Clinic Growth?',
+  displayName: 'Abandoned Checkout #2 (8 hours)',
   previewData,
 } satisfies TemplateEntry
 
 export const template3 = {
   component: (props: Props) => <Email {...props} sequenceNumber={3} />,
-  subject: 'Doctors Are Already Building Their Patient Acquisition System',
+  subject: 'One New Patient Recovers Your 999 PKR — Let’s Be Practical',
   displayName: 'Abandoned Checkout #3 (24 hours)',
   previewData,
 } satisfies TemplateEntry
 
 export const template4 = {
   component: (props: Props) => <Email {...props} sequenceNumber={4} />,
-  subject: 'Final Reminder — Complete Your Registration Before You Miss Out',
-  displayName: 'Abandoned Checkout #4 (48 hours)',
+  subject: 'Final Reminder — Registrations Closing Soon (999 PKR)',
+  displayName: 'Abandoned Checkout #4 (60 hours)',
   previewData,
 } satisfies TemplateEntry
 
@@ -152,18 +213,17 @@ export default Email
 const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
 const container = { padding: '24px', maxWidth: '600px' }
 const h1 = { fontSize: '26px', fontWeight: 'bold' as const, color: '#0f172a', margin: '0 0 20px' }
-const text = { fontSize: '15px', color: '#334155', lineHeight: '1.6', margin: '0 0 16px' }
+const text = { fontSize: '15px', color: '#334155', lineHeight: '1.6', margin: '0 0 14px' }
 const smallText = { fontSize: '13px', color: '#64748b', lineHeight: '1.5', margin: '12px 0' }
 const linkText = { color: '#16a34a', wordBreak: 'break-all' as const }
-const card = {
+const bulletsBox = {
   backgroundColor: '#f8fafc',
-  border: '2px solid #fbbf24',
+  border: '1px solid #e2e8f0',
   borderRadius: '10px',
-  padding: '20px',
-  margin: '20px 0',
+  padding: '16px 18px',
+  margin: '8px 0 18px',
 }
-const cardHeader = { fontSize: '15px', color: '#0f172a', margin: '0 0 12px', fontWeight: 'bold' as const }
-const detail = { fontSize: '15px', color: '#0f172a', lineHeight: '1.6', margin: '0 0 8px' }
+const bulletItem = { fontSize: '15px', color: '#0f172a', lineHeight: '1.6', margin: '0 0 6px' }
 const button = {
   backgroundColor: '#16a34a',
   color: '#ffffff',
