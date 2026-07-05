@@ -253,6 +253,13 @@ function Hero() {
                 Live on Zoom — Sunday, 12th July 2026.
               </p>
 
+              <div className="mt-3 inline-block rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-800">
+                ✅ Attend LIVE + Get 7-Day Replay Access
+              </div>
+              <p className="mt-2 text-xs text-slate-600 max-w-xs mx-auto">
+                Can't attend the full LIVE session? No problem. Every registered participant gets 7-day replay access.
+              </p>
+
               <InlineLeadForm />
 
               <div className="mt-4 flex items-center justify-center gap-2 text-xs text-muted-foreground">
