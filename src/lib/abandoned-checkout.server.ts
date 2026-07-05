@@ -6,12 +6,20 @@ import * as React from 'react'
 import { render } from 'react-email'
 import { TEMPLATES } from '@/lib/email-templates/registry'
 import { supabaseAdmin } from '@/integrations/supabase/client.server'
+import {
+  MASTERCLASS_DATE_ISO,
+  formatCohortDate,
+  formatCohortTime,
+  getCohortStartMs,
+} from '@/lib/cohort'
 
 const SITE_NAME = 'Clinic Growth Masterclass'
 const SENDER_DOMAIN = 'notify.zeroappleaday.site'
 const FROM_DOMAIN = 'zeroappleaday.site'
 const CHECKOUT_BASE = 'https://www.zeroappleaday.site/order'
 
+// Sequences 1-4 are relative delays from opt-in. Sequences 5-6 are
+// absolute times anchored to the cohort start (see computeCohortSlot).
 export const SEQUENCE_DELAYS_MS: Record<1 | 2 | 3 | 4, number> = {
   1: 1 * 60 * 1000, // ~immediately (1 minute)
   2: 8 * 60 * 60 * 1000, // 8 hours
@@ -19,9 +27,20 @@ export const SEQUENCE_DELAYS_MS: Record<1 | 2 | 3 | 4, number> = {
   4: 60 * 60 * 60 * 1000, // 60 hours
 }
 
+/** Deadline reminders: how many minutes BEFORE cohort start to send. */
+const COHORT_LEAD_MINUTES: Record<5 | 6, number> = {
+  5: 4 * 60, // 4 hours before
+  6: 1 * 60, // 1 hour before
+}
+
+function computeCohortSlot(seq: 5 | 6): Date {
+  return new Date(getCohortStartMs() - COHORT_LEAD_MINUTES[seq] * 60_000)
+}
+
 function templateNameFor(seq: number) {
   return `abandoned-checkout-${seq}`
 }
+
 
 function generateToken(): string {
   const bytes = new Uint8Array(32)
