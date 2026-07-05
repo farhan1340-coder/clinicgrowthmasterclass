@@ -13,10 +13,10 @@ const FROM_DOMAIN = 'zeroappleaday.site'
 const CHECKOUT_BASE = 'https://www.zeroappleaday.site/order'
 
 export const SEQUENCE_DELAYS_MS: Record<1 | 2 | 3 | 4, number> = {
-  1: 5 * 60 * 1000, // 5 minutes
-  2: 60 * 60 * 1000, // 1 hour
+  1: 1 * 60 * 1000, // ~immediately (1 minute)
+  2: 8 * 60 * 60 * 1000, // 8 hours
   3: 24 * 60 * 60 * 1000, // 24 hours
-  4: 48 * 60 * 60 * 1000, // 48 hours
+  4: 60 * 60 * 60 * 1000, // 60 hours
 }
 
 function templateNameFor(seq: number) {
