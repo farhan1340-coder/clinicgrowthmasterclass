@@ -1,0 +1,2 @@
+ALTER TABLE public.abandoned_checkout_email_queue DROP CONSTRAINT abandoned_checkout_email_queue_sequence_number_check;
+ALTER TABLE public.abandoned_checkout_email_queue ADD CONSTRAINT abandoned_checkout_email_queue_sequence_number_check CHECK (sequence_number >= 1 AND sequence_number <= 6);
