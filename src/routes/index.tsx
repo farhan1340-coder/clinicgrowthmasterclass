@@ -65,13 +65,21 @@ function LandingPage() {
       <SocialProofBar />
 
       <WhatIsItSection />
+      <IsThisForYouSection />
       <WebsiteGiveawaySection />
       <BonusesSection />
+      <NotTechnicalSection />
+      <BudgetSection />
       <HowItWorks />
-      
+      <NotGenericSection />
       <ProofGallery />
+      <CredibilitySection />
       <WhoFor />
+      <LiveReplayAccessSection />
       <TrainerSection />
+      <WhatYoullLeaveWithSection />
+      <SupportSection />
+      <TransparencySection />
       <GuaranteeSection />
       <FAQSection />
       <FinalCta />
