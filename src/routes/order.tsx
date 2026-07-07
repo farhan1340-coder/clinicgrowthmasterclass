@@ -478,6 +478,8 @@ function OrderPage() {
 
 
 
+            <BeforeYouRegisterBox />
+
             {/* Payment Method */}
             <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h2 className="text-base font-black text-slate-900 mb-1 flex items-center gap-2">
