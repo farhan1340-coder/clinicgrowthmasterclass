@@ -9,6 +9,7 @@ import { Lock, ShieldCheck, ArrowRight, ChevronDown, CreditCard, Upload, ImageIc
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
+import { BeforeYouRegisterBox, CheckoutFAQ } from "@/components/site/ObjectionSections";
 
 type OrderSearch = {
   name?: string;
