@@ -560,6 +560,8 @@ function OrderPage() {
               )}
             </section>
 
+            <CheckoutFAQ />
+
             {/* Mobile submit inline (desktop uses sticky sidebar) */}
             <div className="lg:hidden">
               <SubmitButton submitting={submitting} total={total} />
