@@ -23,6 +23,17 @@ import {
 import farhanInstructor from "@/assets/farhan-instructor.jpeg.asset.json";
 import doctorBeforeAfter from "@/assets/doctor-before-after.png.asset.json";
 import { MasterclassCountdown } from "@/components/site/MasterclassCountdown";
+import {
+  IsThisForYouSection,
+  WhatYoullLeaveWithSection,
+  NotTechnicalSection,
+  BudgetSection,
+  CredibilitySection,
+  LiveReplayAccessSection,
+  NotGenericSection,
+  SupportSection,
+  TransparencySection,
+} from "@/components/site/ObjectionSections";
 
 export const Route = createFileRoute("/")({
   head: () => ({
