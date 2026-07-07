@@ -9,6 +9,7 @@ import { Lock, ShieldCheck, ArrowRight, ChevronDown, CreditCard, Upload, ImageIc
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
+import { BeforeYouRegisterBox, CheckoutFAQ } from "@/components/site/ObjectionSections";
 
 type OrderSearch = {
   name?: string;
@@ -477,6 +478,8 @@ function OrderPage() {
 
 
 
+            <BeforeYouRegisterBox />
+
             {/* Payment Method */}
             <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
               <h2 className="text-base font-black text-slate-900 mb-1 flex items-center gap-2">
@@ -556,6 +559,8 @@ function OrderPage() {
                 <p className="mt-3 text-xs font-semibold text-red-600">{uploadError}</p>
               )}
             </section>
+
+            <CheckoutFAQ />
 
             {/* Mobile submit inline (desktop uses sticky sidebar) */}
             <div className="lg:hidden">
