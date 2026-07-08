@@ -5,7 +5,7 @@ import bumpPromptsImg from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Footer } from "@/components/site/Footer";
 import { PROOFS } from "@/components/site/ProofGallery";
-import { Lock, ShieldCheck, ArrowRight, ChevronDown, CreditCard, Upload, ImageIcon, Check, Gift } from "lucide-react";
+import { Lock, ShieldCheck, ArrowRight, ChevronDown, CreditCard, Upload, ImageIcon, Check, Gift, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
