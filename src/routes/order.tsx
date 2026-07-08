@@ -337,33 +337,6 @@ function OrderPage() {
         <div className="mx-auto max-w-6xl grid lg:grid-cols-5 gap-6">
           {/* LEFT */}
           <form className="lg:col-span-3 space-y-5 min-w-0" onSubmit={handleSubmit}>
-            {/* Here's What You'll Get */}
-            <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Gift className="size-5 text-orange-500" />
-                <h2 className="text-base font-black text-slate-900">Here's What You'll Get</h2>
-              </div>
-              <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
-                {INCLUDED_ITEMS.map((it) => (
-                  <li
-                    key={it.label}
-                    className={`flex items-start gap-2 text-sm ${
-                      it.highlight
-                        ? "text-orange-700 font-black bg-orange-50 border border-orange-200 rounded-lg px-2 py-1.5"
-                        : "text-slate-700"
-                    }`}
-                  >
-                    <span className={`mt-0.5 shrink-0 grid place-items-center size-5 rounded-full text-white ${
-                      it.highlight ? "bg-orange-500" : "bg-emerald-500"
-                    }`}>
-                      <Check className="size-3.5" strokeWidth={3} />
-                    </span>
-                    <span className={it.highlight ? "font-black" : "font-semibold"}>{it.label}</span>
-                  </li>
-                ))}
-              </ul>
-
-            </section>
 
             {/* Your Order */}
             <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
