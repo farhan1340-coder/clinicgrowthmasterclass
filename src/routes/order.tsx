@@ -459,22 +459,6 @@ function OrderPage() {
             </section>
             )}
 
-            {/* Live + Replay reassurance */}
-            <section className="rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-5 sm:p-6">
-              <div className="flex items-start gap-3">
-                <div className="shrink-0 size-9 rounded-full bg-emerald-500 grid place-items-center text-white">
-                  <Check className="size-5" strokeWidth={3} />
-                </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-black text-emerald-800 uppercase tracking-wide">
-                    Attend LIVE + Get 7-Day Replay Access
-                  </h3>
-                  <p className="mt-1 text-xs sm:text-sm text-emerald-900/80 leading-relaxed">
-                    Can't attend the full LIVE session? No problem. Every registered participant gets 7-day replay access.
-                  </p>
-                </div>
-              </div>
-            </section>
 
 
 
