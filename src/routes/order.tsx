@@ -482,12 +482,11 @@ function OrderPage() {
                 <ShieldCheck className="size-5 text-sky-600" />
                 <h2 className="text-base font-black text-slate-900">Before You Pay</h2>
               </div>
-              <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
+              <ul className="space-y-2.5">
                 {[
-                  "Attend LIVE + get 7-day replay access",
-                  "Secure payment",
-                  "Submit screenshot after payment to confirm registration",
-                  "WhatsApp group access after confirmation",
+                  "Pay securely through Easypaisa",
+                  "Upload payment screenshot after payment",
+                  "Your registration will be confirmed manually and WhatsApp group access will be shared",
                 ].map((it) => (
                   <li key={it} className="flex items-start gap-2 text-sm text-slate-700">
                     <span className="mt-0.5 shrink-0 grid place-items-center size-5 rounded-full bg-emerald-500 text-white">
