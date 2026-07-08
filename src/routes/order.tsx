@@ -612,9 +612,8 @@ function OrderPage() {
                     <span className="text-2xl font-black text-emerald-600">Rs. {total.toLocaleString()}</span>
                   </div>
 
-                  <div className="mt-3 rounded-lg bg-emerald-50 border border-emerald-200 px-3 py-2 text-[11px] sm:text-xs font-bold text-emerald-800 text-center">
-                    ✅ Attend LIVE + Get 7-Day Replay Access
-                  </div>
+
+
 
                   {/* Desktop submit (form submit via native form pairing) */}
                   <div className="hidden lg:block mt-5">
