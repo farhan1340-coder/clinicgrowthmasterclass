@@ -584,8 +584,9 @@ function OrderPage() {
             </div>
           </aside>
         </div>
+      </main>
 
-      {/* Here's What You'll Get — moved below money-back guarantee */}
+
       <section className="bg-white pb-10 pt-2 px-4">
         <div className="mx-auto max-w-3xl">
           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
