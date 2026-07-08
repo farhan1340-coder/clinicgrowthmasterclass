@@ -645,6 +645,12 @@ function OrderPage() {
         </div>
       </section>
 
+      <section className="bg-white pb-16 px-4">
+        <div className="mx-auto max-w-3xl">
+          <CheckoutFAQ />
+        </div>
+      </section>
+
       <Footer />
     </div>
   );
