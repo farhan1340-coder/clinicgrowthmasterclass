@@ -584,7 +584,38 @@ function OrderPage() {
             </div>
           </aside>
         </div>
-      </main>
+
+      {/* Here's What You'll Get — moved below money-back guarantee */}
+      <section className="bg-white pb-10 pt-2 px-4">
+        <div className="mx-auto max-w-3xl">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Gift className="size-5 text-orange-500" />
+              <h2 className="text-base font-black text-slate-900">Here's What You'll Get</h2>
+            </div>
+            <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
+              {INCLUDED_ITEMS.map((it) => (
+                <li
+                  key={it.label}
+                  className={`flex items-start gap-2 text-sm ${
+                    it.highlight
+                      ? "text-orange-700 font-black bg-orange-50 border border-orange-200 rounded-lg px-2 py-1.5"
+                      : "text-slate-700"
+                  }`}
+                >
+                  <span className={`mt-0.5 shrink-0 grid place-items-center size-5 rounded-full text-white ${
+                    it.highlight ? "bg-orange-500" : "bg-emerald-500"
+                  }`}>
+                    <Check className="size-3.5" strokeWidth={3} />
+                  </span>
+                  <span className={it.highlight ? "font-black" : "font-semibold"}>{it.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
 
       {/* Reused sales-page testimonials */}
       <section className="bg-sky-50 pb-16 pt-4 px-4">
