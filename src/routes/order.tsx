@@ -5,7 +5,7 @@ import bumpPromptsImg from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Footer } from "@/components/site/Footer";
 import { PROOFS } from "@/components/site/ProofGallery";
-import { Lock, ShieldCheck, ArrowRight, ChevronDown, CreditCard, Upload, ImageIcon, Check, Gift } from "lucide-react";
+import { Lock, ShieldCheck, ArrowRight, ChevronDown, CreditCard, Upload, ImageIcon, Check, Gift, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { fbqTrack } from "@/lib/fbpixel";
 import { createScreenshotSignedUrl } from "@/lib/payment-screenshot.functions";
@@ -476,9 +476,28 @@ function OrderPage() {
               </div>
             </section>
 
-
-
-            <BeforeYouRegisterBox />
+            {/* Before You Pay — short reassurance */}
+            <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <ShieldCheck className="size-5 text-sky-600" />
+                <h2 className="text-base font-black text-slate-900">Before You Pay</h2>
+              </div>
+              <ul className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
+                {[
+                  "Attend LIVE + get 7-day replay access",
+                  "Secure payment",
+                  "Submit screenshot after payment to confirm registration",
+                  "WhatsApp group access after confirmation",
+                ].map((it) => (
+                  <li key={it} className="flex items-start gap-2 text-sm text-slate-700">
+                    <span className="mt-0.5 shrink-0 grid place-items-center size-5 rounded-full bg-emerald-500 text-white">
+                      <CheckCircle2 className="size-3.5" strokeWidth={3} />
+                    </span>
+                    <span className="font-semibold">{it}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
             {/* Payment Method */}
             <section className="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-6">
