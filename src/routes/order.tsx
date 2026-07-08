@@ -543,7 +543,7 @@ function OrderPage() {
               )}
             </section>
 
-            <CheckoutFAQ />
+            
 
             {/* Mobile submit inline (desktop uses sticky sidebar) */}
             <div className="lg:hidden">
@@ -642,6 +642,12 @@ function OrderPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-white pb-16 px-4">
+        <div className="mx-auto max-w-3xl">
+          <CheckoutFAQ />
         </div>
       </section>
 
