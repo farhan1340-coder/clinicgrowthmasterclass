@@ -32,7 +32,7 @@ import {
   LiveReplayAccessSection,
   NotGenericSection,
   SupportSection,
-  TransparencySection,
+  
 } from "@/components/site/ObjectionSections";
 
 export const Route = createFileRoute("/")({
@@ -79,7 +79,7 @@ function LandingPage() {
       <TrainerSection />
       <WhatYoullLeaveWithSection />
       <SupportSection />
-      <TransparencySection />
+      
       <GuaranteeSection />
       <FAQSection />
       <FinalCta />
