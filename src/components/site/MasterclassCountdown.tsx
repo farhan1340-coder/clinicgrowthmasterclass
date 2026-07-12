@@ -58,8 +58,8 @@ export function MasterclassCountdown({
           <Calendar className="size-4 sm:size-5 text-yellow-300 shrink-0" />
           <span>
             Live Masterclass:{" "}
-            <span className="gradient-highlight">12th (Sun) July</span> at{" "}
-            <span className="gradient-highlight">5 PM – 8 PM</span> Pakistan Standard Time
+            <span className="gradient-highlight">26th (Sun) July</span> at{" "}
+            <span className="gradient-highlight">5:30 PM – 8 PM</span> Pakistan Standard Time
           </span>
         </div>
       )}

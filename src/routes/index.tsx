@@ -272,7 +272,7 @@ function Hero() {
 
               <p className="mt-4 text-sm">
                 Get Your Seat For just <span className="font-bold">Rs. 999!</span><br />
-                Live on Zoom — Sunday, 12th July 2026.
+                Live on Zoom — Sunday, 26th July 2026.
               </p>
 
               <div className="mt-3 inline-block rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-800">
@@ -655,7 +655,7 @@ function BonusesSection() {
 function HowItWorks() {
   const steps = [
     { icon: Calendar, title: "Step 1 — Reserve Your Seat", text: "Lock in your Rs. 999 spot and get the Zoom link instantly in your email." },
-    { icon: Stethoscope, title: "Step 2 — Attend Live on Zoom", text: "Join the 3-hour deep-dive on Sunday, 12th July 2026 — interactive and personal." },
+    { icon: Stethoscope, title: "Step 2 — Attend Live on Zoom", text: "Join the 2.5-hour deep-dive on Sunday, 26th July 2026 — interactive and personal." },
     { icon: TrendingUp, title: "Step 3 — Get 20–25 New Patients/Week", text: "Implement the system the same week and watch your appointment book fill up." },
   ];
   return (
@@ -916,7 +916,7 @@ function GuaranteeSection() {
 
             {/* CTA */}
             <div className="mt-8 max-w-md mx-auto">
-              <CtaButton subtitle="Only Rs. 999 — Live on Sunday, 12th July">
+              <CtaButton subtitle="Only Rs. 999 — Live on Sunday, 26th July">
                 Join Clinic Growth Masterclass Risk-Free →
               </CtaButton>
               <p className="mt-3 text-center text-xs md:text-sm text-muted-foreground font-medium">
@@ -949,7 +949,7 @@ function FAQSection() {
     },
     {
       q: "4. When is the masterclass?",
-      a: "Sunday, 12th July 2026 — from 5:00 PM to 8:00 PM (PKT). Block your calendar now.",
+      a: "Sunday, 26th July 2026 — from 5:30 PM to 8:00 PM (PKT). Block your calendar now.",
     },
     {
       q: "5. Is this only for Pakistani doctors?",

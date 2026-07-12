@@ -6,12 +6,12 @@
 // MASTERCLASS_DATE_ISO to the new session start (in UTC) and update the
 // label to the new human-readable date.
 //
-// e.g. 12th July 2026, 5:00 PM PKT => 2026-07-12T12:00:00Z
+// e.g. 26th July 2026, 5:30 PM PKT => 2026-07-26T12:30:00Z
 
-export const MASTERCLASS_DATE_ISO = "2026-07-12T12:00:00Z";
+export const MASTERCLASS_DATE_ISO = "2026-07-26T12:30:00Z";
 
 export const MASTERCLASS_DATE_LABEL =
-  "Live Masterclass: 12th (Sun) July at 5 PM – 8 PM Pakistan Standard Time";
+  "Live Masterclass: 26th (Sun) July at 5:30 PM – 8 PM Pakistan Standard Time";
 
 export const COHORT_TIMEZONE = "Asia/Karachi";
 
