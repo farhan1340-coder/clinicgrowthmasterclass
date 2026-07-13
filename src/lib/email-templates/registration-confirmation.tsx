@@ -23,7 +23,7 @@ interface Props {
 const DEFAULTS = {
   trainingDate: '26th July 2026 (Sunday)',
   trainingTime: '5:30 PM – 8:00 PM (Pakistan Standard Time)',
-  whatsappUrl: 'https://chat.whatsapp.com/D5RErdi4ZnhJGNOOEK37c6',
+  whatsappUrl: 'https://chat.whatsapp.com/DhlRVO5yfviAusaRw7bKCT',
 }
 
 const Email = ({
