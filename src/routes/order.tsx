@@ -42,52 +42,67 @@ export const Route = createFileRoute("/order")({
 });
 
 type Bump = {
-  id: "strategy" | "prompts";
+  id: "prompts" | "clinic-os";
   title: string;
   shortTitle: string;
   price: number;
   badge: string;
   image: string;
+  headline: string;
   description: string;
   checklist: string[];
+  cta: string;
+  supporting: string;
 };
 
 const BUMPS: readonly Bump[] = [
   {
-    id: "strategy",
-    title: "Clinic Offer Workbook",
-    shortTitle: "Clinic Offer Workbook",
-    price: 999,
-    badge: "Best For Quick Wins",
-    image: bumpWorkbookImg.url,
-    description:
-      "Build an irresistible clinic offer that patients actually want to book — stand out from competitors and increase appointment bookings.",
-    checklist: [
-      "The Clinic Offer Formula",
-      "High-Converting Offer Templates",
-      "Value Stack Worksheet",
-      "Pricing & Positioning Framework",
-      "Fill-in-the-Blank Workbook",
-      "Real Healthcare Examples",
-    ],
-  },
-  {
     id: "prompts",
-    title: "AI Content Prompt Vault for Doctors",
+    title: "AI Prompt Vault for Doctors & Clinics",
     shortTitle: "AI Prompt Vault",
     price: 699,
-    badge: "Special Offer",
+    badge: "Most Popular Add-On",
     image: bumpPromptsImg.url,
+    headline: "Create Better Ads, Content and Marketing Copy in Minutes Using Ready-to-Use AI Prompts",
     description:
-      "Ready-to-use AI prompts for social posts, patient education, and lead generation — save hours every week.",
+      "A ready-made collection of powerful AI prompts designed specifically for doctors, clinics and healthcare professionals. Use with ChatGPT to quickly create:",
     checklist: [
-      "100+ Doctor-Specific Prompts",
-      "Social Media Post Templates",
-      "Patient Education Scripts",
-      "Lead Generation Prompts",
-      "Ad Copy & Hooks Library",
-      "Plug-and-Play Format",
+      "Meta ad copy and video scripts",
+      "Social media posts and captions",
+      "Patient education content",
+      "WhatsApp promotional messages",
+      "Clinic offers and campaign ideas",
+      "Website and landing-page copy",
     ],
+    cta: "Yes, Add the AI Prompt Vault for PKR 699",
+    supporting:
+      "Save hours of brainstorming and stop starting every marketing task from a blank screen.",
+  },
+  {
+    id: "clinic-os",
+    title: "Clinic Growth OS — AI Marketing Assistant for Doctors",
+    shortTitle: "Clinic Growth OS AI GPT",
+    price: 1395,
+    badge: "Premium Upgrade",
+    image: bumpWorkbookImg.url,
+    headline: "Your Personal AI Clinic-Growth Consultant — Available Whenever You Need It",
+    description:
+      "A specialized AI-powered GPT built for doctors and clinic owners. Unlike generic ChatGPT, it understands clinic marketing and guides you through practical growth activities:",
+    checklist: [
+      "Audit your Google Business Profile & find missing optimizations",
+      "Create an irresistible low-ticket offer patients book",
+      "Develop high-ticket treatment & service offers",
+      "Identify ideal patient personas for specific treatments",
+      "Generate Meta ad angles, hooks, scripts and copy",
+      "Create clinic social-media content ideas",
+      "Improve your website & patient-acquisition funnel",
+      "Plan WhatsApp follow-up messages for leads",
+      "Build a clearer Patient Acquisition Machine",
+      "Turn services into more attractive, understandable offers",
+    ],
+    cta: "Yes, Add Clinic Growth OS for PKR 1,395",
+    supporting:
+      "An interactive AI clinic-growth assistant that asks the right questions, audits your situation and generates customized recommendations for your clinic, specialty and patients.",
   },
 ] as const;
 
@@ -112,9 +127,8 @@ type PayMethod = keyof typeof PAYMENT_ACCOUNTS;
 
 const MAIN_PRODUCT = { title: "Clinic Growth Masterclass", price: 999 };
 
-// TEMPORARY: hide both order bumps for a 7-day checkout conversion test.
-// Set back to `true` to restore both order bumps unchanged.
-const SHOW_ORDER_BUMPS = false;
+const SHOW_ORDER_BUMPS = true;
+
 
 function OrderPage() {
   const search = Route.useSearch();
@@ -299,7 +313,7 @@ function OrderPage() {
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
       fbqTrack("Purchase", {
-        value: 999,
+        value: total,
         currency: "PKR",
         content_name: "Clinic Growth Masterclass",
       });
@@ -407,6 +421,12 @@ function OrderPage() {
                             }`}>{b.badge}</span>
                           </div>
                           <p
+                            className="mt-2 text-sm font-bold text-slate-900 leading-snug min-w-0 max-w-full break-words"
+                            style={{ overflowWrap: "anywhere" }}
+                          >
+                            {b.headline}
+                          </p>
+                          <p
                             className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full break-words"
                             style={{ overflowWrap: "anywhere" }}
                           >
@@ -420,9 +440,28 @@ function OrderPage() {
                               </li>
                             ))}
                           </ul>
-                          <div className="mt-3 text-lg sm:text-xl font-black text-orange-600">
-                            + Rs. {b.price.toLocaleString()}
+                          <div className="mt-3 flex items-baseline gap-2 flex-wrap">
+                            <span className="text-lg sm:text-xl font-black text-orange-600">
+                              + Rs. {b.price.toLocaleString()}
+                            </span>
+                            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                              One-time add-on
+                            </span>
                           </div>
+                          <div className={`mt-3 rounded-lg px-3 py-2 text-xs sm:text-sm font-extrabold text-center border-2 border-dashed transition ${
+                            checked
+                              ? "bg-orange-500 text-white border-orange-500"
+                              : "bg-orange-50 text-orange-700 border-orange-300"
+                          }`}>
+                            {checked ? "✓ Added to My Order" : b.cta}
+                          </div>
+                          <p className="mt-2 text-[11px] sm:text-xs text-slate-500 italic leading-snug">
+                            {b.supporting}
+                          </p>
+                          <p className="mt-2 text-[11px] text-slate-500">
+                            Access will be provided after payment verification.
+                          </p>
+
                         </div>
                       </div>
                     </label>
