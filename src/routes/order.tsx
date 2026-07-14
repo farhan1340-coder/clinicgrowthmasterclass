@@ -313,7 +313,7 @@ function OrderPage() {
     if (!purchaseFiredRef.current) {
       purchaseFiredRef.current = true;
       fbqTrack("Purchase", {
-        value: 999,
+        value: total,
         currency: "PKR",
         content_name: "Clinic Growth Masterclass",
       });
