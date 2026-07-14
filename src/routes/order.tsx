@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import productStack from "@/assets/product-stack.png.asset.json";
-import clinicOsImg from "@/assets/clinic-growth-os.png.asset.json";
+
 import bumpPromptsImg from "@/assets/bump-prompts.png.asset.json";
 import { useMemo, useState, useEffect, useRef } from "react";
 import { Footer } from "@/components/site/Footer";
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/order")({
 });
 
 type Bump = {
-  id: "prompts" | "clinic-os";
+  id: "prompts";
   title: string;
   shortTitle: string;
   price: number;
@@ -63,17 +63,6 @@ const BUMPS: readonly Bump[] = [
     checkboxHeadline: "Yes! Add the AI Prompt Vault to My Order",
     description:
       "Create clinic ads, video scripts, social posts, WhatsApp messages and website copy in minutes using ready-to-use AI prompts designed for doctors.",
-  },
-  {
-    id: "clinic-os",
-    title: "Clinic Growth OS — AI Marketing Assistant for Doctors",
-    shortTitle: "Clinic Growth OS AI GPT",
-    price: 1395,
-    badge: "AI Growth Assistant for Doctors",
-    image: clinicOsImg.url,
-    checkboxHeadline: "Yes! Add Clinic Growth OS to My Order",
-    description:
-      "Audit your Google Business Profile, create irresistible clinic offers and get customized ideas for ads, content and patient acquisition using a specialized AI GPT for doctors.",
   },
 ] as const;
 
