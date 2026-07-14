@@ -355,87 +355,69 @@ function OrderPage() {
                           : "border-slate-200 border-solid hover:border-slate-300 bg-white"
                       }`}
                     >
-                      <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4 w-full min-w-0 max-w-full">
-                        <div className="w-full sm:w-28 max-w-full shrink-0 min-w-0">
+                      <div className="flex flex-col gap-3 w-full min-w-0 max-w-full">
+                        {/* Checkbox + headline */}
+                        <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 items-start w-full min-w-0 max-w-full">
+                          <div className="mt-0.5">
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={(e) => setBumps((s) => ({ ...s, [b.id]: e.target.checked }))}
+                              className="sr-only peer"
+                            />
+                            <span className={`grid place-items-center size-5 rounded border-2 transition ${
+                              checked ? "bg-orange-500 border-orange-500 text-white" : "bg-white border-slate-300"
+                            }`}>
+                              {checked && <Check className="size-3.5" strokeWidth={3} />}
+                            </span>
+                          </div>
+                          <span
+                            className="text-sm sm:text-base font-black text-slate-900 leading-snug min-w-0 max-w-full whitespace-normal break-words"
+                            style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
+                          >
+                            {b.checkboxHeadline}
+                          </span>
+                        </div>
+
+                        {/* Badge */}
+                        <div>
+                          <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full max-w-full break-words ${
+                            checked ? "bg-orange-500 text-white" : "bg-amber-100 text-amber-800"
+                          }`}>{b.badge}</span>
+                        </div>
+
+                        {/* Short description */}
+                        <p
+                          className="text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full break-words"
+                          style={{ overflowWrap: "anywhere" }}
+                        >
+                          {b.description}
+                        </p>
+
+                        {/* Thumbnail */}
+                        <div className="w-24 sm:w-28 shrink-0">
                           <img
                             src={b.image}
                             alt={b.title}
                             loading="lazy"
-                            className="block w-full max-w-full h-auto sm:h-24 sm:object-cover object-contain rounded-lg border border-slate-200 bg-slate-50"
+                            className="block w-full h-auto rounded-lg border border-slate-200 bg-slate-50"
                           />
                         </div>
-                        <div className="flex-1 min-w-0 max-w-full w-full">
-                          <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2 items-start w-full min-w-0 max-w-full">
-                            <div className="mt-0.5">
-                              <input
-                                type="checkbox"
-                                checked={checked}
-                                onChange={(e) => setBumps((s) => ({ ...s, [b.id]: e.target.checked }))}
-                                className="sr-only peer"
-                              />
-                              <span className={`grid place-items-center size-5 rounded border-2 transition ${
-                                checked ? "bg-orange-500 border-orange-500 text-white" : "bg-white border-slate-300"
-                              }`}>
-                                {checked && <Check className="size-3.5" strokeWidth={3} />}
-                              </span>
-                            </div>
-                            <span
-                              className="text-sm font-black text-slate-900 leading-snug min-w-0 max-w-full whitespace-normal break-words"
-                              style={{ overflowWrap: "anywhere", wordBreak: "break-word" }}
-                            >
-                              {b.title}
-                            </span>
-                          </div>
-                          <div className="mt-2">
-                            <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full max-w-full break-words ${
-                              checked ? "bg-orange-500 text-white" : "bg-amber-100 text-amber-800"
-                            }`}>{b.badge}</span>
-                          </div>
-                          <p
-                            className="mt-2 text-sm font-bold text-slate-900 leading-snug min-w-0 max-w-full break-words"
-                            style={{ overflowWrap: "anywhere" }}
-                          >
-                            {b.headline}
-                          </p>
-                          <p
-                            className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full break-words"
-                            style={{ overflowWrap: "anywhere" }}
-                          >
-                            {b.description}
-                          </p>
-                          <ul className="mt-2 space-y-1">
-                            {b.checklist.map((item) => (
-                              <li key={item} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 min-w-0 max-w-full break-words" style={{ overflowWrap: "anywhere" }}>
-                                <Check className="size-4 shrink-0 text-green-600 mt-0.5" strokeWidth={3} />
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="mt-3 flex items-baseline gap-2 flex-wrap">
-                            <span className="text-lg sm:text-xl font-black text-orange-600">
-                              + Rs. {b.price.toLocaleString()}
-                            </span>
-                            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                              One-time add-on
-                            </span>
-                          </div>
-                          <div className={`mt-3 rounded-lg px-3 py-2 text-xs sm:text-sm font-extrabold text-center border-2 border-dashed transition ${
-                            checked
-                              ? "bg-orange-500 text-white border-orange-500"
-                              : "bg-orange-50 text-orange-700 border-orange-300"
-                          }`}>
-                            {checked ? "✓ Added to My Order" : b.cta}
-                          </div>
-                          <p className="mt-2 text-[11px] sm:text-xs text-slate-500 italic leading-snug">
-                            {b.supporting}
-                          </p>
-                          <p className="mt-2 text-[11px] text-slate-500">
-                            Access will be provided after payment verification.
-                          </p>
 
+                        {/* Price */}
+                        <div className="flex items-baseline gap-2 flex-wrap">
+                          <span className="text-lg sm:text-xl font-black text-orange-600">
+                            Add for PKR {b.price.toLocaleString()}
+                          </span>
+                          {checked && (
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-orange-600">
+                              ✓ Added
+                            </span>
+                          )}
                         </div>
                       </div>
                     </label>
+
                   );
                 })}
               </div>
