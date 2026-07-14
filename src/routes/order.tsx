@@ -48,11 +48,8 @@ type Bump = {
   price: number;
   badge: string;
   image: string;
-  headline: string;
+  checkboxHeadline: string;
   description: string;
-  checklist: string[];
-  cta: string;
-  supporting: string;
 };
 
 const BUMPS: readonly Bump[] = [
@@ -61,48 +58,22 @@ const BUMPS: readonly Bump[] = [
     title: "AI Prompt Vault for Doctors & Clinics",
     shortTitle: "AI Prompt Vault",
     price: 699,
-    badge: "Most Popular Add-On",
+    badge: "Recommended Add-On",
     image: bumpPromptsImg.url,
-    headline: "Create Better Ads, Content and Marketing Copy in Minutes Using Ready-to-Use AI Prompts",
+    checkboxHeadline: "Yes! Add the AI Prompt Vault to My Order",
     description:
-      "A ready-made collection of powerful AI prompts designed specifically for doctors, clinics and healthcare professionals. Use with ChatGPT to quickly create:",
-    checklist: [
-      "Meta ad copy and video scripts",
-      "Social media posts and captions",
-      "Patient education content",
-      "WhatsApp promotional messages",
-      "Clinic offers and campaign ideas",
-      "Website and landing-page copy",
-    ],
-    cta: "Yes, Add the AI Prompt Vault for PKR 699",
-    supporting:
-      "Save hours of brainstorming and stop starting every marketing task from a blank screen.",
+      "Create clinic ads, video scripts, social posts, WhatsApp messages and website copy in minutes using ready-to-use AI prompts designed for doctors.",
   },
   {
     id: "clinic-os",
     title: "Clinic Growth OS — AI Marketing Assistant for Doctors",
     shortTitle: "Clinic Growth OS AI GPT",
     price: 1395,
-    badge: "Premium Upgrade",
-    image: bumpWorkbookImg.url,
-    headline: "Your Personal AI Clinic-Growth Consultant — Available Whenever You Need It",
+    badge: "AI Growth Assistant for Doctors",
+    image: clinicOsImg.url,
+    checkboxHeadline: "Yes! Add Clinic Growth OS to My Order",
     description:
-      "A specialized AI-powered GPT built for doctors and clinic owners. Unlike generic ChatGPT, it understands clinic marketing and guides you through practical growth activities:",
-    checklist: [
-      "Audit your Google Business Profile & find missing optimizations",
-      "Create an irresistible low-ticket offer patients book",
-      "Develop high-ticket treatment & service offers",
-      "Identify ideal patient personas for specific treatments",
-      "Generate Meta ad angles, hooks, scripts and copy",
-      "Create clinic social-media content ideas",
-      "Improve your website & patient-acquisition funnel",
-      "Plan WhatsApp follow-up messages for leads",
-      "Build a clearer Patient Acquisition Machine",
-      "Turn services into more attractive, understandable offers",
-    ],
-    cta: "Yes, Add Clinic Growth OS for PKR 1,395",
-    supporting:
-      "An interactive AI clinic-growth assistant that asks the right questions, audits your situation and generates customized recommendations for your clinic, specialty and patients.",
+      "Audit your Google Business Profile, create irresistible clinic offers and get customized ideas for ads, content and patient acquisition using a specialized AI GPT for doctors.",
   },
 ] as const;
 
