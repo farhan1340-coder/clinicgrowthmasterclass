@@ -421,6 +421,12 @@ function OrderPage() {
                             }`}>{b.badge}</span>
                           </div>
                           <p
+                            className="mt-2 text-sm font-bold text-slate-900 leading-snug min-w-0 max-w-full break-words"
+                            style={{ overflowWrap: "anywhere" }}
+                          >
+                            {b.headline}
+                          </p>
+                          <p
                             className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed min-w-0 max-w-full break-words"
                             style={{ overflowWrap: "anywhere" }}
                           >
@@ -434,9 +440,28 @@ function OrderPage() {
                               </li>
                             ))}
                           </ul>
-                          <div className="mt-3 text-lg sm:text-xl font-black text-orange-600">
-                            + Rs. {b.price.toLocaleString()}
+                          <div className="mt-3 flex items-baseline gap-2 flex-wrap">
+                            <span className="text-lg sm:text-xl font-black text-orange-600">
+                              + Rs. {b.price.toLocaleString()}
+                            </span>
+                            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                              One-time add-on
+                            </span>
                           </div>
+                          <div className={`mt-3 rounded-lg px-3 py-2 text-xs sm:text-sm font-extrabold text-center border-2 border-dashed transition ${
+                            checked
+                              ? "bg-orange-500 text-white border-orange-500"
+                              : "bg-orange-50 text-orange-700 border-orange-300"
+                          }`}>
+                            {checked ? "✓ Added to My Order" : b.cta}
+                          </div>
+                          <p className="mt-2 text-[11px] sm:text-xs text-slate-500 italic leading-snug">
+                            {b.supporting}
+                          </p>
+                          <p className="mt-2 text-[11px] text-slate-500">
+                            Access will be provided after payment verification.
+                          </p>
+
                         </div>
                       </div>
                     </label>
