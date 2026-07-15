@@ -20,7 +20,7 @@ import processImg from "@/assets/strategy/three-step-process.png.asset.json";
 type Search = { lead?: string };
 
 // TODO: replace with the real booking link when available.
-const BOOKING_URL = "https://calendly.com/farhan-ali-clinic-growth/strategy-call";
+const BOOKING_URL = "https://calendly.com/farhanali13440/30min";
 
 export const Route = createFileRoute("/strategy-call")({
   validateSearch: (s: Record<string, unknown>): Search => ({
