@@ -66,11 +66,10 @@ function StrategyCallPage() {
   }
 
   function goToThankYou() {
-    navigate({
-      to: "/thank-you",
-      search: leadId ? ({ lead: leadId } as any) : undefined,
-      replace: true,
-    });
+    if (typeof window !== "undefined") {
+      const qs = leadId ? `?lead=${encodeURIComponent(leadId)}` : "";
+      window.location.href = `/thank-you${qs}`;
+    }
   }
 
   if (!gateChecked) {

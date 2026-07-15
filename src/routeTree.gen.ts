@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as StrategyCallRouteImport } from './routes/strategy-call'
 import { Route as PatientAcquisitionMachineRouteImport } from './routes/patient-acquisition-machine'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
@@ -28,6 +29,11 @@ import { Route as ApiPublicHooksAbandonedCheckoutRouteImport } from './routes/ap
 const ThankYouRoute = ThankYouRouteImport.update({
   id: '/thank-you',
   path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrategyCallRoute = StrategyCallRouteImport.update({
+  id: '/strategy-call',
+  path: '/strategy-call',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PatientAcquisitionMachineRoute =
@@ -111,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRoute
   '/order': typeof OrderRoute
   '/patient-acquisition-machine': typeof PatientAcquisitionMachineRoute
+  '/strategy-call': typeof StrategyCallRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
   '/admin/onboarding1340': typeof AdminOnboarding1340Route
@@ -128,6 +135,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof OnboardingRoute
   '/order': typeof OrderRoute
   '/patient-acquisition-machine': typeof PatientAcquisitionMachineRoute
+  '/strategy-call': typeof StrategyCallRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
   '/admin/onboarding1340': typeof AdminOnboarding1340Route
@@ -146,6 +154,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRoute
   '/order': typeof OrderRoute
   '/patient-acquisition-machine': typeof PatientAcquisitionMachineRoute
+  '/strategy-call': typeof StrategyCallRoute
   '/thank-you': typeof ThankYouRoute
   '/admin/leads1340': typeof AdminLeads1340Route
   '/admin/onboarding1340': typeof AdminOnboarding1340Route
@@ -165,6 +174,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/order'
     | '/patient-acquisition-machine'
+    | '/strategy-call'
     | '/thank-you'
     | '/admin/leads1340'
     | '/admin/onboarding1340'
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/order'
     | '/patient-acquisition-machine'
+    | '/strategy-call'
     | '/thank-you'
     | '/admin/leads1340'
     | '/admin/onboarding1340'
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/order'
     | '/patient-acquisition-machine'
+    | '/strategy-call'
     | '/thank-you'
     | '/admin/leads1340'
     | '/admin/onboarding1340'
@@ -217,6 +229,7 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRoute
   OrderRoute: typeof OrderRoute
   PatientAcquisitionMachineRoute: typeof PatientAcquisitionMachineRoute
+  StrategyCallRoute: typeof StrategyCallRoute
   ThankYouRoute: typeof ThankYouRoute
   AdminLeads1340Route: typeof AdminLeads1340Route
   AdminOnboarding1340Route: typeof AdminOnboarding1340Route
@@ -237,6 +250,13 @@ declare module '@tanstack/react-router' {
       path: '/thank-you'
       fullPath: '/thank-you'
       preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strategy-call': {
+      id: '/strategy-call'
+      path: '/strategy-call'
+      fullPath: '/strategy-call'
+      preLoaderRoute: typeof StrategyCallRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/patient-acquisition-machine': {
@@ -345,6 +365,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRoute,
   OrderRoute: OrderRoute,
   PatientAcquisitionMachineRoute: PatientAcquisitionMachineRoute,
+  StrategyCallRoute: StrategyCallRoute,
   ThankYouRoute: ThankYouRoute,
   AdminLeads1340Route: AdminLeads1340Route,
   AdminOnboarding1340Route: AdminOnboarding1340Route,
