@@ -286,7 +286,7 @@ function OrderPage() {
       }
     } catch {}
 
-    navigate({ to: "/strategy-call", search: { lead: savedLeadId }, replace: true });
+    navigate({ to: "/thank-you", search: { lead: savedLeadId }, replace: true });
   }
 
   return (
